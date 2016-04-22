@@ -303,19 +303,19 @@ var record = Ext.data.Record.create([{
 	mapping: 'SCHEDULING_RATIO',
 	type: 'string'
 }
-/*,{
-	name: 'COM_FULL_ATTENDANCE',
-	mapping: 'COM_FULL_ATTENDANCE',
+,{
+	name: 'FULL_ATTENDANCE_PERCENT',
+	mapping: 'FULL_ATTENDANCE_PERCENT',
 	type: 'string'		
 },{
-	name: 'COM_NOT_FULL_ATTENDANCE',
-	mapping: 'COM_NOT_FULL_ATTENDANCE',
+	name: 'NOT_FULL_ATTENDANCE_PERCENT',
+	mapping: 'NOT_FULL_ATTENDANCE_PERCENT',
 	type: 'string'		
 },{
-	name: 'COM_OUT_ATTENDANCE',
-	mapping: 'COM_OUT_ATTENDANCE',
+	name: 'OUT_ATTENDANCE_PERCENT',
+	mapping: 'OUT_ATTENDANCE_PERCENT',
 	type: 'string'		
-}*/
+}
 ]);
 
 var store = new Ext.data.Store({
@@ -446,19 +446,19 @@ var cm = new Ext.grid.ColumnModel({
 		align: 'left',
 		dataIndex: 'SCHEDULING_RATIO'
 	}
-	/*,{
+	,{
 		header: '全日制考勤匹配度',
 		align: 'left',
-		dataIndex: 'COM_FULL_ATTENDANCE'
+		dataIndex: 'FULL_ATTENDANCE_PERCENT'
 	},{
 		header: '非全日制考勤匹配度',
 		align: 'left',
-		dataIndex: 'COM_NOT_FULL_ATTENDANCE'
+		dataIndex: 'NOT_FULL_ATTENDANCE_PERCENT'
 	},{
 		header: '外包考勤匹配度',
 		align: 'left',
-		dataIndex: 'COM_OUT_ATTENDANCE'
-	}*/]
+		dataIndex: 'OUT_ATTENDANCE_PERCENT'
+	}]
 });
 
 var resultGrid = new Ext.grid.GridPanel({

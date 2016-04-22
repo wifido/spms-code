@@ -10,7 +10,7 @@ import com.sf.module.common.util.Template;
 public class StatisticsReportExportHandler extends Template {
 
 	private static final String SCHEDULED_INPUT_STATISTICAL_NAME = "场地排班统计表";
-	private static final int COLUMN_LENGTH = 27;
+	private static final int COLUMN_LENGTH = 30;
 	private static final String KEY_DEPT_CODE = "DEPT_CODE";
 	private static final String KEY_DAY_OF_MONTH = "DAY_OF_MONTH";
 	private static final String KEY_AREA_CODE = "AREA_CODE";
@@ -38,9 +38,9 @@ public class StatisticsReportExportHandler extends Template {
 	private static final String KEY_NOT_FULLTIME_SCHEDULING_NUM = "NOT_FULLTIME_SCHEDULING_NUM";
 	private static final String KEY_OUT_SCHEDULING_NUM = "OUT_SCHEDULING_NUM";
 	private static final String KEY_SCHEDULING_RATIO = "SCHEDULING_RATIO";
-//	private static final String KEY_COM_FULL_ATTENDANCE = "COM_FULL_ATTENDANCE";
-//	private static final String KEY_COM_NOT_FULL_ATTENDANCE = "COM_NOT_FULL_ATTENDANCE";
-//	private static final String KEY_COM_OUT_ATTENDANCE = "COM_OUT_ATTENDANCE";
+	private static final String KEY_FULL_ATTENDANCE_PERCENT = "FULL_ATTENDANCE_PERCENT";
+	private static final String KEY_NOT_FULL_ATTENDANCE_PERCENT = "NOT_FULL_ATTENDANCE_PERCENT";
+	private static final String KEY_OUT_ATTENDANCE_PERCENT = "OUT_ATTENDANCE_PERCENT";
 	private static final String KEY_ZERO = "0";
 
 	@Override
@@ -258,6 +258,24 @@ public class StatisticsReportExportHandler extends Template {
 			@Override
 			public String getValue(Map<String, Object> result) {
 				return String.valueOf(result.get(KEY_SCHEDULING_RATIO));
+			}
+		},
+		FULL_ATTENDANCE_PERCENT("全日制考勤匹配度") {
+			@Override
+			public String getValue(Map<String, Object> result) {
+				return String.valueOf(result.get(KEY_FULL_ATTENDANCE_PERCENT));
+			}
+		},
+		NOT_FULL_ATTENDANCE_PERCENT("非全日制考勤匹配度") {
+			@Override
+			public String getValue(Map<String, Object> result) {
+				return String.valueOf(result.get(KEY_NOT_FULL_ATTENDANCE_PERCENT));
+			} 
+		},
+		OUT_ATTENDANCE_PERCENT("外包考勤匹配度") {
+			@Override
+			public String getValue(Map<String, Object> result) {
+				return String.valueOf(result.get(KEY_OUT_ATTENDANCE_PERCENT));
 			}
 		};
 
