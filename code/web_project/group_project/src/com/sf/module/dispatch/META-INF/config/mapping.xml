@@ -1,0 +1,77 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.dispatch.domain"
+	auto-import="false">
+
+	<class name="SchedulingForDispatch" table="TT_SCHEDULE_DAILY">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" length="38" />
+			<generator class="sequence">
+				<param name="sequence">seq_schedule_datly_s</param>
+			</generator>
+		</id>
+		<property name="departmentCode" type="java.lang.String">
+			<column name="DEPARTMENT_CODE" length="30" />
+		</property>
+		<property name="beginTime" type="java.lang.String">
+			<column name="BEGIN_TIME" length="10" />
+		</property>
+		<property name="endTime" type="java.lang.String">
+			<column name="END_TIME" length="10" />
+		</property>
+		<property name="dayOfMonth" type="java.lang.String">
+			<column name="DAY_OF_MONTH" length="10" />
+		</property>
+		<property name="monthId" type="java.lang.String">
+			<column name="MONTH_ID" length="10" />
+		</property>
+		<property name="employeeCode" type="java.lang.String">
+			<column name="EMPLOYEE_CODE" length="10" />
+		</property>
+		<property name="createdEmployeeCode" type="java.lang.String">
+			<column name="CREATED_EMPLOYEE_CODE" length="20" />
+		</property>
+		<property name="modifiedEmployeeCode" type="java.lang.String">
+			<column name="MODIFIED_EMPLOYEE_CODE" length="20" />
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="CREATE_TIME" />
+		</property>
+		<property name="modifiedTime" type="java.util.Date">
+			<column name="MODIFIED_TIME" />
+		</property>
+		<property name="empPostType" type="java.lang.String">
+			<column name="EMP_POST_TYPE" length="1" />
+		</property>
+		<property name="crossDayType" type="java.lang.String">
+			<column name="CROSS_DAY_TYPE" length="1" />
+		</property>
+		<property name="schedulingCode" type="java.lang.String">
+			<column name="SCHEDULING_CODE" length="20" />
+		</property>
+	</class>
+
+	<class name="MaintenanceMail" table="TT_DISPATCH_MAINTENANCE_MAIL">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" length="38" />
+			<generator class="sequence">
+				<param name="sequence">seq_maintenance_mail</param>
+			</generator>
+		</id>
+		<property name="areaCode" type="java.lang.String">
+			<column name="AREA_CODE" length="30" />
+		</property>
+		<property name="divisionCode" type="java.lang.String">
+			<column name="DIVISION_CODE" length="30" />
+		</property>
+		<property name="emailAccount" type="java.lang.String">
+			<column name="EMAIL_ACCOUNT" length="200" />
+		</property>
+		<property name="departmentCode" type="java.lang.String">
+			<column name="DEPARTMENT_CODE" length="30" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+    <package name="driver" namespace="/driver" extends="web-default">
+
+        <action name="lineManage" class="forwardAction">
+            <result>lineManage.jsp</result>
+        </action>
+
+        <action name="queryLine" class="lineManage" method="queryLine">
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="queryLineByLineConfigureId" class="lineManage" method="queryLineByLineConfigureId">
+            <result name="success" type="json"/>
+        </action>
+
+
+        <action name="updateLineById" class="lineManage" method="updateLineById">
+            <result name="success" type="json">
+            </result>
+        </action>
+
+        <action name="addLine" class="lineManage" method="addLine">
+            <result name="success" type="json">
+            </result>
+        </action>
+
+        <action name="searchDepartmentValid" class="lineManage" method="searchDepartmentValid">
+            <result name="success" type="json">
+                <param name="root">resultMap</param>
+            </result>
+        </action>
+
+        <action name="exportLine" class="lineManage" method="exportLine">
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="deleteLine" class="lineManage" method="deleteLine">
+            <result name="success" type="json">
+            </result>
+        </action>
+
+        <action name="lineConfigure" class="forwardAction">
+            <result>lineConfigure.jsp</result>
+        </action>
+
+        <action name="*_lineConfigure" class="lineConfigure" method="{1}">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+
+        <action name="importLine" class="lineManage" method="importLine">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+        <action name="queryClassesCode" class="lineConfigure" method="queryClassesCode">
+            <result type="json" name="success"/>
+        </action>
+
+        <action name="updateValidStatus" class="lineManage" method="updateValidStatus">
+            <result name="success" type="json">
+            </result>
+        </action>
+
+        <action name="addConfigureClassesInformation" class="lineConfigure" method="addConfigureClassesInformation">
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="schedulingManage" class="driverSchedulingAction">
+            <result>driverSchedulingManage.jsp</result>
+        </action>
+        
+        <action name="compareReport" class="driverCompareReportAction">
+            <result>driverCompareReport.jsp</result>
+        </action>
+
+        <action name="exportReport" class="driverCompareReportAction" method="exportReport">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+        <action name="*_scheduling" class="driverSchedulingAction" method="{1}">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+        <action name="queryDriverScheduling" class="driverSchedulingAction" method="queryDriverScheduling">
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="queryDriverScheduledByWeek" class="driverSchedulingAction" method="queryDriverScheduledByWeek">
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="warningManage" class="driverWarningReportAction">
+            <result>warningManage.jsp</result>
+        </action>
+
+        <action name="queryDriverWarningReport" class="driverWarningReportAction" method="query">
+            <result name="success" type="json"></result>
+        </action>
+
+        <action name="exportWarning" class="driverWarningReportAction" method="export">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+        <action name="queryDriverContinuousWarningReport" class="driverWarningReportAction"
+                method="queryDriverContinuousWarningReport">
+            <result name="success" type="json"/>
+        </action>
+
+        <action name="exportContinuous" class="driverWarningReportAction" method="exportContinuousWarning">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+
+        <action name="weeklyExport" class="driverSchedulingAction" method="weeklyExport">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+            </result>
+        </action>
+    </package>
+</struts>

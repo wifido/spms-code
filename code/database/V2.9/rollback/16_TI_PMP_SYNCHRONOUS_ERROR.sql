@@ -1,0 +1,2 @@
+
+drop table TI_PMP_SYNCHRONOUS_ERROR;

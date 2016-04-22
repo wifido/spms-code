@@ -1,0 +1,8 @@
+create or replace view op_shedule_code_num as
+select d.DEPT_CODE, nvl(a.counts, 0) counts, a.ym
+     from op_dept d,
+          (select d.DEPT_CODE, c.ym ,count(distinct c.schedule_code) counts
+             from op_dept d, tm_pb_schedule_base_info c
+            where d.DEPT_ID = c.dept_id
+            group by d.DEPT_CODE, c.ym) a
+    where d.DEPT_CODE = a.DEPT_CODE(+);

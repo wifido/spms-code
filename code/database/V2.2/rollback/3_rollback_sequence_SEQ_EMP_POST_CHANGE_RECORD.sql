@@ -1,0 +1,1 @@
+drop sequence  SEQ_EMP_POST_CHANGE_RECORD;

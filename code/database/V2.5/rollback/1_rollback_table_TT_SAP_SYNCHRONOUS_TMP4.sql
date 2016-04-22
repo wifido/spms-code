@@ -1,0 +1,1 @@
+drop table TT_SAP_SYNCHRONOUS_TMP4;

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	<!-- 用户权限树Action -->
+	<bean id="userDeptAction" class="com.sf.module.vmsarrange.action.UserDeptAction" scope="prototype">
+		<property name="securityBiz" ref="extendSecurityBiz" />
+	</bean>
+	<bean id="PreScheduleAction" class="com.sf.module.vmsarrange.action.PreScheduleAction" scope="pototype">
+		<property name="preScheduleBiz" ref="preScheduleBiz" />
+		<property name="preScheduleDraftBiz" ref="preScheduleDraftBiz" />
+		<property name="scheduleMonthRptBiz" ref="scheduleMonthRptBiz" />
+		<property name="arrSingleSateBiz" ref="arrSingleSateBiz" />
+		<property name="arrSingleStateJdbcDao" ref="arrSingleStateJdbcDao" />
+	</bean>
+	
+	<bean id="preScheduleDao" class="com.sf.module.vmsarrange.dao.PreScheduleDao"/>
+	<bean id="transferClassesDFDao" class="com.sf.module.vmsarrange.dao.TransferClassesDFDao"/>
+	<bean id="preScheduleDraftDao" class="com.sf.module.vmsarrange.dao.PreScheduleDraftDao"/>
+	<bean id="arrDriverDao" class="com.sf.module.vmsarrange.dao.ArrDriverDao"/>
+	<bean id="transferClassesRLDao" class="com.sf.module.vmsarrange.dao.TransferClassesRLDao"/>
+	<bean id="scheduleMonthRptDao" class="com.sf.module.vmsarrange.dao.ScheduleMonthRptDao"/>
+	<bean id="preScheduleBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.PreScheduleBiz">
+				<property name="preScheduleDao" ref="preScheduleDao" />
+				<property name="transferClassesDFDao" ref="transferClassesDFDao" />
+				<property name="preScheduleDraftDao" ref="preScheduleDraftDao" />
+				<property name="scheduleArrangeDao" ref="scheduleArrangeDao" />
+				<property name="arrDriverDao" ref="arrDriverDao" />
+				<property name="transferClassesRLDao" ref="transferClassesRLDao" />
+				<property name="scheduleMonthRptDao" ref="scheduleMonthRptDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="preScheduleDraftBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.PreScheduleDraftBiz">
+				<property name="preScheduleDraftDao" ref="preScheduleDraftDao" />
+				<property name="transferClassesDFDao" ref="transferClassesDFDao" />
+				<property name="scheduleArrangeDao" ref="scheduleArrangeDao" />
+				<property name="scheduleMonthRptDao" ref="scheduleMonthRptDao" />
+				<property name="preScheduleDao" ref="preScheduleDao" />
+				<property name="arrDriverDao" ref="arrDriverDao" />
+				<property name="arrDepartmentDao" ref="arrDepartmentDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="scheduleMonthRptBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.ScheduleMonthRptBiz">
+				<property name="scheduleMonthRptDao" ref="scheduleMonthRptDao" />
+				<property name="scheduleArrangeDao" ref="scheduleArrangeDao" />
+			</bean>
+		</property>
+	</bean>
+	<!-- 班次信息 -->
+	<bean id="arrSingleStateJdbcDao" class="com.sf.module.vmsarrange.dao.ArrSingleStateJdbcDao"/>
+	<bean id="scheduleInfoDao" class="com.sf.module.vmsarrange.dao.ScheduleInfoDao"/>
+	<bean id="arrVehicleDao" class="com.sf.module.vmsarrange.dao.ArrVehicleDao"/>
+	<bean id="arrDepartmentDao" class="com.sf.module.vmsarrange.dao.ArrDepartmentDao"/>
+	<bean id="scheduleInfoBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.ScheduleInfoBiz">
+				<property name="scheduleInfoDao" ref="scheduleInfoDao" />
+				<property name="arrVehicleDao" ref="arrVehicleDao"/>
+				<property name="arrDepartmentDao" ref="arrDepartmentDao"/>
+				<property name="preScheduleDraftDao" ref="preScheduleDraftDao" />
+				<property name="scheduleArrangeDao" ref="scheduleArrangeDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="scheduleInfoAction" class="com.sf.module.vmsarrange.action.ScheduleInfoAction"
+		scope="prototype">
+		<property name="scheduleInfoBiz" ref="scheduleInfoBiz" />
+		<property name="arrSingleStateJdbcDao" ref="arrSingleStateJdbcDao"/>
+		<property name="arrSingleSateBiz" ref="arrSingleSateBiz"/>
+	</bean>
+	<!-- 单用户操作 -->
+	<bean id="arrSingleSateBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.ArrSingleSateBiz">
+				<property name="arrSingleStateJdbcDao" ref="arrSingleStateJdbcDao"/>
+			</bean>
+		</property>
+	</bean>
+	<!-- 配班管理 -->
+	<bean id="scheduleArrangeDao" class="com.sf.module.vmsarrange.dao.ScheduleArrangeDao"/>
+	<bean id="scheduleArrangeNoDao" class="com.sf.module.vmsarrange.dao.ScheduleArrangeNoDao"/>
+	<bean id="scheduleInfoArrangeDao" class="com.sf.module.vmsarrange.dao.ScheduleInfoArrangeDao"/>
+	<bean id="scheduleArrangeJdbcDao" class="com.sf.module.vmsarrange.dao.ScheduleArrangeJdbcDao"/>
+	<bean id="scheduleArrangeBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.ScheduleArrangeBiz">
+				<property name="scheduleArrangeDao" ref="scheduleArrangeDao" />
+				<property name="scheduleInfoArrangeDao" ref="scheduleInfoArrangeDao"/>
+				<property name="scheduleArrangeNoDao" ref="scheduleArrangeNoDao"/>
+				<property name="scheduleInfoDao" ref="scheduleInfoDao"/>
+				<property name="arrVehicleDao" ref="arrVehicleDao"/>
+				<property name="arrDepartmentDao" ref="arrDepartmentDao"/>
+				<property name="preScheduleDraftDao" ref="preScheduleDraftDao" />
+				<property name="scheduleArrangeJdbcDao" ref="scheduleArrangeJdbcDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="scheduleArrangeAction" class="com.sf.module.vmsarrange.action.ScheduleArrangeAction"
+		scope="prototype">
+		<property name="scheduleArrangeBiz" ref="scheduleArrangeBiz" />
+		<property name="arrSingleStateJdbcDao" ref="arrSingleStateJdbcDao"/>
+		<property name="arrSingleSateBiz" ref="arrSingleSateBiz"/>
+	</bean>
+	<!-- 操作日志 -->
+	<bean id="arrLogDao" class="com.sf.module.vmsarrange.log.dao.LogDao"/>
+	<!-- 路径优化分析报表 -->
+	<bean id="schOptRouteRptDao" class="com.sf.module.vmsarrange.dao.SchOptRouteRptDao"/>
+	<bean id="schOptRouteRptBiz" parent="baseLocalTxProxy">
+		<property name="target">
+			<bean class="com.sf.module.vmsarrange.biz.SchOptRouteRptBiz">
+				<property name="schOptRouteRptDao" ref="schOptRouteRptDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="schOptRouteRptAction" class="com.sf.module.vmsarrange.action.SchOptRouteRptAction"
+		scope="prototype">
+		<property name="schOptRouteRptBiz" ref="schOptRouteRptBiz" />
+	</bean>
+</beans>

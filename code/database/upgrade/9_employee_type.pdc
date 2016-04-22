@@ -1,0 +1,15 @@
+-- Create table
+create table employee_type
+(
+  serial_type   varchar2(100),
+  job_type      number,
+  job_type_name varchar2(100)
+)
+;
+-- Add comments to the columns 
+comment on column employee_type.serial_type
+  is '员工的岗位包裹序列';
+comment on column employee_type.job_type
+  is '员工岗位类型,如1运作2收派等';
+comment on column employee_type.job_type_name
+  is '员工岗位对应描述,如运作员,收派员等';

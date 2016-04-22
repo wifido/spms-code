@@ -1,0 +1,261 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.driver.domain"
+	auto-import="false">
+
+	<class name="DriveLine" table="TM_DRIVER_LINE">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" length="38" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_TM_DRIVER_LINE</param>
+			</generator>
+		</id>
+
+		<property name="departmentCode" type="java.lang.String">
+			<column name="BELONG_ZONE_CODE" length="30" />
+		</property>
+
+		<property name="sourceCode" type="java.lang.String">
+			<column name="SOURCE_CODE" length="10" />
+		</property>
+
+		<property name="destinationCode" type="java.lang.String">
+			<column name="DESTINATION_CODE" length="10" />
+		</property>
+
+		<property name="startTime" type="java.lang.String">
+			<column name="START_TIME" length="4" />
+		</property>
+		
+		<property name="endTime" type="java.lang.String">
+			<column name="END_TIME" length="4" />
+		</property>
+
+		<property name="modifier" type="java.lang.String">
+			<column name="MODIFIER" length="20" />
+		</property>
+
+		<property name="modifiedTime" type="java.util.Date">
+			<column name="MODIFY_TIME" />
+		</property>
+
+		<property name="creator" type="java.lang.String">
+			<column name="CREATOR" length="20" />
+		</property>
+
+		<property name="createdTime" type="java.util.Date">
+			<column name="CREATED_TIME" />
+		</property>
+
+		<property name="vehicleNumber" type="java.lang.String">
+			<column name="VEHICLE_NUMBER" length="4" />
+		</property>
+
+		<property name="vehicleType" type="java.lang.String">
+			<column name="VEHICLE_TYPE" length="4" />
+		</property>
+
+		<property name="validStatus" type="java.lang.Long">
+			<column name="VALID_STATUS" length="1" />
+		</property>
+
+		<property name="inputType" type="java.lang.Long">
+			<column name="INPUT_TYPE" length="1" />
+		</property>
+		
+		<property name="optimizeLineCode" type="java.lang.String">
+			<column name="OPTIMIZE_LINE_CODE" length="20" />
+		</property>
+		
+		<property name="mobileNetwork" type="java.lang.String">
+			<column name="MOBILE_NETWORK" length="1" />
+		</property>
+	</class>
+    
+    <class name="LineConfigure" table="tt_driver_line_configure">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" length="20" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_TT_LINE_CONFIGURE</param>
+            </generator>
+        </id>
+
+        <property name="code" type="java.lang.String">
+            <column name="CODE" length="20"/>
+        </property>
+
+        <property name="departmentCode" type="java.lang.String">
+            <column name="DEPARTMENT_CODE" length="20"/>
+        </property>
+
+        <property name="validStatus" type="java.lang.Long">
+            <column name="VALID_STATUS" length="1"/>
+        </property>
+
+        <property name="type" type="java.lang.Long">
+            <column name="TYPE" length="1"/>
+        </property>
+
+        <property name="creator" type="java.lang.String">
+            <column name="CREATE_EMP_CODE" length="20"/>
+        </property>
+
+        <property name="modifiedTime" type="java.util.Date">
+            <column name="MODIFIED_TM" length="20"/>
+        </property>
+
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATE_TM"/>
+        </property>
+
+        <property name="modifier" type="java.lang.String">
+            <column name="MODIFIED_EMP_CODE" length="20"/>
+        </property>
+
+        <property name="yearMonth" type="java.lang.String">
+            <column name="MONTH"/>
+        </property>
+        
+        <property name="attendanceDuration" type="java.lang.Double">
+            <column name="ATTENDANCE_DURATION"/>
+        </property>
+        
+        <property name="driveDuration" type="java.lang.Double">
+            <column name="DRIVE_DURATION"/>
+        </property>
+    </class>
+
+    <class name="DriverLineConfigureRelation" table="tt_driver_line_configure_r">
+        <id name="configureId" type="java.lang.Long">
+            <column name="CONFIGURE_ID" length="20" />
+        </id>
+
+        <property name="lineId" type="java.lang.Long">
+            <column name="LINE_ID" length="20"/>
+        </property>
+
+        <property name="order" type="java.lang.Long">
+            <column name="SORT" length="3"/>
+        </property>
+    </class>
+    
+    
+     <class name="DriverScheduling" table="tt_driver_scheduling">
+      	
+        <id name="id" type="java.lang.Long">
+            <column name="ID" length="20" />
+            <generator class="sequence">
+                <param name="sequence">seq_dirver_scheduling</param>
+            </generator>
+        </id>
+        
+        <property name="employeeCode" type="java.lang.String">
+            <column name="EMPLOYEE_CODE" length="20"/>
+        </property>
+
+        <property name="configureCode" type="java.lang.String">
+            <column name="CONFIGURE_CODE" length="20"/>
+        </property>
+
+        <property name="departmentCode" type="java.lang.String">
+            <column name="DEPARTMENT_CODE" length="30"/>
+        </property>
+
+        <property name="dayOfMonth" type="java.lang.String">
+            <column name="DAY_OF_MONTH" length="10"/>
+        </property>
+
+        <property name="yearMonth" type="java.lang.String">
+            <column name="YEAR_MONTH" length="10"/>
+        </property>
+
+        <property name="creator" type="java.lang.String">
+            <column name="CREATED_EMPLOYEE_CODE" length="20"/>
+        </property>
+
+        <property name="modifiedTime" type="java.util.Date">
+            <column name="MODIFIED_TIME" length="20"/>
+        </property>
+
+        <property name="createdTime" type="java.util.Date">
+            <column name="CREATE_TIME"/>
+        </property>
+
+        <property name="modifier" type="java.lang.String">
+            <column name="MODIFIED_EMPLOYEE_CODE" length="20"/>
+        </property>
+        
+        <property name="schedulingType" type="java.lang.Long">
+            <column name="SCHEDULING_TYPE" length="1"/>
+        </property>
+
+         <property name="yearWeek" type="java.lang.String">
+             <column name="YEAR_WEEK" length="10"/>
+         </property>
+         
+        <property name="confirmStatus" type="java.lang.Long">
+            <column name="CONFIRM_STATUS" length="1"/>
+        </property>
+        
+         <property name="confirmDate" type="java.util.Date">
+            <column name="CONFIRM_DATE" length="20"/>
+        </property>
+        
+        <property name="syncState" type="java.lang.Long">
+            <column name="SYNC_STATE" length="1"/>
+        </property>
+
+        
+    </class>
+    
+     <class name="Vehicle" table="TM_VMS_SPMS_VEHICLE">
+      	
+        <id name="vehicleId" type="java.lang.Long">
+            <column name="VEHICLE_ID" length="19" />
+        </id>
+        
+        <property name="vehicleCode" type="java.lang.String">
+            <column name="VEHICLE_CODE" length="16"/>
+        </property>
+
+        <property name="deptId"  type="java.lang.Long">
+            <column name="DEPT_ID" length="19"/>
+        </property>
+
+        <property name="brandModel" type="java.lang.String">
+            <column name="BRAND_MODEL" length="255"/>
+        </property>
+
+        <property name="driverId" type="java.lang.Long">
+            <column name="DRIVER_ID" length="19"/>
+        </property>
+
+        <property name="wheelbase" type="java.lang.Long">
+            <column name="WHEELBASE" length="9"/>
+        </property>
+
+        <property name="creator" type="java.lang.String">
+            <column name="CREATED_EMP_CODE" length="20"/>
+        </property>
+
+        <property name="modifiedTime" type="java.util.Date">
+            <column name="MODIFIED_TM" length="20"/>
+        </property>
+
+        <property name="createdTime" type="java.util.Date">
+            <column name="CREATED_TM"/>
+        </property>
+
+        <property name="modifier" type="java.lang.String">
+            <column name="MODIFIED_EMP_CODE" length="20"/>
+        </property>
+        
+        <property name="syncTime" type="java.util.Date">
+            <column name="SYNC_TM" length="20"/>
+        </property>
+        
+    </class>
+</hibernate-mapping>

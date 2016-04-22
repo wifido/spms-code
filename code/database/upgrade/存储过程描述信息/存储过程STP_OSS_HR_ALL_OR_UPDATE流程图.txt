@@ -1,0 +1,21 @@
+  PKG_OSS_INTERFACE_PROCESS.STP_OSS_HR_ALL_OR_UPDATE(P_DATA_TYPE VARCHAR2,P_JOURANL   VARCHAR2)
+
+1,记录操作日志 。
+  PKG_OSS_COMM.STP_RUNNING_LOG
+
+2，根据传入参数 p_data_type（数据类型），p_jouranl（流水号）查询TS_OSS_ESB_BIG_FILE_RESEND表中是否存在。
+3，如果存在，则判断根据输入条件p_data_type的值
+  当传入参数p_data_type为‘HRS_EMP_INIT’则为全量更新
+	  则查询表TI_OSS_HR_EMP_INFO_HR 判断是否有人员在上次已经同步过（重复数据）。如果有则删除上次同步的人员信息。
+	  如果没有则删除表TM_OSS_EMPLOYEE所有非外包的文员。然后将同步过来的数据TI_OSS_HR_EMP_INFO表中的数据
+	  同步到表TM_OSS_EMPLOYEE。
+  当传入参数p_data_type为‘EMP_ONE’ 则为增量更新
+      则查询表TI_OSS_HR_EMP_INFO_ALTER根据查询到的数据更新到表TM_OSS_EMPLOYE，根据更新的影响条数判断：
+	  当更新的影响条数等于零，则该人员信息为新增人员，就将该人员信息存放到表TI_OSS_HR_EMP_NEW_CHANGEDEPT的字段EMP_STUS 为1 新增。
+      当更新的影响条数不等于零时，根据TI_OSS_HR_EMP_INFO_ALTER员工代码与TM_DEPARTMENT员工代码相等为条件查询出TM_DEPARTMENT的网点ID
+      然后将网点ID与TI_OSS_HR_EMP_INFO_ALTER的网点对比，如果不相等则为转网点员工，
+	  就将该人员信息存放到表TI_OSS_HR_EMP_NEW_CHANGEDEPT的字段EMP_STUS 为2 换网络。
+
+4，异常处理。
+5，记录日志。
+6，异常回滚。

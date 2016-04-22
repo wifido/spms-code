@@ -1,0 +1,1 @@
+drop table ti_vms_driving_log_item;

@@ -1,0 +1,2 @@
+drop sequence SEQ_SCHEDULED_REPORT;
+drop table SYNC_TASK_FOR_SCHEDULED_REPORT;

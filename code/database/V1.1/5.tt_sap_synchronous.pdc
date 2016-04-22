@@ -1,0 +1,5 @@
+-- Add/modify columns 
+alter table TT_SAP_SYNCHRONOUS add ERROR_INFO VARCHAR2(1000);
+-- Add comments to the columns 
+comment on column TT_SAP_SYNCHRONOUS.ERROR_INFO
+  is '同步失败的错误原因';

@@ -1,0 +1,104 @@
+.ui-tc {
+			text-align: center;
+		}
+		
+		.ui-btn-up-y, .ui-btn-hover-y {
+			padding-top: 3px;
+			color: 						#ffffff /*{a-bar-color}*/;
+			font-weight: bold;
+			text-shadow: none;
+			background-color: #DC4748;
+		}
+		.ui-btn-up-y .ui-btn-inner, .ui-btn-hover-y .ui-btn-inner {
+			border: 0;
+			background: #8C0000;
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#CD0001 ), to(#8C0000 ), color-stop(50% #B20001), color-stop(50% #9D0000)); /* Saf4+, Chrome */
+			background-image: -webkit-linear-gradient(top, #CD0001 , #B20001 50%, #9D0000 50% , #8C0000 ); /* Chrome 10+, Saf5.1+ */
+			background-image:    -moz-linear-gradient(top, #CD0001 , #B20001 50%, #9D0000 50% , #8C0000 ); /* FF3.6 */
+			background-image:     -ms-linear-gradient(top, #CD0001 , #B20001 50%, #9D0000 50% , #8C0000 ); /* IE10 */
+			background-image:      -o-linear-gradient(top, #CD0001 , #B20001 50%, #9D0000 50% , #8C0000 ); /* Opera 11.10+ */
+			background-image:         linear-gradient(top, #CD0001 , #B20001 50%, #9D0000 50% , #8C0000 );
+		}
+		.ui-btn-down-y {
+			background: #8C0000;
+		}
+		.ui-btn-down-y .ui-btn-inner {
+			background: #9D0000;
+		}
+		.ui-btn-down-y .ui-btn-text {
+			top:1px;
+		}
+		.ui-btn-up-y,
+		.ui-btn-hover-y,
+		.ui-btn-down-y {
+			font-family: Helvetica, Arial, sans-serif /*{a-button-font}*/;
+			text-decoration: none;
+		}
+		
+		
+		
+		
+				.ui-btn-corner-all {
+			border-radius: .5em;
+		}
+		
+		.ui-bar-x {
+			border-top: 2px solid 		#EA4444 ;
+			border-bottom: 2px solid	#A52429 ;
+			background: 				#BD0001 /*{a-bar-background-color}*/;
+			color: 						#ffffff /*{a-bar-color}*/;
+			font-weight: bold;
+			text-shadow: 0 /*{a-bar-shadow-x}*/ -1px /*{a-bar-shadow-y}*/ rgba(0, 0, 0, .5) /*{a-bar-shadow-color}*/;
+			box-shadow: 0 1px rgba(165, 46, 31, .5);
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#D10001 ), to(#930000 )); /* Saf4+, Chrome */
+			background-image: -webkit-linear-gradient(top, #D10001 , #930000 ); /* Chrome 10+, Saf5.1+ */
+			background-image:    -moz-linear-gradient(top, #D10001 , #930000 ); /* FF3.6 */
+			background-image:     -ms-linear-gradient(top, #D10001 , #930000 ); /* IE10 */
+			background-image:      -o-linear-gradient(top, #D10001 , #930000 ); /* Opera 11.10+ */
+			background-image:         linear-gradient(top, #D10001 , #930000 );
+		}
+	
+		.ui-btn-up-x, .ui-btn-hover-x, .ui-icon-select {
+			border: 1px solid 		#760006 /*{a-bup-border}*/;
+			background: 			#980000 /*{a-bup-background-color}*/;
+			font-weight: bold;
+			color: 					#fff /*{a-bup-color}*/;
+			text-shadow: none;
+			box-shadow: 0 1px rgba(86, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .2);
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#FB4A4A ), to(#AF0002 ), color-stop(50% #980000), color-stop(50% #980000)); /* Saf4+, Chrome */
+			background-image: -webkit-linear-gradient(top, #FB4A4A , #BC0909 50%, #980000 50% , #AF0002 ); /* Chrome 10+, Saf5.1+ */
+			background-image:    -moz-linear-gradient(top, #FB4A4A , #BC0909 50%, #980000 50% , #AF0002 ); /* FF3.6 */
+			background-image:     -ms-linear-gradient(top, #FB4A4A , #BC0909 50%, #980000 50% , #AF0002 ); /* IE10 */
+			background-image:      -o-linear-gradient(top, #FB4A4A , #BC0909 50%, #980000 50% , #AF0002 ); /* Opera 11.10+ */
+			background-image:         linear-gradient(top, #FB4A4A , #BC0909 50%, #980000 50% , #AF0002 );
+		}
+		.ui-btn-up-x a.ui-link-inherit {
+			color: 					#fff /*{a-bup-color}*/;
+		}
+		.ui-btn-hover-x a.ui-link-inherit {
+			color: 					#fff /*{a-bhover-color}*/;
+		}
+		.ui-btn-down-x {
+			border: 1px solid 		#792525 /*{a-bdown-border}*/;
+			box-shadow: 0 1px rgba(255, 255, 255, .2);
+		}
+		.ui-btn-down-x .ui-btn-inner {
+			box-shadow: 0 -1px rgba(0, 0, 0, .5);
+		}
+		.ui-btn-down-x .ui-btn-text {
+			top:1px;
+		}
+		.ui-btn-down-x a.ui-link-inherit {
+			color: 					#fff /*{a-bdown-color}*/;
+		}
+		.ui-btn-down-x .ui-icon {
+			margin-top: -8px;
+		}
+		
+		.ui-btn-up-x,
+		.ui-btn-hover-x,
+		.ui-btn-down-x {
+			font-family: Helvetica, Arial, sans-serif /*{a-button-font}*/;
+			text-decoration: none;
+		}
+	

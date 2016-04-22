@@ -1,0 +1,364 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.esbinterface.domain"
+	auto-import="false">
+	<class name="SchedulePlan" table="TT_SAP_SYNCHRONOUS">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_PX_BASE</param>
+			</generator>
+		</id>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="10"/>
+		</property>
+
+		<property name="beginDate" type="java.lang.String">
+			<column name="BEGIN_DATE" precision="8"/>
+		</property>
+
+		<property name="endDate" type="java.lang.String">
+			<column name="END_DATE" precision="8"/>
+		</property>
+
+		<property name="beginTime" type="java.lang.String">
+			<column name="BEGIN_TM" length="6"/>
+		</property>
+		<property name="endTime" type="java.lang.String">
+			<column name="END_TM" length="6"/>
+		</property>
+		<property name="dayFlag" type="java.lang.String">
+			<column name="TMR_DAY_FLAG" length="1"/>
+		</property>
+		<property name="offDutyFlag" type="java.lang.String">
+			<column name="OFF_DUTY_FLAG" length="20"/>
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="CREATE_TM"/>
+		</property>
+		<property name="nodeKey" type="java.lang.String">
+			<column name="NODE_KEY"/>
+		</property>
+		<property name="stateFlag" type="java.lang.Integer">
+			<column name="STATE_FLG"/>
+		</property>
+		<property name="classSystem" type="java.lang.String">
+			<column name="CLASS_SYSTEM"/>
+		</property>
+
+	</class>
+
+	<!-- HR系统接口获取(人员表) -->
+	<class name="HrEmpInfo" table="TI_OSS_HR_EMP_INFO">
+		<id name="id" type="java.lang.Long">
+			<column name="EMP_ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_OSS_INTERFACE</param>
+			</generator>
+		</id>
+		<property name="empCode" type="java.lang.String">
+			<column name="emp_code"/>
+		</property>
+		<property name="empDutyName" type="java.lang.String">
+			<column name="emp_duty_name"/>
+		</property>
+		<property name="empTypeName" type="java.lang.String">
+			<column name="emp_type_name"/>
+		</property>
+		<property name="empName" type="java.lang.String">
+			<column name="emp_name"/>
+		</property>
+		<property name="empGender" type="java.lang.String">
+			<column name="emp_gender"/>
+		</property>
+		<property name="empEmail" type="java.lang.String">
+			<column name="emp_email"/>
+		</property>
+		<property name="empMobile" type="java.lang.String">
+			<column name="emp_mobile"/>
+		</property>
+		<property name="empOfficephone" type="java.lang.String">
+			<column name="emp_officephone"/>
+		</property>
+		<property name="registerDt" type="java.util.Date">
+			<column name="register_dt"/>
+		</property>
+		<property name="logoutDt" type="java.util.Date">
+			<column name="logout_dt"/>
+		</property>
+		<property name="empDesc" type="java.lang.String">
+			<column name="emp_desc"/>
+		</property>
+		<property name="deptCode" type="java.lang.String">
+			<column name="dept_code"/>
+		</property>
+		<!--/**HRS_EMP_ID	VARCHAR2(50)	Y			hrs职员id*/ -->
+		<property name="hrsEmpId" type="java.lang.String">
+			<column name="HRS_EMP_ID"/>
+		</property>
+
+		<property name="positionName" type="java.lang.String">
+			<column name="POSITION_NAME"/>
+		</property>
+		<property name="personType" type="java.lang.String">
+			<column name="PERSON_TYPE"/>
+		</property>
+
+		<!-- JOURNAL_ID	VARCHAR2(200)	Y			流水号(处理批次号) -->
+		<property name="journalId" type="java.lang.String">
+			<column name="JOURNAL_ID"/>
+		</property>
+		<!-- ERRMSG	VARCHAR2(1000)	Y			错误信息 -->
+		<property name="errmsg" type="java.lang.String">
+			<column name="ERRMSG"/>
+		</property>
+		<!-- BATCH_NUMBER	VARCHAR2(200)	Y			文件批次号 -->
+		<property name="batchNumber" type="java.lang.String">
+			<column name="BATCH_NUMBER"/>
+		</property>
+		<!-- XML_SIZE	NUMBER(18)	Y			文件数据量 -->
+		<property name="xmlSize" type="java.lang.Long">
+			<column name="XML_SIZE"/>
+		</property>
+
+		<!-- CANCEL_DATE	VARCHAR2(20)	Y			HRS离职注销日期 -->
+		<property name="cancelDate" type="java.lang.String">
+			<column name="CANCEL_DATE"/>
+		</property>
+
+		<!-- SF_DATE	VARCHAR2(20)	Y			HRS顺丰入职日期 -->
+		<property name="sfDate" type="java.lang.String">
+			<column name="SF_DATE"/>
+		</property>
+		<!--  CANCEL_FLAG VARCHAR2(20) Y 离职标识N=否,Y=是 -->
+		<property name="cancelFlag" type="java.lang.String">
+			<column name="CANCEL_FLAG"/>
+		</property>
+		<property name="dutySerial" type="java.lang.String">
+			<column name="DUTY_SERIAL"/>
+		</property>
+	</class>
+
+	<!-- HR系统接口增量,新员工入职或者员工离职/员工的岗位调动或者部门调动 -->
+	<class name="HrEmpInfoAlter" table="TI_OSS_HR_EMP_INFO_ALTER">
+		<id name="id" type="java.lang.Long">
+			<column name="EMP_ALTER_ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_OSS_INTERFACE</param>
+			</generator>
+		</id>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="25"/>
+		</property>
+		<property name="empDutyName" type="java.lang.String">
+			<column name="EMP_DUTY_NAME" length="50"/>
+		</property>
+		<property name="empTypeName" type="java.lang.String">
+			<column name="EMP_TYPE_NAME" length="50"/>
+		</property>
+		<property name="empName" type="java.lang.String">
+			<column name="EMP_NAME" length="500"/>
+		</property>
+		<property name="empGender" type="java.lang.String">
+			<column name="EMP_GENDER" length="4"/>
+		</property>
+		<property name="empEmail" type="java.lang.String">
+			<column name="EMP_EMAIL" length="60"/>
+		</property>
+		<property name="empMobile" type="java.lang.String">
+			<column name="EMP_MOBILE" length="30"/>
+		</property>
+		<property name="empOfficephone" type="java.lang.String">
+			<column name="EMP_OFFICEPHONE" length="32"/>
+		</property>
+		<property name="registerDt" type="java.util.Date">
+			<column name="REGISTER_DT" length="7"/>
+		</property>
+		<property name="logoutDt" type="java.util.Date">
+			<column name="LOGOUT_DT" length="7"/>
+		</property>
+		<property name="empDesc" type="java.lang.String">
+			<column name="EMP_DESC" length="200"/>
+		</property>
+		<property name="deptCode" type="java.lang.String">
+			<column name="DEPT_CODE" length="30"/>
+		</property>
+		<property name="personType" type="java.lang.String">
+			<column name="PERSON_TYPE" length="50"/>
+		</property>
+		<property name="positionName" type="java.lang.String">
+			<column name="POSITION_NAME" length="200"/>
+		</property>
+
+		<property name="effectiveDate" type="java.util.Date">
+			<column name="EFFECTIVE_DATE" length="7"/>
+		</property>
+
+		<!-- JOURNAL_ID	VARCHAR2(200)	Y			流水号(处理批次号) -->
+		<property name="journalId" type="java.lang.String">
+			<column name="JOURNAL_ID"/>
+		</property>
+		<!-- ERRMSG	VARCHAR2(1000)	Y			错误信息 -->
+		<property name="errmsg" type="java.lang.String">
+			<column name="ERRMSG"/>
+		</property>
+		<!-- BATCH_NUMBER	VARCHAR2(200)	Y			文件批次号 -->
+		<property name="batchNumber" type="java.lang.String">
+			<column name="BATCH_NUMBER"/>
+		</property>
+		<!-- XML_SIZE	NUMBER(18)	Y			文件数据量 -->
+		<property name="xmlSize" type="java.lang.Long">
+			<column name="XML_SIZE"/>
+		</property>
+		<!--/**HRS_EMP_ID	VARCHAR2(50)	Y			hrs主键id*/ -->
+		<property name="hrsEmpId" type="java.lang.String">
+			<column name="HRS_EMP_ID"/>
+		</property>
+		<!--HRS_PERSON_ID	VARCHAR2(50)	Y			hrs员工ID -->
+		<property name="hrsPersonId" type="java.lang.String">
+			<column name="HRS_PERSON_ID"/>
+		</property>
+
+		<!-- CANCEL_DATE	VARCHAR2(20)	Y			HRS离职注销日期 -->
+		<property name="cancelDate" type="java.lang.String">
+			<column name="CANCEL_DATE"/>
+		</property>
+
+		<!-- SF_DATE	VARCHAR2(20)	Y			HRS顺丰入职日期 -->
+		<property name="sfDate" type="java.lang.String">
+			<column name="SF_DATE"/>
+		</property>
+		<!--  CANCEL_FLAG VARCHAR2(20) Y 离职标识N=否,Y=是 -->
+		<property name="cancelFlag" type="java.lang.String">
+			<column name="CANCEL_FLAG"/>
+		</property>
+		<property name="dutySerial" type="java.lang.String">
+			<column name="DUTY_SERIAL"/>
+		</property>
+
+	</class>
+	
+	
+	<class name="DriverLog" table="TT_SAP_DRIVER_LOG">
+		<id name="logId" type="java.lang.Long">
+			<column name="LOG_ID" precision="38"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_TT_SAP_DRIVER_LOG</param>
+			</generator>
+		</id>
+		<property name="pernr" type="java.lang.String">
+			<column name="PERNR" />
+		</property>
+
+		<property name="zausw" type="java.lang.String">
+			<column name="ZAUSW" />
+		</property>
+
+		<property name="ldate" type="java.lang.String">
+			<column name="LDATE" />
+		</property>
+
+		<property name="ltime" type="java.lang.String">
+			<column name="LTIME" />
+		</property>
+		<property name="ldayt" type="java.lang.String">
+			<column name="LDAYT" />
+		</property>
+		<property name="origf" type="java.lang.String">
+			<column name="ORIGF" />
+		</property>
+		<property name="abwgr" type="java.lang.String">
+			<column name="ABWGR" />
+		</property>
+		
+		<property name="pdcUsrup" type="java.lang.String">
+			<column name="PDC_USRUP"/>
+		</property>
+		<property name="status" type="java.lang.Long">
+			<column name="STATUS"/>
+		</property>
+		<property name="zhrxgbz" type="java.lang.String">
+			<column name="ZHRXGBZ"/>
+		</property>
+		
+		<property name="failDesc" type="java.lang.String">
+			<column name="FAIL_DESC"/>
+		</property>
+		
+		<property name="syncDate" type="java.util.Date">
+			<column name="SYNC_DATE" />
+		</property>
+		
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE" length="7"/>
+		</property>
+		
+		<property name="hostName" type="java.lang.String">
+			<column name="HOST_NAME"/>
+		</property>
+
+	</class>
+	
+	
+	<class name="DriverLogHistory" table="TT_SAP_DRIVER_LOG_HIS">
+		<id name="logId" type="java.lang.Long">
+			<column name="LOG_ID" precision="38"/>
+		</id>
+		<property name="pernr" type="java.lang.String">
+			<column name="PERNR" />
+		</property>
+
+		<property name="zausw" type="java.lang.String">
+			<column name="ZAUSW" />
+		</property>
+
+		<property name="ldate" type="java.lang.String">
+			<column name="LDATE" />
+		</property>
+
+		<property name="ltime" type="java.lang.String">
+			<column name="LTIME" />
+		</property>
+		<property name="ldayt" type="java.lang.String">
+			<column name="LDAYT" />
+		</property>
+		<property name="origf" type="java.lang.String">
+			<column name="ORIGF" />
+		</property>
+		<property name="abwgr" type="java.lang.String">
+			<column name="ABWGR" />
+		</property>
+		
+		<property name="pdcUsrup" type="java.lang.String">
+			<column name="PDC_USRUP"/>
+		</property>
+		<property name="status" type="java.lang.Long">
+			<column name="STATUS"/>
+		</property>
+		<property name="zhrxgbz" type="java.lang.String">
+			<column name="ZHRXGBZ"/>
+		</property>
+		
+		<property name="failDesc" type="java.lang.String">
+			<column name="FAIL_DESC"/>
+		</property>
+		
+		<property name="syncDate" type="java.util.Date">
+			<column name="SYNC_DATE" />
+		</property>
+		
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE" length="7"/>
+		</property>
+		
+		<property name="hostName" type="java.lang.String">
+			<column name="HOST_NAME"/>
+		</property>
+
+	</class>
+
+
+</hibernate-mapping>

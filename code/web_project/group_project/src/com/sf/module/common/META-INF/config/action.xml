@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="common" namespace="/common" extends="web-default">
+		<!--用户权限树-->
+		<action name="deptTree" class="orgAction" method="deptTree">
+			<result type="jsontree">
+				<param name="root">deptList</param>
+			</result>
+		</action>
+		
+		<action name="getSfDeptTree" class="groupOrgAction" method="getSfDeptTree">
+			<result type="jsontree">
+				<param name="root">treeList</param>
+			</result>
+		</action>
+		
+		<action name="listAllDepartment" class="orgAction" method="listAllDepartment">
+			<result name="success" type="json" >
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+	<!-- 	<action name="userDeptAction_*" class="userDeptAction" method="{1}">
+			<result name="success" type="json" />
+		</action> -->
+	<!-- 报表文件下载 -->
+		<action name="downloadReportFile" class="reportFileDownloadAction" method="download">
+			<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">reportInputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		
+		<!-- 报表文件下载 zip-->
+		<action name="downloadReportZipFile" class="reportFileDownloadAction" method="downloadZip">
+			<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">reportInputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+			
+		<action name="toErrorSchedulingData" class="errorScheduling">
+			<result>errorSchedulingData.jsp</result>
+		</action>
+		
+		<action name="queryErrorSchedulingData" class="errorScheduling"
+			method="query">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="export" class="errorScheduling"
+			method="export">
+			<result name="success" type="json" />
+		</action>
+
+		<action name="toSyncSchedulingData" class="syncSchedulingData">
+			<result>syncSchedulingData.jsp</result>
+		</action>
+		
+		<action name="querySyncSchedulingData" class="syncSchedulingData"
+			method="query">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="exportSyncSchedulingData" class="syncSchedulingData"
+			method="export">
+			<result name="success" type="json" />
+		</action> 
+		
+		<action name="handlePush" class="syncSchedulingData" method="handlePush">
+			<result name="success" type="json" />
+		</action> 
+		
+		<!-- 系统参数配置 -->
+		<action name="sysConfig" class="forwardAction">
+			<result>sysConfig.jsp</result>
+		</action>
+		<action name="sysConfig_*" class="sysConfigAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		
+		<action name="procedureExecutionLog" class="forwardAction">
+			<result>procedureExecutionLog.jsp</result>
+		</action>
+		<action name="procedureExecutionLog_*" class="procedureExecutionLogAction" method="{1}">
+			<result name="success" type="json" />
+		</action>		
+	</package>
+</struts>

@@ -1,0 +1,1 @@
+alter table tt_op_sch_statis_report drop (sch_diurnal_count,sch_non_diurnal_count); 

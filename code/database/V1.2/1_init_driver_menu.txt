@@ -1,0 +1,54 @@
+insert into TS_MODULE
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+values
+  (109,
+   1,
+   '司机排班',
+   'driver',
+   '司机排班管理',
+   null,
+   4,
+   1,
+   null,
+   1,
+   null,
+   null);
+
+insert into TS_MODULE
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+values
+  (108105,
+   109,
+   '线路信息管理',
+   'driverLineManage',
+   '线路信息管理',
+   null,
+   4,
+   1,
+   '/driver/lineManage.action',
+   1,
+   null,
+   null);
+commit;

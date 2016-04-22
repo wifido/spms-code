@@ -1,0 +1,59 @@
+-- Create table
+create table TM_DRIVER_LINE
+(
+  ID                    NUMBER(20),
+  START_TIME            VARCHAR2(4),
+  END_TIME              VARCHAR2(4),
+  BELONG_ZONE_CODE      VARCHAR2(11),
+  SOURCE_CODE           VARCHAR2(11),
+  DESTINATION_CODE      VARCHAR2(11),
+  MODIFIER              VARCHAR2(20),
+  MODIFY_TIME           DATE,
+  CREATOR               VARCHAR2(20),
+  CREATED_TIME          DATE,
+  VEHICLE_NUMBER        VARCHAR2(20),
+  VEHICLE_TYPE          VARCHAR2(20),
+  VALID_STATUS          NUMBER(1) default 1,
+  INPUT_TYPE 			NUMBER(1),
+  OPTIMIZE_LINE_CODE	VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column TM_DRIVER_LINE.START_TIME
+  is '发车时间,4位如0800';
+comment on column TM_DRIVER_LINE.END_TIME
+  is '收车时间,4位如0800';
+comment on column TM_DRIVER_LINE.BELONG_ZONE_CODE
+  is '所属网点代码';
+comment on column TM_DRIVER_LINE.SOURCE_CODE
+  is '始发地网点代码';
+comment on column TM_DRIVER_LINE.DESTINATION_CODE
+  is '目的地网点代码';
+comment on column TM_DRIVER_LINE.MODIFIER
+  is '修改人工号';
+comment on column TM_DRIVER_LINE.MODIFY_TIME
+  is '修改时间';
+comment on column TM_DRIVER_LINE.CREATOR
+  is '创建人工号';
+comment on column TM_DRIVER_LINE.CREATED_TIME
+  is '创建时间';
+comment on column TM_DRIVER_LINE.VEHICLE_NUMBER
+  is '车牌号';
+comment on column TM_DRIVER_LINE.VEHICLE_TYPE
+  is '车型';
+comment on column TM_DRIVER_LINE.VALID_STATUS
+  is '有效状态(0无效,1有效)';
+comment on column TM_DRIVER_LINE.INPUT_TYPE
+  is '录入类型(1优化,0手工)';
+comment on column TM_DRIVER_LINE.OPTIMIZE_LINE_CODE
+  is '线路优化编码';

@@ -1,0 +1,317 @@
+-----------仓管人员管理权限控制
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'query_warehouseEmployee',
+         '查询',
+         '',
+         7,
+         1,
+         '/warehouse/query_warehouseEmployee.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管人员管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '人员信息修改',
+         'update_warehouseEmployee',
+         '人员信息修改',
+         '',
+         7,
+         1,
+         '/warehouse/update_warehouseEmployee.action',
+         4,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管人员管理';
+   
+-------------------仓管班别管理权限控制
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'query_warehouseClass',
+         '查询',
+         '',
+         7,
+         1,
+         '/warehouse/query_warehouseClass.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管班别管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '新增',
+         'add_warehouseClass',
+         '新增',
+         '',
+         7,
+         1,
+         '/warehouse/add_warehouseClass.action',
+         2,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管班别管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '修改',
+         'update_warehouseClass',
+         '修改',
+         '',
+         7,
+         1,
+         '/warehouse/update_warehouseClass.action',
+         3,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管班别管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '删除',
+         'delete_warehouseClass',
+         '删除',
+         '',
+         7,
+         1,
+         '/warhouse/delete_warehouseClass.action',
+         5,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管班别管理';   
+   
+-------------------仓管排班管理权限控制
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'query_warehouseScheduling',
+         '查询',
+         '',
+         7,
+         1,
+         '/warehouse/query_warehouseScheduling.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管排班管理';
+
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '新增',
+         'add_warehouseScheduling',
+         '新增',
+         '',
+         7,
+         1,
+         '/warehouse/add_warehouseScheduling.action',
+         2,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管排班管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '修改',
+         'update_warehouseScheduling',
+         '修改',
+         '',
+         7,
+         1,
+         '/warehouse/update_warehouseScheduling.action',
+         3,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管排班管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导出',
+         'export_warehouseScheduling',
+         '导出',
+         '',
+         7,
+         1,
+         '/warehouse/export_warehouseScheduling.action',
+         4,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管排班管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导入',
+         'import_warehouseScheduling',
+         '导入',
+         '',
+         7,
+         1,
+         '/warehouse/import_warehouseScheduling.action',
+         6,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '仓管排班管理';
+ 
+  commit;
+ 

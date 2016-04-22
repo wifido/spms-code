@@ -1,0 +1,12 @@
+-- Create table
+create table TT_DRIVER_WARNNING_INFO
+(
+  AREA_CODE       VARCHAR2(50),
+  DRIVER_IDENTIFY VARCHAR2(25),
+  DRIVE_DAY       DATE,
+  DEPT_CODE       VARCHAR2(20),
+  EMP_NAME        VARCHAR2(38),
+  WARNNING_DAYS   NUMBER(18)
+);
+-- Create/Recreate indexes 
+create index IDN_DRIVER_WARNNING11 on TT_DRIVER_WARNNING_INFO (DEPT_CODE);

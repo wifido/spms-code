@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<context:component-scan base-package="com.sf.module.dispatch.action" />-->
+    <!--<context:component-scan base-package="com.sf.module.dispatch.biz" />-->
+    <!--<context:component-scan base-package="com.sf.module.dispatch.dao" />-->
+
+
+    <bean id="schedulingForDispatchDao" class="com.sf.module.dispatch.dao.SchedulingForDispatchDao"/>
+    <bean id="schedulingForDispatchBiz" class="com.sf.module.dispatch.biz.SchedulingForDispatchBiz">
+        <property name="schedulingForDispatchDao" ref="schedulingForDispatchDao"/>
+    </bean>
+
+    <bean id="schedulingForDispatchAction" class="com.sf.module.dispatch.action.SchedulingAction">
+        <property name="schedulingForDispatchBiz" ref="schedulingForDispatchBiz"/>
+    </bean>
+</beans>

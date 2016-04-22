@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<x:schema xmlns:x="http://www.w3.org/2001/XMLSchema" xmlns:d="http://www.sf-express.com/esb/metadata" xmlns:s="http://www.sf-express.com/esb/service/BigFileService" targetNamespace="http://www.sf-express.com/esb/service/BigFileService" elementFormDefault="qualified" attributeFormDefault="qualified">
+  <x:import namespace="http://www.sf-express.com/esb/metadata" schemaLocation="metadata.xsd"/>
+  <x:element name="esbSoapHeader" type="s:esbSoapHeaderType"/>
+  <x:complexType name="esbSoapHeaderType">
+    <x:sequence>
+      <x:element name="MAC" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="MACOrg" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="Source" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="MessageID" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="From" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="ReplyTo" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="To" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="Action" minOccurs="0" nillable="true" type="x:string"/>
+      <x:element name="Subscriber" minOccurs="0" nillable="true" type="x:string"/>
+    </x:sequence>
+  </x:complexType>
+  <x:element name="BigFileService" type="s:BigFileService_TYPE"/>
+  <x:complexType name="BigFileService_TYPE">
+    <x:sequence>
+      <x:element name="SHEAD" type="s:SHEADType_1" maxOccurs="1" minOccurs="0" nillable="true"/>
+      <x:element name="SBODY" type="s:SBODYType_2" maxOccurs="1" minOccurs="0" nillable="true"/>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="SHEADType_1">
+    <x:sequence>
+      <x:element ref="d:SYSTEM_ID" minOccurs="0"/>
+      <x:element ref="d:TRAN_MODE" minOccurs="0"/>
+      <x:element ref="d:TRAN_DATE" minOccurs="0"/>
+      <x:element ref="d:TRAN_TIMESTAMP" minOccurs="0"/>
+      <x:element ref="d:SERVER_ID" minOccurs="0"/>
+      <x:element ref="d:WS_ID" minOccurs="0"/>
+      <x:element ref="d:USER_LANG" minOccurs="0"/>
+      <x:element ref="d:USER_ID" minOccurs="0"/>
+      <x:element ref="d:SEQ_NO" minOccurs="0"/>
+      <x:element ref="d:COUNTRY" minOccurs="0"/>
+      <x:element ref="d:PAGE_NUM" minOccurs="0"/>
+      <x:element ref="d:PAGE_INDEX" minOccurs="0"/>
+      <x:element ref="d:PAGE_SIZE" minOccurs="0"/>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="SBODYType_2">
+    <x:sequence>
+      <x:element ref="d:dataType" minOccurs="0"/>
+      <x:element ref="d:timeStamp" minOccurs="0"/>
+      <x:element ref="d:isZip" minOccurs="0"/>
+      <x:element ref="d:filePath" minOccurs="0"/>
+      <x:element ref="d:fileName" minOccurs="0"/>
+      <x:element ref="d:md5" minOccurs="0"/>
+    </x:sequence>
+  </x:complexType>
+  <x:element name="BigFileServiceResponse" type="s:BigFileServiceResponse_TYPE"/>
+  <x:complexType name="BigFileServiceResponse_TYPE">
+    <x:sequence>
+      <x:element name="SHEAD" type="s:SHEADType_3" maxOccurs="1" minOccurs="0" nillable="true"/>
+      <x:element name="SBODY" type="s:SBODYType_5" maxOccurs="1" minOccurs="0" nillable="true"/>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="SHEADType_3">
+    <x:sequence>
+      <x:element ref="d:SYSTEM_ID" minOccurs="0"/>
+      <x:element ref="d:TRAN_MODE" minOccurs="0"/>
+      <x:element ref="d:TRAN_DATE" minOccurs="0"/>
+      <x:element ref="d:TRAN_TIMESTAMP" minOccurs="0"/>
+      <x:element ref="d:SERVER_ID" minOccurs="0"/>
+      <x:element ref="d:WS_ID" minOccurs="0"/>
+      <x:element ref="d:USER_LANG" minOccurs="0"/>
+      <x:element ref="d:USER_ID" minOccurs="0"/>
+      <x:element ref="d:SEQ_NO" minOccurs="0"/>
+      <x:element ref="d:COUNTRY" minOccurs="0"/>
+      <x:element ref="d:PAGE_NUM" minOccurs="0"/>
+      <x:element ref="d:PAGE_INDEX" minOccurs="0"/>
+      <x:element ref="d:PAGE_SIZE" minOccurs="0"/>
+      <x:element name="RET" type="s:RETArrayType_4" maxOccurs="unbounded" minOccurs="0" nillable="true"/>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="RETArrayType_4">
+    <x:sequence>
+      <x:element ref="d:RET_CODE" minOccurs="0"/>
+      <x:element ref="d:RET_MSG" minOccurs="0"/>
+    </x:sequence>
+  </x:complexType>
+  <x:complexType name="SBODYType_5">
+    <x:sequence>
+      <x:element ref="d:result" minOccurs="0"/>
+    </x:sequence>
+  </x:complexType>
+</x:schema>

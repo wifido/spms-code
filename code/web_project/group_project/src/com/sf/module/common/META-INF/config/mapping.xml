@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.sf.module.common.domain">
+		<!--部门-->
+		<class name="OssDepartment" table="TM_DEPARTMENT">
+		<id name="id" type="java.lang.Long">
+			<column name="DEPT_ID" precision="19"/>
+		</id>
+		<property name="deptCode" type="java.lang.String">
+			<column name="DEPT_CODE" length="30" />
+		</property>
+		<property name="deptName" type="java.lang.String">
+			<column name="DEPT_NAME" length="100"/>
+		</property>
+		<property name="parentDeptCode" type="java.lang.String">
+			<column name="PARENT_DEPT_CODE" length="30" />
+		</property>
+		<property name="areaCode" type="java.lang.String">
+			<column name="AREA_CODE" length="30" />
+		</property>
+		<property name="deleteFlg" type="java.lang.Integer">
+			<column name="DELETE_FLG"/>
+		</property>
+		<property name="typeLevel" type="java.lang.Integer">
+			<column name="TYPE_LEVEL"/>
+		</property>
+		<property name="divisionCode" type="java.lang.String">
+			<column name="DIVISION_CODE" length="30" />
+		</property>
+	</class>
+	
+	<!-- 系统配置表(序列：SEQ_BASE) -->
+	<class name="SysConfig" table="TL_SPMS_SYS_CONFIG">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_BASE</param>
+			</generator>
+		</id>
+		<property name="keyName" type="java.lang.String">
+			<column name="KEY_NAME" length="90"/>
+		</property>
+		<property name="keyValue" type="java.lang.String">
+			<column name="KEY_VALUE" length="900"/>
+		</property>
+		<property name="keyDesc" type="java.lang.String">
+			<column name="KEY_DESC" length="900"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM" length="7"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+	</class>
+	
+	<!-- 系统配置表tl_exception_log -->
+	<class name="ProcedureExecutionLog" table="TL_EXCEPTION_LOG">
+		<id name="seqNo" type="java.lang.Long">
+			<column name="SEQ_NO"  precision="20"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_OSS_TL</param>
+			</generator>
+		</id>
+		<property name="procedureName" type="java.lang.String">
+			<column name="PROCEDURE_NAME" length="120"/>
+		</property>
+		<property name="exceptionTm" type="java.util.Date">
+			<column name="EXCEPTION_TM" length="200"/>
+		</property>
+		<property name="exceptionCode" type="java.lang.String">
+			<column name="EXCEPTION_CODE" length="60"/>
+		</property>
+		<property name="exceptionDesc" type="java.lang.String">
+			<column name="EXCEPTION_DESC" length="1000"/>
+		</property>
+		<property name="exceptionRemk" type="java.lang.String">
+			<column name="EXCEPTION_REMK" length="600"/>
+		</property>
+		<property name="lineNo" type="java.lang.Long">
+			<column name="LINE_NO" length="5"/>
+		</property>
+		<property name="packageName" type="java.lang.String">
+			<column name="PACKAGE_NAME" length="120"/>
+		</property>
+		<property name="callSno" type="java.lang.Long">
+			<column name="CALL_SNO" length="20"/>
+		</property>
+	</class>
+</hibernate-mapping>

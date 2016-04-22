@@ -1,0 +1,12 @@
+.x-grid3-header-offset {
+	width: auto;
+}
+
+td.ux-grid-hd-nogroup-cell .x-grid3-hd-inner {
+	background-image: none
+}
+
+td.ux-grid-hd {
+	padding: 0;
+	margin: 0;
+}

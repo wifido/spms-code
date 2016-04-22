@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.report.domain"
+                   auto-import="false">
+	
+	<!-- 排班修改记录-->
+	<class name="SchedulingModify" table="TT_PB_SCHEDULE_MODIFY">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="20"/>
+		</property>
+		<property name="scheduleDt" type="java.util.Date">
+			<column name="SCHEDULE_DT" length="7"/>
+		</property>
+		<property name="scheduleCode" type="java.lang.String">
+			<column name="SCHEDULE_CODE" length="20"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20"/>
+		</property>
+		<property name="modifyType" type="java.lang.Integer">
+			<column name="MODIFY_TYPE"/>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"/>
+		</property>
+		<property name="yearMonth" type="java.lang.String">
+			<column name="YEAR_MONTH"/>
+		</property>
+		<property name="deptCode" type="java.lang.String">
+			<column name="DEPT_CODE"/>
+		</property>
+		<property name="areaCode" type="java.lang.String">
+			<column name="AREA_CODE"/>
+		</property>
+	</class>
+</hibernate-mapping>

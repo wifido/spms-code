@@ -1,0 +1,44 @@
+<project name="module" basedir="." default="jar">
+
+	<!-- location setting -->
+	<property file="../main/module.properties" />
+	<property name="debug" value="true" />
+	<property name="src" location="../main" />
+	<property name="lib" location="../web/WEB-INF/lib" />
+	<property name="bin" location="bin" />
+	<property name="jar" location="jar" />
+
+	<!-- classpath setting -->
+	<property environment="env" />
+	<path id="module.classpath">
+		<pathelement path="${env.classpath}" />
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- compile module -->
+	<target name="compile">
+		<mkdir dir="${bin}" />
+		<javac srcdir="${src}" destdir="${bin}" classpathref="module.classpath" encoding="UTF-8" debug="${debug}" fork="${debug}" />
+		<copy todir="${bin}" includeemptydirs="false">
+			<fileset dir="${src}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- compress module as jar -->
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar}" />
+		<jar destfile="${jar}/sf-module-${name}-all-${version}.jar" basedir="${bin}" encoding="UTF-8" />
+		<jar destfile="${jar}/sf-module-${name}-share-${version}.jar" encoding="UTF-8">
+			<fileset dir="${bin}">
+				<include name="com/sf/module/${name}/domain/**" />
+				<include name="com/sf/module/${name}/exception/**" />
+			</fileset>
+		</jar>
+		<delete dir="${bin}" failonerror="false" />
+	</target>
+
+</project>

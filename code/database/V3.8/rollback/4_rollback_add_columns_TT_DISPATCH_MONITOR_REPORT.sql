@@ -1,0 +1,1 @@
+alter table TT_DISPATCH_MONITOR_REPORT drop column EMP_POST_TYPE;

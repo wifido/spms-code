@@ -1,0 +1,27 @@
+insert into TS_MODULE
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+values
+  (108107,
+   109,
+   '排班信息管理',
+   'driverSchedulingManage',
+   '排班信息管理',
+   null,
+   4,
+   1,
+   '/driver/schedulingManage.action',
+   3,
+   null,
+   null);
+commit;

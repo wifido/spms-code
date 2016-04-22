@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.driverui.domain"
+	auto-import="false">
+
+	<class name="ApplyRecord" table="TT_DRIVER_APPLY">
+		<id name="applyId" type="java.lang.Long">
+			<column name="APPLY_ID" length="38" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_TT_DRIVER_APPLY</param>
+			</generator>
+		</id>
+
+		<property name="applyEmployeeCode" type="java.lang.String">
+			<column name="APPLY_EMPLOYEE_CODE"/>
+		</property>
+
+		<property name="departmentCode" type="java.lang.String">
+			<column name="DEPARTMENT_CODE"/>
+		</property>
+
+		<property name="dayOfMonth" type="java.lang.String">
+			<column name="DAY_OF_MONTH"/>
+		</property>
+
+		<property name="applyType" type="java.lang.Long">
+			<column name="APPLY_TYPE"  />
+		</property>
+		
+		<property name="applyInfo" type="java.lang.String">
+			<column name="APPLY_INFO"  />
+		</property>
+
+		<property name="oldConfigCode" type="java.lang.String">
+			<column name="OLD_CONFIG_CODE" />
+		</property>
+
+		<property name="newConfigCode" type="java.lang.String">
+			<column name="NEW_CONFIG_CODE" />
+		</property>
+
+		<property name="status" type="java.lang.Long">
+			<column name="STATUS"  />
+		</property>
+
+		<property name="approver" type="java.lang.String">
+			<column name="APPROVER" />
+		</property>
+
+		<property name="approverInfo" type="java.lang.String">
+			<column name="APPROVER_INFO"/>
+		</property>
+
+		<property name="apporveTime" type="java.util.Date">
+			<column name="APPORVE_TIME"  />
+		</property>
+	</class>
+	
+</hibernate-mapping>

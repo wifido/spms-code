@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.sf.module.report.action" />
+    <context:component-scan base-package="com.sf.module.report.biz" />
+    <context:component-scan base-package="com.sf.module.report.dao" />
+    
+    <bean id="schedulingDetailDao" class="com.sf.module.report.dao.SchedulingDetailDao" />
+    <bean id="schedulingDetailBiz" class="com.sf.module.report.biz.SchedulingDetailBiz">
+    	<property name="schedulingDetailDao" ref="schedulingDetailDao"></property>
+    </bean>
+    <bean id="schedulingDetailAction" class="com.sf.module.report.action.SchedulingDetailAction" scope="prototype">
+    	<property name="schedulingDetailBiz" ref="schedulingDetailBiz"></property>
+    	<property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+    
+    
+    <bean id="schedulingCoincidenceRateDao" class="com.sf.module.report.dao.SchedulingCoincidenceRateDao" />
+    <bean id="schedulingCoincidenceRateBiz" class="com.sf.module.report.biz.SchedulingCoincidenceRateBiz">
+    	<property name="schedulingCoincidenceRateDao" ref="schedulingCoincidenceRateDao"></property>
+    </bean>
+    <bean id="schedulingConicidenceRateAcion" class="com.sf.module.report.action.SchedulingCoincidenceRateAction" scope="prototype">
+    	<property name="schedulingCoincidenceRateBiz" ref="schedulingCoincidenceRateBiz"></property>
+    </bean>
+    
+    <bean id="schedulingTableDao" class="com.sf.module.report.dao.SchedulingTableDao" />
+    <bean id="schedulingTableBiz" class="com.sf.module.report.biz.SchedulingTableBiz">
+    	<property name="schedulingTableDao" ref="schedulingTableDao"></property>
+    </bean>
+    <bean id="schedulingTableAction" class="com.sf.module.report.action.SchedulingTableAction" scope="prototype">
+    	<property name="schedulingTableBiz" ref="schedulingTableBiz"></property>
+    </bean>
+
+	<!-- 班次修改记录信息管理Dao -->
+	<bean id="schedulingModifyDao" class="com.sf.module.report.dao.SchedulingModifyDao" />
+	<!-- 排班记录业务类 -->
+	<bean id="schedulingModifyBiz" class="com.sf.module.report.biz.SchedulingModifyBiz">
+		<property name="schedulingModifyDao" ref="schedulingModifyDao"></property>
+		<property name="ossDepartmentDao" ref="ossDepartmentDao"></property>
+		<property name="schedulingDao" ref="schedulingDao"></property>
+	</bean>
+	<!-- 班次修改记录信息管理Action -->
+	<bean id="schedulingModifyAction" class="com.sf.module.report.action.SchedulingModifyAction"
+		scope="prototype">
+		<property name="schedulingModifyBiz" ref="schedulingModifyBiz"></property>
+		<property name="sysConfigBiz" ref="sysConfigBiz"></property>
+	</bean>
+	
+	<!-- 值班人员统计信息管理Dao -->
+	<bean id="watchkeeperCountDao" class="com.sf.module.report.dao.WatchkeeperCountDao" />
+	<bean id="watchkeeperCountBiz" class="com.sf.module.report.biz.WatchkeeperCountBiz">
+		<property name="watchkeeperCountDao" ref="watchkeeperCountDao"></property>		
+	</bean>
+	<bean id="watchkeeperCountAction" class="com.sf.module.report.action.WatchkeeperCountAction"
+		scope="prototype">
+		<property name="watchkeeperCountBiz" ref="watchkeeperCountBiz"></property>
+		<property name="sysConfigBiz" ref="sysConfigBiz"></property> 		
+	</bean> 
+</beans>

@@ -1,0 +1,1 @@
+drop procedure WAREH_SCHEDUL_AGREEMENT;

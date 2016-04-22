@@ -1,0 +1,62 @@
+-- Create table
+create table OP_ATTENDANCE_COUNT_REPORT
+(
+  DEPT_CODE                   VARCHAR2(30),
+  DAY_OF_MONTH                DATE,
+  TOTAL_EMP_NUM               NUMBER(10),
+  FULLTIME_EMP_NUM            NUMBER(10),
+  NOT_FULLTIME_EMP_NUM        NUMBER(10),
+  OUT_EMP_NUM                 NUMBER(10),
+  GROUP_NUM                   NUMBER(10),
+  CLASS_NUM                   NUMBER(10),
+  TOTAL_ATTENDANCE_NUM        NUMBER(10),
+  FULLTIME_ATTENDANCE_NUM     NUMBER(10),
+  NOT_FULLTIME_ATTENDANCE_NUM NUMBER(10),
+  OUT_ATTENDANCE_NUM          NUMBER(10),
+  TOTAL_REST_NUM              NUMBER(10),
+  FULLTIME_REST_NUM           NUMBER(10),
+  NOT_FULLTIME_REST_NUM       NUMBER(10),
+  OUT_REST_NUM                NUMBER(10),
+  TOTAL_WORKTIME              NUMBER(10,2),
+  COUNT_DATE                DATE
+);
+-- Add comments to the columns 
+comment on column OP_ATTENDANCE_COUNT_REPORT.DEPT_CODE
+  is '网点编码';
+comment on column OP_ATTENDANCE_COUNT_REPORT.DAY_OF_MONTH
+  is '排班考勤日期';
+comment on column OP_ATTENDANCE_COUNT_REPORT.TOTAL_EMP_NUM
+  is '在职总人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.FULLTIME_EMP_NUM
+  is '全日制在职总人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.NOT_FULLTIME_EMP_NUM
+  is '非全日制在职总人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.OUT_EMP_NUM
+  is '外包在职人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.GROUP_NUM
+  is '已使用的小组数量';
+comment on column OP_ATTENDANCE_COUNT_REPORT.CLASS_NUM
+  is '已使用的班别数量';
+comment on column OP_ATTENDANCE_COUNT_REPORT.TOTAL_ATTENDANCE_NUM
+  is '出勤总人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.FULLTIME_ATTENDANCE_NUM
+  is '全日制出勤人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.NOT_FULLTIME_ATTENDANCE_NUM
+  is '非全日制出勤人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.OUT_ATTENDANCE_NUM
+  is '外包出勤人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.TOTAL_REST_NUM
+  is '排休总人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.FULLTIME_REST_NUM
+  is '全日制排休人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.NOT_FULLTIME_REST_NUM
+  is '非全日制排休人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.OUT_REST_NUM
+  is '外包排休人数';
+comment on column OP_ATTENDANCE_COUNT_REPORT.TOTAL_WORKTIME
+  is '考勤总时长';
+comment on column OP_ATTENDANCE_COUNT_REPORT.COUNT_DATE
+  is '统计日期';
+-- Create/Recreate indexes 
+create index INDEX_DAY_OF_MONTH on OP_ATTENDANCE_COUNT_REPORT (DAY_OF_MONTH);
+create index INDEX_DEPT_CODE on OP_ATTENDANCE_COUNT_REPORT (DEPT_CODE);

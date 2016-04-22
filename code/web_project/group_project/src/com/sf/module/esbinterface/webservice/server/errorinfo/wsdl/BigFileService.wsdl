@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapnc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.sf-express.com/esb/service/BigFileService/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:s="http://www.sf-express.com/esb/service/BigFileService" targetNamespace="http://www.sf-express.com/esb/service/BigFileService/wsdl">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.sf-express.com/esb/service/BigFileService/wsdl" elementFormDefault="qualified" attributeFormDefault="qualified">
+      <xsd:import namespace="http://www.sf-express.com/esb/service/BigFileService" schemaLocation="BigFileService.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:portType name="BigFileServicePortType">
+    <wsdl:operation name="BigFileService">
+      <wsdl:input message="tns:BigFileService"/>
+      <wsdl:output message="tns:BigFileServiceResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BigFileServiceBinding" type="tns:BigFileServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="BigFileService">
+      <soap:operation soapAction="urn:BigFileService/1/"/>
+      <wsdl:input>
+        <soap:header message="tns:esbSoapHeader1" use="literal" part="esbSoapHeader1"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:esbSoapHeader2" use="literal" part="esbSoapHeader2"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:message name="BigFileService">
+    <wsdl:part name="BigFileService" element="s:BigFileService"/>
+  </wsdl:message>
+  <wsdl:message name="BigFileServiceResponse">
+    <wsdl:part name="BigFileServiceResponse" element="s:BigFileServiceResponse"/>
+  </wsdl:message>
+  <wsdl:message name="esbSoapHeader1">
+    <wsdl:part name="esbSoapHeader1" element="s:esbSoapHeader"/>
+  </wsdl:message>
+  <wsdl:message name="esbSoapHeader2">
+    <wsdl:part name="esbSoapHeader2" element="s:esbSoapHeader"/>
+  </wsdl:message>
+  <wsdl:service name="BigFileService">
+    <wsdl:port name="BigFileServiceEndpoint" binding="tns:BigFileServiceBinding">
+      <soap:address location="http://www.sf-express.com/esb/service/BigFileService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

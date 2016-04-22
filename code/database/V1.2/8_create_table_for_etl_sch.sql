@@ -1,0 +1,60 @@
+
+DROP TABLE SPMS.TT_SCH_EMP_ATTENCE_CLASS;
+-- Create table
+create table SPMS.TT_SCH_EMP_ATTENCE_CLASS
+(
+  ID             NUMBER(20),
+  EMP_CODE       VARCHAR2(10),
+  EMP_TYPE       VARCHAR2(2),
+  BEGIN_DATE     DATE,
+  END_DATE       DATE,
+  BEGIN_TM       VARCHAR2(20),
+  END_TM         VARCHAR2(20),
+  TMR_DAY_FLAG   VARCHAR2(1),
+  OFF_DUTY_FLAG  VARCHAR2(20),
+  CLASS_SYSTEM   VARCHAR2(1),
+  CREATE_TM      DATE,
+  NODE_KEY       VARCHAR2(30),
+  STATE_FLG      NUMBER(1),
+  SYNCHRO_STATUS NUMBER(1) default 0,
+  SYNC_TM        DATE
+);
+-- Add comments to the table 
+comment on table SPMS.TT_SCH_EMP_ATTENCE_CLASS
+  is '调度信息同步表';
+-- Add comments to the columns 
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.ID
+  is '主键,序号';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.EMP_CODE
+  is '员工工号';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.EMP_TYPE
+  is '1-全日制，2-非全日制';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.BEGIN_DATE
+  is '开始日期';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.END_DATE
+  is '结束日期';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.BEGIN_TM
+  is '开始时间';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.END_TM
+  is '结束时间';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.TMR_DAY_FLAG
+  is '前一天标识';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.OFF_DUTY_FLAG
+  is '休息标识(ON为休息，默认为OFF)';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.CLASS_SYSTEM
+  is '排班来源(2-调度系统)';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.CREATE_TM
+  is '数据生成日期(分区字段)';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.STATE_FLG
+  is '0';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.SYNCHRO_STATUS
+  is '0未处理;1已同步';
+comment on column SPMS.TT_SCH_EMP_ATTENCE_CLASS.SYNC_TM
+  is '同步时间';
+  
+CREATE INDEX IDX_SCH_EMP_ATTENCE_CLASS_1 ON SPMS.TT_SCH_EMP_ATTENCE_CLASS (CREATE_TM);
+CREATE INDEX IDX_SCH_EMP_ATTENCE_CLASS_2 ON SPMS.TT_SCH_EMP_ATTENCE_CLASS (SYNCHRO_STATUS);
+CREATE INDEX IDX_SCH_EMP_ATTENCE_CLASS_3 ON SPMS.TT_SCH_EMP_ATTENCE_CLASS (SYNC_TM);  
+CREATE INDEX IDX_SCH_EMP_ATTENCE_CLASS_4 ON SPMS.TT_SCH_EMP_ATTENCE_CLASS (CREATE_TM, SYNCHRO_STATUS);
+  
+grant ALL on SPMS.TT_SCH_EMP_ATTENCE_CLASS to SPMSETL;

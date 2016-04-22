@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="driverui" namespace="/driverui" extends="struts-default">
+		<result-types>
+			<result-type name="json" class="com.sf.framework.server.core.interceptor.AsuraJSONResult"/>
+			<result-type name="apacheJson" class="org.apache.struts2.json.JSONResult">
+				<param name="excludeNullProperties">true</param>
+			</result-type>
+			<result-type name="jsontree" class="com.sf.framework.server.core.interceptor.JSONTreeResult"/>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+			<result-type name="jsonexception" class="com.sf.framework.server.core.interceptor.JsonErrorExceptionResult"/>
+			<result-type name="messageHtml" class="com.sf.framework.server.core.interceptor.ErrorMessageResult"/>
+			<result-type name="httpforward" class="com.sf.framework.server.core.interceptor.HttpForwardResult"/>
+		</result-types>
+		<interceptors>
+			<interceptor name="module" class="com.sf.framework.server.core.interceptor.ModuleInterceptor"/>
+			<interceptor name="path" class="com.sf.framework.server.core.interceptor.PathInterceptor"/>
+			<interceptor name="error" class="com.sf.framework.server.core.interceptor.ErrorInterceptor"/>
+			<interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+			<interceptor-stack name="webStack-public">
+				<interceptor-ref name="exception"/>
+				<interceptor-ref name="alias"/>
+				<interceptor-ref name="servletConfig"/>
+				<interceptor-ref name="prepare"/>
+				<interceptor-ref name="chain"/>
+				<interceptor-ref name="scopedModelDriven"/>
+				<interceptor-ref name="modelDriven"/>
+				<interceptor-ref name="fileUpload">
+					<!-- 2M by default -->
+					<param name="maximumSize">2097152</param>
+				</interceptor-ref>
+				<interceptor-ref name="staticParams"/>
+				<interceptor-ref name="params" />
+				<interceptor-ref name="conversionError"/>
+				<interceptor-ref name="validation" />
+				<interceptor-ref name="error" />
+				<interceptor-ref name="i18n"/>
+				<interceptor-ref name="module"/>
+				<interceptor-ref name="path"/>
+			</interceptor-stack>
+			<interceptor-stack name="webStack">
+				<interceptor-ref name="webStack-public"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="webStack"/>
+		<default-action-ref name="resourceNotFound" />
+		<global-results>
+			<result name="jsonlogin" type="jsonexception"></result>
+			<result name="login" type="httpforward">/loginmgmt/index.action</result>
+			<result name="forbidden" type="messageHtml">
+				<param name="projectMessageKey">login.forbidden</param>
+				<param name="defaultMessage">Forbidden!</param>
+				<param name="messageModule">loginmgmt</param>
+				<param name="hiddenMessage">____isForbidden:true____</param>
+			</result>
+			<result name="error" type="jsonexception"></result>
+		</global-results>
+		<action name="resourceNotFound">
+			<result type="messageHtml" >
+				<param name="frameworkMessageKey">frame.resourceNotFound</param>
+				<param name="hiddenMessage">____isForbidden:true____
+____isResourceNotFound:true____</param>
+			</result>
+		</action>
+        
+		<action name="toIndexPage" class="driverSchedulingUiAction" method="toIndexPage">
+			<result name="toIndexPage">uiIndex.jsp</result>
+			<result name="toLeaderPage">driverApproval.jsp</result>
+		</action>
+        
+		<action name="myScheduling" class="driverSchedulingUiAction" method="myScheduling">
+			<result name="success" type="json">
+			</result>
+		</action>
+        
+		<action name="toLeave" class="driverSchedulingUiAction" method="toLeave">
+			<result name="success" type="json">
+			</result>
+		</action>
+		
+		<action name="confirmScheduling" class="driverSchedulingUiAction" method="confirmScheduling">
+			<result name="success" type="json">
+			</result>
+		</action>
+        
+		<action name="queryPending" class="driverApprovalAction" method="queryPending">
+			<result name="success" type="json">
+			</result>
+		</action>
+        
+		<action name="approval" class="driverApprovalAction" method="approval">
+			<result name="success" type="json">
+			</result>
+		</action>
+        
+		<action name="exchangeScheduling" class="driverSchedulingUiAction" method="exchangeScheduling">
+			<result name="success" type="json">
+			</result>
+		</action>
+		
+		<action name="queryPendingCount" class="driverSchedulingUiAction" method="queryPendingCount">
+			<result name="success" type="json">
+			</result>
+		</action>
+		
+		<action name="toPageIndexApp" class="driverSchedulingUiAction" method="toPageIndexApp">
+			<result name="success" type="json">
+			</result>
+		</action>
+         
+		<action name="queryLineConfigueForExchangeScheduling" class="driverSchedulingUiAction" method="queryLineConfigueForExchangeScheduling">
+			<result name="success" type="json">
+			</result>
+		</action>
+         
+         <action name="queryLeave" class="driverSchedulingUiAction" method="queryLeave">
+         	<result name="success" type="json"></result>
+         </action>
+         
+         <action name="toMyLeave" class="driverSchedulingUiAction" method="toMyLeave">
+			<result name="toMyLeave">myLeave.jsp</result>
+		</action>
+        
+        <action name="transferForward" class="driverApprovalAction" method="transferForward">
+			<result name="success">driverTransferApproval.jsp</result>
+		</action>
+		
+		<action name="leaveForward" class="driverApprovalAction" method="leaveForward">
+			<result name="success">driverLeaveApproval.jsp</result>
+		</action>
+		
+		<action name="revokeLeave" class="driverApprovalAction" method="revokeLeave">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="revokeExchangeScheduling" class="driverApprovalAction" method="revokeExchangeScheduling">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="toLeaderMyScheduledPage" class="driverApprovalAction" method="toLeaderMyScheduledPage">
+			<result name="success">uiIndex.jsp</result>
+		</action>
+		
+		<action name="toMyExchangeScheduling" class="driverSchedulingUiAction" method="toMyExchangeScheduling">
+			<result name="success">myExchangeScheduling.jsp</result>
+		</action>
+		
+		<action name="myExchangScheduling" class="driverSchedulingUiAction" method="myExchangScheduling">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="toDriverLeaderPage" class="driverSchedulingUiAction" method="toDriverLeaderPage">
+			<result name="toLeaderPage">driverApproval.jsp</result>
+		</action>
+		
+		<action name="queryTheApprover" class="driverSchedulingUiAction" method="queryTheApprover">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>

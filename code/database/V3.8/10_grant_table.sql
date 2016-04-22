@@ -1,0 +1,1 @@
+grant select on TT_DISPATCH_MONITOR_REPORT to CDPETL;

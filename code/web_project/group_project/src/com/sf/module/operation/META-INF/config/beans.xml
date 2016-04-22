@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.sf.module.operation.action" />
+    <context:component-scan base-package="com.sf.module.operation.biz" />
+    <context:component-scan base-package="com.sf.module.operation.dao" />
+    <bean id="ossDepartmentDao" class="com.sf.module.common.dao.OssDepartmentDao"></bean>
+    <!-- 班次基础信息管理Dao -->
+    <bean id="schedulingBaseDao" class="com.sf.module.operation.dao.SchedulingBaseDao"/>
+    <!-- 班次基础信息管理JdbcDao -->
+    <bean id="schedulingBaseJdbcDao" class="com.sf.module.operation.dao.SchedulingBaseJdbcDao"/>
+    <!-- 班次基础信息管理Dao -->
+    <bean id="schedulingDao" class="com.sf.module.operation.dao.SchedulingDao"/>
+    <!-- 班次基础信息管理业务类 -->
+    <bean id="schedulingBaseBiz" class="com.sf.module.operation.biz.SchedulingBaseBiz">
+        <property name="schedulingBaseDao" ref="schedulingBaseDao"></property>
+        <property name="schedulingBaseJdbcDao" ref="schedulingBaseJdbcDao"></property>
+        <property name="schedulingDao" ref="schedulingDao"></property>
+        <property name="ossDepartmentDao" ref="ossDepartmentDao"></property>
+    </bean>
+    <!-- 班次基础信息管理Action -->
+    <bean id="schedulingBaseAction" class="com.sf.module.operation.action.SchedulingBaseAction" scope="prototype">
+        <property name="schedulingBaseBiz" ref="schedulingBaseBiz"></property>
+        <property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+    <!--组别管理Dao-->
+    <bean id="groupBaseInfoDao" class="com.sf.module.operation.dao.GroupBaseInfoDao"></bean>
+    <!--小组管理业务类-->
+    <bean id="groupBaseInfoBiz" class="com.sf.module.operation.biz.GroupBaseInfoBiz">
+        <property name="groupBaseInfoDao" ref="groupBaseInfoDao"></property>
+        <property name="ossDepartmentDao" ref="ossDepartmentDao"></property>
+    </bean>
+    <!--小组实体Action-->
+    <bean id="groupBaseInfoAction" class="com.sf.module.operation.action.GroupBaseInfoAction" scope="prototype">
+        <property name="groupBaseInfoBiz" ref="groupBaseInfoBiz"></property>
+        <property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+    <bean id="groupOrgBiz" class="com.sf.module.operation.biz.OrgBiz">
+    	<property name="ossDepartmentDao" ref="ossDepartmentDao"/>
+    	<property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+    <bean id="groupOrgAction" class="com.sf.module.common.action.OrgAction" scope="prototype">
+        <property name="groupOrgBiz" ref="groupOrgBiz" />
+    </bean>
+    <!-- 邮箱配置参数 -->
+    <bean id="mailConfig" class="com.sf.module.operation.domain.MailConfig">
+        <property name="emailFrom" value="oss@sf-express.com"></property>
+        <property name="host" value="mail.sf-express.com"></property>
+        <property name="auth" value="true"></property>
+        <property name="username" value="oss"></property>
+        <property name="password" value="wM4[$F]dYg!"></property>
+    </bean>
+    <bean id="schedulMgtDao" class="com.sf.module.operation.dao.SchedulMgtDao"/>
+    <!-- 外包人员实体Dao -->
+    <bean id="outEmployeeDao" class="com.sf.module.operation.dao.OutEmployeeDao"/>
+    <!-- 外包人员实体业务类 -->
+    <bean id="outEmployeeBiz" class="com.sf.module.operation.biz.OutEmployeeBiz">
+        <property name="outEmployeeDao" ref="outEmployeeDao"></property>
+        <property name="sendMailBiz" ref="sendMailBiz"></property>
+        <property name="ossDepartmentDao" ref="ossDepartmentDao"></property>
+        <property name="schedulMgtDao" ref="schedulMgtDao"></property>
+    </bean>
+
+    <!-- 外包人员实体Action -->
+    <bean id="outEmployeeAction" class="com.sf.module.operation.action.OutEmployeeAction" scope="prototype">
+        <property name="outEmployeeBiz" ref="outEmployeeBiz"></property>
+        <property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+
+    <!-- 排班明细Dao -->
+    <bean id="schedulingJdbcDao" class="com.sf.module.operation.dao.SchedulingJdbcDao" />
+    <!-- 排班明细业务类 -->
+    <bean id="schedulingBiz" class="com.sf.module.operation.biz.SchedulingBiz">
+        <property name="schedulingDao" ref="schedulingDao"></property>
+        <property name="schedulMgtDao" ref="schedulMgtDao"></property>
+        <property name="schedulingJdbcDao" ref="schedulingJdbcDao"></property>
+        <property name="schedulMgtJdbcDao" ref="schedulMgtJdbcDao"></property>
+        <property name="monthConfirmStatusDao" ref="monthConfirmStatusDao"></property>
+        <property name="schedulingModifyBiz" ref="schedulingModifyBiz"></property>
+    </bean>
+    
+    <!-- 排班明细Action -->
+    <!-- <bean id="schedulingAction" class="com.sf.module.businessMgt.action.SchedulingAction"
+    scope="prototype">
+    <property name="schedulingBiz" ref="schedulingBiz"></property>
+    </bean> -->
+    <!-- 排班管理JdbcDao -->
+    <bean id="schedulMgtJdbcDao" class="com.sf.module.operation.dao.SchedulMgtJdbcDao"/>
+    <!-- 整月排班管理业务类 -->
+    <bean id="schedulMgtBiz" class="com.sf.module.operation.biz.SchedulMgtBiz">
+        <property name="schedulingDao" ref="schedulingDao"></property>
+        <property name="schedulMgtDao" ref="schedulMgtDao"></property>
+        <property name="schedulMgtJdbcDao" ref="schedulMgtJdbcDao"></property>
+        <property name="schedulingJdbcDao" ref="schedulingJdbcDao"></property>
+        <property name="monthConfirmStatusDao" ref="monthConfirmStatusDao"></property>
+        <property name="sendMailBiz" ref="sendMailBiz"></property>
+        <property name="schedulingModifyBiz" ref="schedulingModifyBiz"></property>
+    </bean>
+
+    <!-- 整月排班管理Action -->
+    <bean id="schedulMgtAction" class="com.sf.module.operation.action.SchedulMgtAction" scope="prototype">
+        <property name="schedulMgtBiz" ref="schedulMgtBiz"></property>
+        <property name="monthConfirmStatusBiz" ref="monthConfirmStatusBiz"></property>
+        <property name="schedulingBiz" ref="schedulingBiz"></property>
+        <property name="schedulingBaseBiz" ref="schedulingBaseBiz"></property>
+        <property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+    <!-- 提交确认状态Dao -->
+    <bean id="monthConfirmStatusDao" class="com.sf.module.operation.dao.MonthConfirmStatusDao"/>
+    <!-- 提交确认状态业务类 -->
+    <bean id="monthConfirmStatusBiz" class="com.sf.module.operation.biz.MonthConfirmStatusBiz">
+        <property name="monthConfirmStatusDao" ref="monthConfirmStatusDao"></property>
+    </bean>
+    <!-- 获取服务器日期 -->
+    <bean id="sysdateBiz" class="com.sf.module.operation.biz.SysdateBiz"/>
+    <!-- 工序管理Dao -->
+    <bean id="processDao" class="com.sf.module.operation.dao.ProcessDao"/>
+
+    <!-- 工序管理业务类 -->
+    <bean id="processBiz" class="com.sf.module.operation.biz.ProcessBiz">
+        <property name="processDao" ref="processDao"></property>
+        <property name="ossDepartmentDao" ref="ossDepartmentDao"></property>
+    </bean>
+    <!-- 外包人员实体Action -->
+    <bean id="processAction" class="com.sf.module.operation.action.ProcessAction" scope="prototype">
+        <property name="processBiz" ref="processBiz"></property>
+    </bean>
+    <!-- 排工序邮件发送 -->
+    <bean id="sendEmailTask1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="processMgtBiz" />
+        </property>
+        <property name="targetMethod">
+            <value>loadSendProcessMail</value>
+        </property>
+
+    </bean>
+    <bean id="sendEmailTrigger1"  class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail">
+            <ref bean="sendEmailTask1"/>
+        </property>
+        <property name="cronExpression">
+            <!-- 每天凌晨2点 -->
+            <value>0 0 2 * * ?</value>
+        </property>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref local="sendEmailTrigger1" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- 工序每日明细Dao -->
+    <bean id="processDetailDao" class="com.sf.module.operation.dao.ProcessDetailDao"/>
+    <!-- 工序每日明细业务类 -->
+    <bean id="processDetailBiz" class="com.sf.module.operation.biz.ProcessDetailBiz">
+        <property name="processDetailDao" ref="processDetailDao"></property>
+        <property name="processMgtJdbcDao" ref="processMgtJdbcDao"></property>
+        <property name="processDao" ref="processDao"></property>
+        <property name="processMgtDao" ref="processMgtDao"></property>
+        <property name="monthConfirmStatusDao" ref="monthConfirmStatusDao"></property>
+        <property name="schedulingJdbcDao" ref="schedulingJdbcDao"></property>
+        <property name="schedulingDao" ref="schedulingDao"></property>
+        <property name="processConfirmStatusDao" ref="processConfirmStatusDao"></property>
+    </bean>
+    <!-- 月度工序实体Dao -->
+    <bean id="processMgtDao" class="com.sf.module.operation.dao.ProcessMgtDao"/>
+    <!-- 月度工序实体JdbcDao -->
+    <bean id="processMgtJdbcDao" class="com.sf.module.operation.dao.ProcessMgtJdbcDao"/>
+    <!-- 月度工序实体业务类 -->
+    <bean id="processMgtBiz" class="com.sf.module.operation.biz.ProcessMgtBiz">
+        <property name="processMgtDao" ref="processMgtDao"></property>
+        <property name="processMgtJdbcDao" ref="processMgtJdbcDao"></property>
+        <property name="monthConfirmStatusDao" ref="monthConfirmStatusDao"></property>
+        <property name="schedulMgtJdbcDao" ref="schedulMgtJdbcDao"></property>
+        <property name="processDao" ref="processDao"></property>
+        <property name="schedulingJdbcDao" ref="schedulingJdbcDao"></property>
+        <property name="processDetailDao" ref="processDetailDao"></property>
+        <property name="processConfirmStatusDao" ref="processConfirmStatusDao"></property>
+        <property name="sendMailBiz" ref="sendMailBiz"></property>
+        <property name="schedulingDao" ref="schedulingDao"></property>
+    </bean>
+    <!-- 月度工序实体Action -->
+    <bean id="processMgtAction" class="com.sf.module.operation.action.ProcessMgtAction" scope="prototype">
+        <property name="processMgtBiz" ref="processMgtBiz"></property>
+        <property name="processDetailBiz" ref="processDetailBiz"></property>
+        <property name="sysConfigBiz" ref="sysConfigBiz"></property>
+    </bean>
+    <!-- 提交确认状态Dao -->
+    <bean id="processConfirmStatusDao" class="com.sf.module.operation.dao.ProcessConfirmStatusDao"/>
+</beans>

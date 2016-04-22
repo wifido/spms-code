@@ -1,0 +1,2 @@
+
+drop table TT_DISPATCH_MAINTENANCE_MAIL;

@@ -1,0 +1,148 @@
+<project name="jar-build" default="jar">
+	<property environment="env" />
+
+	<!--临时目录 -->
+	<property name="build.tmp.src" location="${build.tmp}/src" />
+	<property name="build.tmp.classes" location="${build.tmp}/classes" />
+	<property name="jdk.source" location="1.6" />
+	<property name="jdk.target" location="1.6" />
+	<property name="build.lib.includes" value="**/*.jar" />
+	<property name="build.source.generate" value="true" />
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+	<path id="jar.class.path">
+		<pathelement path="${env.classpath}" />
+		<fileset dir="${build.lib.thirdparty}" includes="**/*.jar"/>
+		<fileset dir="${build.lib}" includes="${build.lib.includes}" />
+	</path>
+
+	<!-- 拷贝源代码到正确目录  -->
+	<target name="prepare">
+		<mkdir dir="${build.tmp.src}" />
+		<mkdir dir="${build.tmp.classes}" />
+		<for param="subfolder" list="${subfolders}">
+			<sequential>
+				<condition property="subfolder.@{subfolder}" value="true" else="false">
+					<and>
+						<available file="${code.folder}/@{subfolder}" type="dir" />
+					</and>
+				</condition>
+				<if>
+					<!-- 如果目录存在  -->
+					<equals arg1="${subfolder.@{subfolder}}" arg2="true" />
+					<then>
+						<for param="layout.each" list="${layout}">
+							<sequential>
+								<condition property="exist.@{subfolder}.@{layout.each}" value="true" else="false">
+									<and>
+										<available file="${code.folder}/@{subfolder}/@{layout.each}" type="dir" />
+									</and>
+								</condition>
+								<if>
+									<equals arg1="${exist.@{subfolder}.@{layout.each}}" arg2="true" />
+									<then>
+										<copy todir="${build.tmp.src}">
+											<fileset dir="${code.folder}/@{subfolder}/@{layout.each}" includes="**/*.*" excludes=".svn" />
+										</copy>
+									</then>
+								</if>
+							</sequential>
+						</for>
+						<!-- 覆盖版本文件 -->
+						<move todir="${build.tmp.src}/" includeemptydirs="false">
+							<fileset dir="${build.tmp.src}/">
+								<include name="com/sf/@{subfolder}/META-INF/**/*.${release.type}" />
+							</fileset>
+							<mapper type="regexp" from="^(.*)\.${release.type}" to="\1" />
+						</move>
+					</then>
+				</if>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="jar" depends="prepare">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+
+		<javac srcdir="${build.tmp.src}" destdir="${build.tmp.classes}" 
+			source="${jdk.source}" target="${jdk.target}" includes="**/*.*" excludes=".svn" 
+			classpathref="jar.class.path" includeantruntime="on" debug="on" 
+			nowarn="true" encoding="UTF-8">
+		</javac>
+		
+		<for param="subfolder" list="${subfolders}">
+			<sequential>
+				<condition property="subfolder.@{subfolder}.jibx" value="true" else="false">
+					<and>
+						<available file="${code.folder}/@{subfolder}/${jibx}" type="file" />
+					</and>
+				</condition>
+				<if>
+					<equals arg1="${subfolder.@{subfolder}.jibx}" arg2="true" />
+					<then>
+						<echo>Run jibx compile on: ${code.folder}/@{subfolder}/${jibx}</echo>
+			 			<java classname="org.jibx.binding.Compile" fork="true" dir="${build.tmp.classes}" failonerror="true">
+							<classpath refid="jar.class.path" />
+							<arg value="${code.folder}/@{subfolder}/${jibx}" />
+						</java>
+					</then>
+				</if>
+			</sequential>
+		</for>
+		
+		<copy todir="${build.tmp.classes}" includeemptydirs="false">
+			<fileset dir="${build.tmp.src}" excludes="**/*.java,**/*.properties,**/.svn" />
+		</copy>
+
+		<native2ascii src="${build.tmp.src}" dest="${build.tmp.classes}">
+			<include name="com/sf/**/*.properties" />
+		</native2ascii>
+
+		<condition property="com.sf.exist" value="true" else="false">
+			<and>
+				<available file="${build.tmp.classes}/com/sf" type="dir" />
+			</and>
+		</condition>
+		<if>
+			<!-- 如果目录存在  -->
+			<equals arg1="${com.sf.exist}" arg2="true" />
+			<then>
+				<for param="sf.subfolder">
+					<dirset dir="${build.tmp.classes}/com/sf" includes="*" />
+					<sequential>
+						<var name="sf.subfolder.name" value="" unset="true"/>
+						<basename property="sf.subfolder.name" file="@{sf.subfolder}" />
+						<for param="sf.subfolder.subfolder">
+							<dirset dir="@{sf.subfolder}" includes="*" />
+							<sequential>
+								<var name="sf.subfolder.subfolder.name" value="" unset="true"/>
+								<basename property="sf.subfolder.subfolder.name" file="@{sf.subfolder.subfolder}" />
+								<delete>
+									<fileset dir="${build.dist}" includes="sf-${sf.subfolder.name}-${sf.subfolder.subfolder.name}-${version}-*" />
+								</delete>
+								<jar destfile="${build.dist}/sf-${sf.subfolder.name}-${sf.subfolder.subfolder.name}-${version}-${release.date}.jar" 
+									basedir="${build.tmp.classes}" encoding="UTF-8">
+									<include name="com/sf/${sf.subfolder.name}/${sf.subfolder.subfolder.name}/**" />
+									<manifest>
+										<attribute name="JarVersion" value="${version}-${release.date}" />
+										<attribute name="Company" value="${company}" />
+										<attribute name="Vendor" value="${vendor}" />
+									</manifest>
+								</jar>
+								<if>
+									<equals arg1="${build.source.generate}" arg2="true" />
+									<then>
+										<zip destfile="${build.dist}/sf-${sf.subfolder.name}-${sf.subfolder.subfolder.name}-${version}-source-${release.date}.zip" 
+											basedir="${build.tmp.src}" encoding="UTF-8">
+											<include name="com/sf/${sf.subfolder.name}/${sf.subfolder.subfolder.name}/**" />
+										</zip>
+									</then>
+								</if>
+							</sequential>
+						</for>
+					</sequential>
+				</for>
+			</then>
+		</if>
+	</target>
+</project>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sso currentApplication="ompbase" userIdManager="com.sf.framework.server.core.integration.C2UserIdManager">
+	<application id="omp" vaildateURL="http://localhost:8080/omp/validate;jsessionid=" />
+</sso>

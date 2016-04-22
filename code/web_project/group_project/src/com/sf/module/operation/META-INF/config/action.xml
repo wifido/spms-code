@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<package name="operation" namespace="/operation" extends="web-default">
+	  <action name="detailedTraining" class="trainingInfoAction" method="forwardOperationIndex">
+        	<result>trainingInfo.jsp</result>
+        </action>
+		<!--用户权限树-->
+		<action name="groupOrgAction" class="groupOrgAction" method="deptTree">
+			<result type="jsontree">
+				<param name="root">operationDept</param>
+			</result>
+		</action>
+		
+		  <action name="schedulingMgt" class="schedulMgtAction" method="forwardOperationIndex">
+		  		<result>scheduling.jsp</result> 
+		  </action>
+		  
+		  	<action name="processMgt" class="processMgtAction" method="forwardOperationIndex">
+			<result>processMgt.jsp</result>
+		</action>
+		
+		
+		  <!-- 班次功能页面跳转 -->
+		  <action name="scheduling" class="schedulingBaseAction" method="forwardOperationIndex" >
+		  		<result>schedulingBase.jsp</result> 
+		  </action>
+		  <!-- 班次功能页面跳转 -->
+		  <action name="outEmployee" class="outEmployeeAction" method="forwardOperationIndex">
+		  		<result>outEmployee.jsp</result> 
+		  </action>
+		  <!--组别信息管理-->
+		 <action name="groupBaseInfo" class="groupBaseInfoAction" method="forwardOperationIndex">
+        		<result>groupBaseInfo.jsp</result>
+ 		 </action>
+		 <!--  班次功能请求 --> 
+		  <action name="schedule_*" class="schedulingBaseAction" method="{1}">
+				<result name="success" type="json" >
+					<param name="root">dataMap</param> 
+				</result>			
+		 </action>
+		 
+		 
+		 <!-- 班次基础信息导入 -->
+		 <action name="scheduleUploadFile" class="schedulingBaseAction" method="importSchedule">
+            <result name ="success">
+           				 dataMapSuccess.jsp       				
+            </result>
+        </action>
+        
+		 <!-- 工序代码页面跳转 -->
+		 <action name="process" class="forwardAction">
+		  		<result>process.jsp</result> 
+		  </action>
+		 
+		  <!--  工序代码功能请求 --> 
+		  <action name="processMgt_*" class="processAction" method="{1}">
+				<result name="success"  type="json" >
+					<param name="root">dataMap</param> 
+				</result>			
+		 </action>
+		 
+		 <!-- 工序代码导入 -->
+		 <action name="processUploadFile" class="processAction" method="importProcess">
+            <result name ="success" >
+           					dataMapSuccess.jsp
+            </result>
+        </action>
+        
+        
+	 <action name="listByPageGroupInfo" class="groupBaseInfoAction" method="findPageByGroupBaseInfo">
+			<result type="json" name="success">
+			</result>
+		</action>
+		
+		<action name="saveGroupInfo" class="groupBaseInfoAction" method="saveGroupBaseInfo">
+			<result type="json" name="success">
+			</result>
+		</action>
+		
+		 <action name="delGroupInfos" class="groupBaseInfoAction" method="deleteGroupBaseInfos">
+			<result type="json" name="success">
+			</result>
+		</action>
+		
+		 <action name="groupBaseaInfoUploadFile" class="groupBaseInfoAction" method="groupBaseaInfoUploadFile">
+			<result name ="success" type="json">
+				<param name="contentType">text/html</param>
+				</result>
+        </action>
+		
+		 <action name="exportGroupInfos" class="groupBaseInfoAction" method="exportGroupInfos">
+			<result type="json" name="success">
+			</result>
+		</action>
+		
+		<!--显示即将过期的组别-->
+		<action name="noticeList" class="groupBaseInfoAction" method="noticeList">
+			<result type="json" name="success">
+			</result>
+		</action>
+		
+		
+			 <!--  外包人员功能请求 --> 
+		  <action name="outEmployeeMgt_*" class="outEmployeeAction" method="{1}">
+				<result name="success"  type="json" >
+					<param name="root">dataMap</param> 
+				</result>			
+		 </action>
+		 
+		   <!-- 人员基础信息导入 -->
+		 <action name="employeeUploadFile" class="outEmployeeAction" method="importEmployee">
+            <result name ="success" >
+           					dataMapSuccess.jsp
+            </result>
+        </action>
+		 
+		   <!-- 人员分组导入 -->
+		 <action name="groupEmployeeUploadFile" class="outEmployeeAction" method="groupImportEmployee">
+            <result name ="success" >
+           					dataMapSuccess.jsp
+            </result>
+        </action>
+
+        <action name="importEmployeeAttribute" class="outEmployeeAction" method="importEmployeeAttribute">
+            <result name ="success" >
+                dataMapSuccess.jsp
+            </result>
+        </action>
+        
+		  <!--  根据网点查询小组信息 --> 
+		 <action name="queryGroup" class="outEmployeeAction" method="queryGroupByDeptId">
+			<result name="success" type="json">
+				<param name="root">dataList</param>
+			</result>
+		</action>
+		 
+		 <action name="queryEmployeeGroup" class="outEmployeeAction" method="queryEmployeeGroupByDeptId">
+				<result name="success"  type="json"  >
+							<param name="root">dataList</param> 
+				</result>			
+		 </action>
+		 
+		  <action name="listEmp" class="outEmployeeAction" method="listEmp">
+				<result name="success" type="json" >
+				</result>			
+		 </action>		
+		 
+		  <action name="sechMgt_*" class="schedulMgtAction" method="{1}">
+				<result name="success" type="json" >
+				</result>			
+		 </action>
+		<!--  
+		  <action name="downloadTempExcel" class="schedulMgtAction" method="downloadTempExcel">
+		 	<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">downStream</param>
+				<param name="contentDisposition">attachment;filename="sch.xls"</param>
+				<param name="bufferSize">4096</param>
+			</result>		
+		</action> -->
+		
+			<action name="importRec" class="schedulMgtAction" method="importRec">
+			<result name ="success" type="json">
+			<param name="contentType">text/html</param>
+			</result>
+		</action>
+		
+		
+	
+			 <action name="processManagement_*" class="processMgtAction" method="{1}">
+				<result name="success" type="json" >
+				</result>			
+		 </action>
+		 
+		<!--   <action name="downloadExcelTemplate" class="processMgtAction" method="downloadTempExcel">
+		 	<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">downStream</param>
+				<param name="contentDisposition">attachment;filename="工序安排导入模板.xls"</param>
+				<param name="bufferSize">4096</param>
+			</result>		
+		</action> -->
+		
+			<action name="importProcessRec" class="processMgtAction" method="importRec">
+			<result name ="success" type="json">
+			<param name="contentType">text/html</param>
+			</result>
+		</action>
+        
+	</package>
+</struts>

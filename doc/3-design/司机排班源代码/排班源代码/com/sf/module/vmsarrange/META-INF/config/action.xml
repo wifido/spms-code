@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="vmsarrange" namespace="/vmsarrange" extends="web-default">
+		
+		<!-- 用户权限树 -->
+		<action name="deptTree" class="userDeptAction" method="deptTree">
+			<result type="jsontree">
+				<param name="root">deptList</param>
+			</result>
+		</action>
+		
+		<!-- <action name="vmsarrangePreSchedule_Search" class="PreScheduleAction" method="search">
+			<result type="json" name="success"/>
+		</action> -->
+		<!-- 驾驶员预排班 -->
+		<action name="preSchedule" class="forwardAction">
+			<result>preSchedule.jsp</result>
+		</action>
+		<action name="preSchedule_Search" class="PreScheduleAction" method="search">
+			<result type="json" name="success">
+				<param name="excludeProperties">root.*\.transferClassesRLs,root.*\.transferClassesDFs</param>
+			</result>
+		</action>
+		<action name="scheduleArrCombox" class="PreScheduleAction" method="scheduleArrangeCombox">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleDriCombox" class="PreScheduleAction" method="scheduleDriversCombox">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_testRepeat" class="PreScheduleAction" method="scheduleTestRepeat">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_saveSchedule" class="PreScheduleAction" method="savePreSchedule">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_updateSchedule" class="PreScheduleAction" method="updateSchedule">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_deltailSchedule" class="PreScheduleAction" method="deltailSchedule">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_optimizeInfo" class="PreScheduleAction" method="optimizeInfo">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_optimizeSchedule" class="PreScheduleAction" method="optimizeSchedule">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_findOptDriver" class="PreScheduleAction" method="findOptDriver">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_saveOptInfo" class="PreScheduleAction" method="saveOptInfo">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_saveFile" class="PreScheduleAction" method="saveFile">
+			<result>uploadSuccess.jsp</result>
+		</action>
+		<action name="preSchedule_downloadFile" class="PreScheduleAction" method="downloadFile">
+			<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">stream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="preSchedule_printFile" class="PreScheduleAction" method="downloadFile">
+			<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">stream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		
+		<action name="preSchedule_listReport" class="PreScheduleAction" method="listReport">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_listPreReport" class="PreScheduleAction" method="listPreReport">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_listRealReport" class="PreScheduleAction" method="listRealReport">
+			<result type="json" name="success"/>
+		</action>
+		<action name="preSchedule_getAreaDeptName" class="PreScheduleAction" method="getAreaDeptName">
+			<result type="json" name="success"/>
+		</action>
+		
+		
+		<action name="scheduleInfo" class="forwardAction">
+			<result>scheduleInfo.jsp</result>
+		</action>
+		<action name="scheduleInfoAction_saveEntity" class="scheduleInfoAction" method="saveEntity">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_updateValid" class="scheduleInfoAction" method="updateValid">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_listPage" class="scheduleInfoAction" method="listPage">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_updateEntity" class="scheduleInfoAction" method="updateEntity">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_listModelBase" class="scheduleInfoAction" method="listModelBase">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_listVehiclePage" class="scheduleInfoAction" method="listVehiclePage">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_listDeptPage" class="scheduleInfoAction" method="listDeptPage">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_listUserDeptPage" class="scheduleInfoAction" method="listUserDeptPage">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_deleteByIds" class="scheduleInfoAction" method="deleteByIds">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_saveFile" class="scheduleInfoAction" method="saveFile">
+			<result>uploadSuccess.jsp</result>
+		</action>
+		<action name="scheduleInfoAction_listReport" class="scheduleInfoAction" method="listReport">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_listPageForArrange" class="scheduleInfoAction" method="listPageForArrange">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleInfoAction_downloadFile" class="scheduleInfoAction" method="downloadFile">
+			<result name="error">downloadFailure.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="inputName">stream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<!-- 配班管理 -->
+		<action name="scheduleArrange" class="forwardAction">
+			<result>scheduleArrange.jsp</result>
+		</action>
+		<action name="scheduleArrangeAction_listPage" class="scheduleArrangeAction" method="listPage">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_listCheckEntity" class="scheduleArrangeAction" method="listCheckEntity">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_updateValid" class="scheduleArrangeAction" method="updateValid">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_saveEntity" class="scheduleArrangeAction" method="saveEntity">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_updateEntity" class="scheduleArrangeAction" method="updateEntity">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_saveEntityArr" class="scheduleArrangeAction" method="saveEntityArr">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_updateEntityArr" class="scheduleArrangeAction" method="updateEntityArr">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_saveFile" class="scheduleArrangeAction" method="saveFile">
+			<result>uploadSuccess.jsp</result>
+		</action>
+		<action name="scheduleArrangeAction_listReport" class="scheduleArrangeAction" method="listReport">
+			<result type="json" name="success"/>
+		</action>
+		<action name="scheduleArrangeAction_listArrangeNo" class="scheduleArrangeAction" method="listArrangeNo">
+			<result type="json" name="success"/>
+		</action>
+		<!-- 路径优化分析报表 -->
+		<action name="schOptRouteRpt" class="forwardAction">
+			<result>schOptRouteRpt.jsp</result>
+		</action>
+		<action name="schOptRouteRptAction_listPage" class="schOptRouteRptAction" method="listPage">
+			<result type="json" name="success"/>
+		</action>
+		<action name="schOptRouteRptAction_listReport" class="schOptRouteRptAction" method="listReport">
+			<result type="json" name="success"/>
+		</action>
+	</package>
+</struts>

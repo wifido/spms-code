@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="default" namespace="/test" extends="json-default">
+        <action name="toPageIndex" class="com.sf.module.driverapp.DriverProxyAction" method="toPageIndex">
+            <result name="toIndexPage">/jsp/driverui/uiIndex.jsp</result>
+			<result name="toLeaderPage">/jsp/driverui/driverApproval.jsp</result>
+			<result name="error">../error.jsp</result>
+        </action>
+        
+        <action name="myScheduling" class="com.sf.module.driverapp.DriverProxyAction" method="myScheduling">
+            <result name="success" type="json"></result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.pushserver.domain" auto-import="false">
+
+	<class name="Message" table="TT_DRIVER_MESSAGE">
+		<id name="msgId" type="java.lang.Long">
+			<column name="MSG_ID" length="38" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_TT_DRIVER_MESSAGE</param>
+			</generator>
+		</id>
+
+		<property name="userId" type="java.lang.String">
+			<column name="USER_ID"/>
+		</property>
+
+		<property name="msg" type="java.lang.String">
+			<column name="MSG"/>
+		</property>
+
+		<property name="status" type="java.lang.Long">
+			<column name="STATUS"  />
+		</property>
+
+		<property name="sendTime" type="java.util.Date">
+			<column name="SEND_TIME"  />
+		</property>
+		
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_TIME"  />
+		</property>
+		
+		<property name="failDesc" type="java.lang.String">
+			<column name="FAIL_DESC"  />
+		</property>
+		
+		<property name="hostName" type="java.lang.String">
+			<column name="HOST_NAME"  />
+		</property>
+		
+	</class>
+	
+	<class name="MessageHistory" table="TT_DRIVER_MESSAGE_HIS">
+		
+		<id name="msgId" type="java.lang.Long">
+			<column name="MSG_ID" length="38" />
+		</id>
+
+		<property name="userId" type="java.lang.String">
+			<column name="USER_ID"/>
+		</property>
+
+		<property name="msg" type="java.lang.String">
+			<column name="MSG"/>
+		</property>
+
+		<property name="status" type="java.lang.Long">
+			<column name="STATUS"  />
+		</property>
+
+		<property name="sendTime" type="java.util.Date">
+			<column name="SEND_TIME"  />
+		</property>
+		
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_TIME"  />
+		</property>
+		
+		<property name="failDesc" type="java.lang.String">
+			<column name="FAIL_DESC"  />
+		</property>
+		
+		<property name="hostName" type="java.lang.String">
+			<column name="HOST_NAME"  />
+		</property>
+		
+	</class>
+	
+	
+</hibernate-mapping>

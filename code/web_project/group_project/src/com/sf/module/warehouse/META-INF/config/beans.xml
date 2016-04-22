@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.sf.module.warehouse.action" />
+	<context:component-scan base-package="com.sf.module.warehouse.biz" />
+	<context:component-scan base-package="com.sf.module.warehouse.dao" />
+
+	<bean id="warehouseEmployeeDao" class="com.sf.module.warehouse.dao.WarehouseEmployeeDao" />
+
+	<bean id="warehouseEmployeeBiz" class="com.sf.module.warehouse.biz.WarehouseEmployeeBiz">
+		<property name="warehouseEmployeeDao" ref="warehouseEmployeeDao" />
+		<property name="ossDepartmentDao" ref="ossDepartmentDao" />
+	</bean>
+	<bean id="warehouseEmployeeAction" class="com.sf.module.warehouse.action.WarehouseEmployeeAction">
+		<property name="warehouseEmployeeBiz" ref="warehouseEmployeeBiz" />
+	</bean>
+
+
+	<bean id="warehouseClassDao" class="com.sf.module.warehouse.dao.WarehouseClassDao" />
+	<bean id="warehouseClassBiz" class="com.sf.module.warehouse.biz.WarehouseClassBiz">
+		<property name="warehouseClassDao" ref="warehouseClassDao" />
+		<property name="ossDepartmentDao" ref="ossDepartmentDao" />
+	</bean>
+	<bean id="warehouseClassAction" class="com.sf.module.warehouse.action.WarehouseClassAction">
+		<property name="warehouseClassBiz" ref="warehouseClassBiz" />
+	</bean>
+
+
+	<bean id="warehouseSchedulingDao" class="com.sf.module.warehouse.dao.WarehouseSchedulingDao" />
+
+	<bean id="warehouseSchedulingImportBiz"
+		class="com.sf.module.warehouse.biz.WarehouseSchedulingImportBiz">
+		<property name="warehouseSchedulingDao" ref="warehouseSchedulingDao" />
+		<property name="warehouseClassDao" ref="warehouseClassDao" />
+	</bean>
+
+	<bean id="warehouseSchedulingBiz" class="com.sf.module.warehouse.biz.WarehouseSchedulingBiz">
+		<property name="warehouseSchedulingDao" ref="warehouseSchedulingDao" />
+		<property name="warehouseClassDao" ref="warehouseClassDao" />
+		<property name="ossDepartmentDao" ref="ossDepartmentDao" />
+	</bean>
+
+	<bean id="warehouseSchedulingAction"
+		class="com.sf.module.warehouse.action.WarehouseSchedulingAction">
+		<property name="warehouseSchedulingBiz" ref="warehouseSchedulingBiz" />
+		<property name="warehouseSchedulingImportBiz" ref="warehouseSchedulingImportBiz" />
+	</bean>
+
+	<bean id="warehouseValidateDao" class="com.sf.module.warehouse.dao.WarehouseValidateDao" />
+
+	<bean id="warehouseValidateBiz" class="com.sf.module.warehouse.biz.WarehouseValidateBiz">
+		<property name="warehouseValidateDao" ref="warehouseValidateDao" />
+	</bean>
+
+	<bean id="warehouseValidateAction" class="com.sf.module.warehouse.action.WarehouseValidateAction">
+		<property name="warehouseValidateBiz" ref="warehouseValidateBiz" />
+	</bean>
+
+</beans>

@@ -1,0 +1,1 @@
+drop table tt_driver_warnning_info;

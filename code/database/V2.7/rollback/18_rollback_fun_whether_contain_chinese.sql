@@ -1,0 +1,1 @@
+drop function WHETHER_CONTAIN_CHINESE;

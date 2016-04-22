@@ -1,0 +1,160 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.warehouse.domain"
+                   auto-import="false">
+	<!-- <class name="WarehousePersonnelMaintain" table="tt_store_employee">
+		<id name="empId" type="java.lang.Long">
+			<column name="emp_id" length="38" />
+			<generator class="sequence">
+				<param name="sequence">seq_tt_store_employee_s</param>
+			</generator>
+		</id>
+		<property name="empCode" type="java.long.String">
+			<column name="emp_code" length="20" />
+		</property>
+		<property name="empName" type="java.long.String">
+			<column name="emp_name" length="500"/>
+		</property>
+		<property name="empDutyName" type="java.long.String">
+			<column name="emp_duty_name" length="100"></column>
+		</property>
+		<property name="deptId" type="java.long.String">
+			<column name="dept_id" length=""></column>
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="create_tm" length=""></column>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="modified_tm" length=""></column>
+		</property>
+		<property name="createEmpCode" type="java.long.String">
+			<column name="create_emp_code" length=""></column>
+		</property>
+		<property name="modifiedEmpCode" type="java.long.String">
+			<column name="modified_emp_code" length=""></column>
+		</property>
+		<property name="workType" type="java.long.String">
+			<column name="work_type" length=""></column>
+		</property>
+		<property name="email" type="java.long.String">
+			<column name="email" length=""></column>
+		</property>
+		<property name="dimissionDt" type="java.util.Date">
+			<column name="dimission_dt" length=""></column>
+		</property>
+		<property name="SfDate" type="java.util.Date">
+			<column name="sf_date" length=""></column>
+		</property>
+		<property name="isHaveCommission" type="java.long.String">
+			<column name="is_have_commission" length="1"></column>
+		</property>
+	</class> -->
+	
+	 <class name="WarehouseAttendance" table="TI_TCAS_SPMS_SCHEDULE">
+      	
+        <id name="scheduleId" type="java.lang.Long">
+            <column name="schedule_id" length="18" />
+        </id>
+        
+        <property name="empCode" type="java.lang.String">
+            <column name="emp_code" length="30"/>
+        </property>
+
+        <property name="empName" type="java.lang.String">
+            <column name="EMP_NAME" length="100"/>
+        </property>
+
+        <property name="areaCode" type="java.lang.String">
+            <column name="AREA_CODE" length="30"/>
+        </property>
+
+        <property name="deptCode" type="java.lang.String">
+            <column name="DEPT_CODE" length="30"/>
+        </property>
+
+        <property name="groupCode" type="java.lang.String">
+            <column name="GROUP_CODE" length="120"/>
+        </property>
+        
+  		<property name="workDate" type="java.util.Date">
+            <column name="WORK_DATE" length="20"/>
+        </property>
+        
+        <property name="workTime" type="java.lang.Double">
+            <column name="WORK_TIME" length="20"/>
+        </property>
+        
+        <property name="jobSeqCode" type="java.lang.String">
+            <column name="JOB_SEQ_CODE" length="30"/>
+        </property>
+        
+        <property name="jobSeq" type="java.lang.Double">
+            <column name="JOB_SEQ" length="20"/>
+        </property>
+        
+        <property name="positionType" type="java.lang.String">
+            <column name="POSITION_TYPE" length="20"/>
+        </property>
+        
+        <property name="personType" type="java.lang.String">
+            <column name="PERSON_TYPE" length="60"/>
+        </property>
+
+        <property name="creatEmpCode" type="java.lang.String">
+            <column name="CREAT_EMP_CODE" length="30"/>
+        </property>
+        
+        <property name="creatTime" type="java.util.Date">
+            <column name="CREAT_TIME"/>
+        </property>
+
+        <property name="modifyTime" type="java.util.Date">
+            <column name="MODIFY_TIME" length="20"/>
+        </property>
+
+        <property name="modifyEmpCode" type="java.lang.String">
+            <column name="MODIFY_EMP_CODE" length="30"/>
+        </property>
+        
+    </class>
+    
+     <class name="WarehouseSchedulingModifyLog" table="TT_WAREH_SCHEDULED_MODIFY_LOG">
+      	
+        <id name="logID" type="java.lang.Long">
+			<column name="ID" precision="10" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_WAREH_SCHED_MODIFY_LOG</param>
+			</generator>
+		</id>
+        
+        <property name="departmentID" type="java.lang.Long">
+            <column name="DEPARTMENT_ID" length="19"/>
+        </property>
+
+        <property name="modifiedCount" type="java.lang.Long">
+            <column name="MODIFY_DAY_COUNT" length="10"/>
+        </property>
+
+        <property name="employeeCode" type="java.lang.String">
+            <column name="EMPLOYEE_CODE" length="20"/>
+        </property>
+
+        <property name="modifiedDate" type="java.util.Date">
+            <column name="MODIFY_TIME"/>
+        </property>
+        
+         <property name="yearMonth" type="java.lang.String">
+            <column name="YEAR_MONTH" length="25"/>
+        </property>
+
+        <property name="modifiedEmpCode" type="java.lang.String">
+            <column name="MODIFY_EMP_CODE" length="20"/>
+        </property>
+        
+    </class>
+	
+	
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+.x-date-inner .x-date-status-red a {
+    background-color: #FF0000;
+    color: #000000;
+}
+.x-date-inner .x-date-status-yellow a {
+    background-color: #FFFF66;
+    color: #000000;
+}
+.x-date-inner .x-date-status-green a {
+    background-color: #33FF00;
+    color: #000000;
+}

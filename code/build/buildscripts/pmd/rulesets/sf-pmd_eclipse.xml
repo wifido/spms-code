@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="sf-pmd">
+	<!-- must-improve rules -->
+	<!--rule ref="rulesets/java/sf-customized.xml"/-->
+	<rule ref="rulesets/basic.xml/BrokenNullCheck" message="破坏的Null检查：检查本身会抛出空指针异常，比如你使用 ||代替 &amp;&amp;"><priority>1</priority></rule>
+	<rule ref="rulesets/basic.xml/BooleanInstantiation" message="布尔量实例化：避免实例化一个布尔对象；用Boolean.TRUE,Boolean.FALSE 或 Boolean.valueOf() 代替"><priority>2</priority></rule>
+	<rule ref="rulesets/basic.xml/CheckResultSet" message="检查 ResultSet：需要先检查 ResultSet对象的导航方法（next,previous,first,last）的返回 , 再读取数据"><priority>2</priority></rule>
+	<rule ref="rulesets/basic.xml/DoubleCheckedLocking" message="双重检查锁机制：在某些JRE中会出错，因为优化的 JRE可能在真正创建对象之前先将指向这个对象的引用赋给一个变量"><priority>1</priority></rule>
+	<rule ref="rulesets/basic.xml/EmptyIfStmt" message="空的 if表达式：无必要的代码删掉"><priority>3</priority></rule>
+	<rule ref="rulesets/basic.xml/EmptyStatementNotInLoop" message="空的表达式：可能是多余了个分号"><priority>3</priority></rule>
+	<rule ref="rulesets/basic.xml/UnnecessaryConversionTemporary" message="将原始类型转换为字符串类型时不必要的临时转换"><priority>3</priority></rule>
+	<rule ref="rulesets/basic.xml/UnnecessaryReturn" message="不必要的 Return语句"><priority>3</priority></rule>
+	<rule ref="rulesets/basic.xml/UselessOverridingMethod" message="无用的方法重写：重载的方法仅仅调用了父类中定义的同名方法"><priority>3</priority></rule>
+	<rule ref="rulesets/basic.xml/JumbledIncrementer" message="避免混乱的循环增量 ：它常常是一个错误，而且容易让人迷惑"><priority>2</priority></rule>
+	<rule ref="rulesets/basic.xml/MisplacedNullCheck" message="错位的空检查：这里的空检查是放错位置的，如果变量为空你将得到一个空指针异常，可能因为检查是无用的或者是不正确的"><priority>1</priority></rule>
+	<rule ref="rulesets/basic.xml/UnconditionalIfStatement" message="非条件化的 if表达式 ：当表达式总是为真或总为假时，不要用 if"><priority>3</priority></rule>
+	<rule ref="rulesets/design.xml/AvoidInstanceofChecksInCatchClause" message="避免在catch块中使用instanceof：每个产生的异常类型都应该在自己的catch块中被处理"><priority>3</priority></rule>
+	<rule ref="rulesets/design.xml/CloseResource" message="关闭资源：
+	确保这些资源(譬如：Connection,Statement,和ResultSet对象)总在使用后被关闭。"><priority>1</priority></rule>
+	<rule ref="rulesets/design.xml/MissingBreakInSwitch" message="switch块中缺少break：switch表达式缺少内含的break块可能是bug。"><priority>3</priority></rule>
+	<rule ref="rulesets/design.xml/NonStaticInitializer" message="非静态的初始化器：非静态的初始化块将在构造器被调用的时候被访问(优先于调用构造器)。这是一个有效的语言结构，但使用很少且易造成迷惑。"><priority>3</priority></rule>
+	<rule ref="rulesets/design.xml/NonThreadSafeSingleton" message="非线程安全的单例模式"><priority>1</priority></rule>
+	<rule ref="rulesets/design.xml/SimplifyBooleanExpressions" message="简化布尔表达式：避免布尔表达式之间无用的比较，只会使代码复杂化"><priority>3</priority></rule>
+	<rule ref="rulesets/design.xml/PreserveStackTrace" message="保留追踪栈：
+	在一个catch块中抛出一个新的异常，却不把原始的异常传递给新的异常，会导致真正的追踪信息栈丢失，导致难以有效的调试。" ><priority>4</priority></rule>
+	<rule ref="rulesets/design.xml/SimplifyBooleanReturns" message="简化布尔量的返回：避免在返回布尔量时写不必要的if..then..else表达式。"><priority>3</priority></rule>
+	<rule ref="rulesets/design.xml/SingularField" message="单数的域：域变量只在一个方法中被使用并且第一次使用时对这个域赋值。这种域可以改写为本地变量。"><priority>3</priority></rule>
+	<rule ref="rulesets/naming.xml/MethodNamingConventions" message="方法命名约定：方法命名应该总是以小写字符开头，而且不应该包含下划线"><priority>2</priority></rule>
+	<rule ref="rulesets/migrating.xml/LongInstantiation" message="Long类型初始化：对于JDK1.5,调用new Long()会造成内存分配，而Long.valueOf()具有更好的内存友好性。"><priority>2</priority></rule>
+	<rule ref="rulesets/optimizations.xml/UseArrayListInsteadOfVector" message="使用ArrayList代替Vector：ArrayList是比Vector更好的集合类实现"><priority>3</priority></rule>
+	<rule ref="rulesets/optimizations.xml/UseArraysAsList" message="使用Arrays类的asList方法：java.util.Arrays类有一个asList方法，当你试图将一个对象数组转换为一个List时应该使用这个方法，这比循环从数据拷贝元素快得多。"><priority>3</priority></rule>
+	<rule ref="rulesets/strictexception.xml/AvoidCatchingNPE" message="避免捕获空指针异常：在正常情形下代码不应该捕获NullPointException。否则Catch块可能隐藏原始错误，导致其他更多微妙的错误。"><priority>3</priority></rule>
+	<rule ref="rulesets/strictexception.xml/AvoidCatchingThrowable" message="避免catch Throwable对象：这是危险的因为覆盖的范围太广，它能够catch类似于OutOfMemoryError这样的错误"><priority>1</priority></rule>
+	<rule ref="rulesets/strictexception.xml/DoNotThrowExceptionInFinally" message="不要在finally块中抛出异常，它将掩盖代码异常或缺陷，使代码不稳定。"><priority>4</priority></rule>
+	<rule ref="rulesets/strictexception.xml/ExceptionAsFlowControl" message="异常用作流程控制：使用异常来做流程控制会导致goto类型的代码，且使得调试的时候发生的真正的异常含糊化。"><priority>3</priority></rule>
+	<rule ref="rulesets/strings.xml/StringToString" message="String.toString()：避免对字符串对象调用toString()方法，这是不必要的"><priority>3</priority></rule>
+	<rule ref="rulesets/strings.xml/UseEqualsToCompareStrings" message="请使用equals方法比较字符串"><priority>2</priority></rule>
+	<rule ref="rulesets/strings.xml/UselessStringValueOf" message="无用的valueOf方法：调用append()方法时不需要把参数用valueOf()转换一次，直接将非String类型的值作为参数放在append()里面。"><priority>3</priority></rule>
+	<rule ref="rulesets/strings.xml/UseStringBufferLength" message="使用StringBuffer的length()方法：使用StringBuffer对象的length()方法来计算StringBuffer对象的长度，而不是使用StringBuffer.toString().equals(&quot;&quot;) 或者 StringBuffer.toString().length() ==.等方法"><priority>3</priority></rule>
+	<rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable" message="存在克隆方法类必须实现Cloneable接口：clone()方法只有在类实现了cloneable接口且伴随一个final方法只抛出CloneNotSupportedException异常的情况下才要被实现。"><priority>3</priority></rule>
+</ruleset>
+

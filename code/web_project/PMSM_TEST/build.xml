@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="unit_test" basedir="./">
+    <exec executable="hostname" outputproperty="host.name"/>
+
+    <property name="java_encoding" value="UTF-8"/>
+    <property environment="env"/>
+    <property file="project.properties"/>
+
+    <path id="test.classpath">
+        <fileset dir="libs">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tested.project.dir}/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tested.project.dir}/WebContent/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${tested.project.classes}"/>
+    </path>
+
+    <taskdef classpathref="test.classpath" resource="tasks.properties"/>
+
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${reports.xml.dir}"/>
+        <mkdir dir="${reports.html.dir}"/>
+
+        <mkdir dir="${cobertura.instrumented.dir}"/>
+        <mkdir dir="${cobertura.coverage.xml.dir}"/>
+        <mkdir dir="${cobertura.coverage.summaryxml.dir}"/>
+        <mkdir dir="${cobertura.coverage.html.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac encoding="${java_encoding}" srcdir="${src.dir}" destdir="${classes.dir}" debug="yes">
+            <classpath refid="test.classpath"/>
+        </javac>
+    </target>
+
+    <target name="unit-test" depends="clean, init, compile">
+        <junit fork="yes" dir="." failureProperty="test.failed" haltonerror="false"
+               haltonfailure="false"
+               printsummary="yes" forkmode="once"
+               showoutput="yes">
+            <sysproperty key="file.encoding" value="UTF-8"/>
+            <classpath location="${cobertura.instrumented.dir}"/>
+            <classpath location="${classes.dir}"/>
+            <classpath refid="test.classpath"/>
+
+            <formatter type="brief" usefile="false"/>
+
+            <formatter type="xml"/>
+            <batchtest todir="${reports.xml.dir}">
+                <fileset dir="${src.dir}">
+                    <include name="**/*Test.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <junitreport todir="${reports.xml.dir}">
+            <fileset dir="${reports.xml.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${reports.html.dir}"/>
+        </junitreport>
+        <fail if="test.failed" message="Unit test(s) failed."/>
+    </target>
+
+    <target name="instrument" depends="clean, init, compile">
+        <delete file="cobertura.ser"/>
+        <delete dir="${cobertura.instrumented.dir}"/>
+        <cobertura-instrument todir="${cobertura.instrumented.dir}">
+            <ignore regex="org.apache.log4j.*"/>
+
+            <fileset dir="${tested.project.classes}">
+                <include name="**/*.class"/>
+                <exclude name="**/*Test.class"/>
+                <exclude name="**/R.class"/>
+                <exclude name="**/R$*.class"/>
+                <exclude name="**/Manifest.class"/>
+                <exclude name="**/BuildConfig.class"/>
+                <exclude name="**/zxing/**/*.class"/>
+                <exclude name="**/backpower/**/*.class"/>
+                <exclude name="**/sfexpress/hht5/util/calculator/*.class"/>
+                <exclude name="**/lenovo/anyshare/**/*.class"/>
+                <exclude name="**/upgrade/GifMovieView.class"/>
+                <exclude name="**/upgrade/PackageUtils.class"/>
+                <exclude name="**/upgrade/ShellUtils.class"/>
+            </fileset>
+        </cobertura-instrument>
+    </target>
+
+    <target name="coverage-check">
+        <cobertura-check branchrate="34" totallinerate="100"/>
+    </target>
+
+    <target name="coverage-report">
+        <cobertura-report srcdir="${tested.project.src}" destdir="${cobertura.coverage.xml.dir}"
+                          format="xml"/>
+    </target>
+
+    <target name="summary-coverage-report">
+        <cobertura-report srcdir="${tested.project.src}"
+                          destdir="${cobertura.coverage.summaryxml.dir}"
+                          format="summaryXml"/>
+    </target>
+
+    <target name="alternate-coverage-report">
+        <cobertura-report destdir="${cobertura.coverage.html.dir}">
+            <fileset dir="${tested.project.src}">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
+    </target>
+
+    <target name="coverage"
+            depends="clean,compile,instrument,unit-test,coverage-report,summary-coverage-report,alternate-coverage-report"
+            description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports."/>
+
+    <target name="clean">
+        <delete dir="${classes.dir}"/>
+        <delete dir="${reports.xml.dir}"/>
+        <delete dir="${reports.html.dir}"/>
+
+        <delete dir="tmp"/>
+
+        <delete dir="${cobertura.instrumented.dir}"/>
+        <delete dir="${cobertura.coverage.dir}"/>
+        <delete file="cobertura.log"/>
+        <delete file="cobertura.ser"/>
+    </target>
+</project>

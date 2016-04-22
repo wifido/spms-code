@@ -1,0 +1,794 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.operation.domain"
+	auto-import="false">
+	<class name="SchedulingBase" table="TM_PB_SCHEDULE_BASE_INFO">
+		<id name="id" type="java.lang.Long">
+			<column name="SCHEDULE_ID" precision="19" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_PX_BASE</param>
+			</generator>
+		</id>
+		<property name="scheduleCode" type="java.lang.String">
+			<column name="SCHEDULE_CODE" length="3" />
+		</property>
+		<property name="scheduleName" type="java.lang.String">
+			<column name="SCHEDULE_NAME" length="15" />
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID" precision="19" />
+		</property>
+		<property name="start1Time" type="java.lang.String">
+			<column name="START1_TIME" length="10" />
+		</property>
+		<property name="end1Time" type="java.lang.String">
+			<column name="END1_TIME" length="10" />
+		</property>
+		<property name="start2Time" type="java.lang.String">
+			<column name="START2_TIME" length="5" />
+		</property>
+		<property name="end2Time" type="java.lang.String">
+			<column name="END2_TIME" length="5" />
+		</property>
+		<property name="start3Time" type="java.lang.String">
+			<column name="START3_TIME" length="5" />
+		</property>
+		<property name="end3Time" type="java.lang.String">
+			<column name="END3_TIME" length="5" />
+		</property>
+		<property name="enableDt" type="java.util.Date">
+			<column name="ENABLE_DT" length="7" />
+		</property>
+		<property name="disableDt" type="java.util.Date">
+			<column name="DISABLE_DT" length="7" />
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7" />
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7" />
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20" />
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20" />
+		</property>
+		<property name="classType" type="java.lang.String">
+			<column name="CLASS_TYPE" length="1" />
+		</property>
+		<property name="ym" type="java.lang.String">
+			<column name="YM" length="50"/>
+		</property>
+	</class>
+	
+		<!-- 工序管理实体 -->
+	<class name="Process" table="TM_PB_PROCESS_INFO">
+		<id name="id" type="java.lang.Long">
+			<column name="PROCESS_ID" precision="19" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_PX_BASE</param>
+			</generator>
+		</id>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID" precision="19" />
+		</property>
+		<property name="processCode" type="java.lang.String">
+			<column name="PROCESS_CODE" length="6" />
+		</property>
+		<property name="processName" type="java.lang.String">
+			<column name="PROCESS_NAME" length="15" />
+		</property>
+		<property name="status" type="java.lang.Integer">
+			<column name="STATUS" precision="1" />
+		</property>
+		<property name="processArea" type="java.lang.String">
+			<column name="PROCESS_AREA" length="50" />
+		</property>
+		<property name="processTool" type="java.lang.String">
+			<column name="PROCESS_TOOL" length="15" />
+		</property>
+		<property name="estimateValue" type="java.lang.Double">
+			<column name="ESTIMATE_VALUE" precision="3" scale="1" />
+		</property>
+		<property name="intensityValue" type="java.lang.Double">
+			<column name="INTENSITY_VALUE" precision="3" scale="1" />
+		</property>
+		<property name="skillValue" type="java.lang.Double">
+			<column name="SKILL_VALUE" precision="3" scale="1" />
+		</property>
+		<property name="difficultyValue" type="java.lang.Double">
+			<column name="DIFFICULTY_VALUE" precision="3" scale="1" />
+		</property>
+		<property name="difficultyModifyValue" type="java.lang.Double">
+			<column name="DIFFICULTY_MODIFY_VALUE" precision="3" scale="1" />
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7" />
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7" />
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20" />
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20" />
+		</property>
+	</class>
+	
+	
+	<!-- 外包人员实体 -->
+	<!-- 更换表名 update by 632898 2014-07-10 <class name="OutEmployee" table="TM_PB_OUT_EMPLOYEE"> -->
+	<class name="OutEmployee" table="TM_OSS_EMPLOYEE">
+		<id name="id" type="java.lang.Long">
+			<column name="EMP_ID" precision="19" />
+			<generator class="sequence">
+				<param name="sequence">seq_px_base</param>
+			</generator>
+		</id>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="20" />
+		</property>
+		<property name="empName" type="java.lang.String">
+			<column name="EMP_NAME" length="500" />
+		</property>
+		<!-- 在职状态字段已删除 update by 632898 2014-07-10 <property name="empStatus" type="java.lang.Integer"> 
+			<column name="EMP_STATUS" precision="1"/> </property> -->
+		<property name="empDutyName" type="java.lang.String">
+			<column name="EMP_DUTY_NAME" length="100" />
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="EMAIL" length="100" />
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID" precision="19" />
+		</property>
+		<property name="groupId" type="java.lang.Long">
+			<column name="GROUP_ID" precision="38" />
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7" />
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7" />
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20" />
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20" />
+		</property>
+		<property name="workType" type="java.lang.Integer">
+			<column name="WORK_TYPE" precision="2" />
+		</property>
+		<!-- 添加离职日期字段 Add by 632898 2014-07-10 -->
+		<property name="dimissionDt" type="java.util.Date">
+			<column name="DIMISSION_DT" length="7" />
+		</property>
+		<property name="empPostType" type="java.lang.String">
+			<column name="EMP_POST_TYPE" length="1" />
+		</property>
+		
+		<property name="transformDepartmentDate" type="java.util.Date">
+			<column name="DATE_FROM" />
+		</property>
+		
+		<property name="transformPostTypeDate" type="java.util.Date">
+			<column name="TRANSFER_DATE" />
+		</property>
+		
+		<property name="sfDate" type="java.util.Date">
+			<column name="SF_DATE" />
+		</property>
+		
+	</class>
+	
+	
+
+	<!--小组信息实体 -->
+	<class name="GroupBaseInfo" table="TM_PB_GROUP_INFO">
+		<id name="id" type="java.lang.Long">
+			<column name="GROUP_ID" precision="19" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_PX_BASE</param>
+			</generator>
+		</id>
+		<property name="groupName" type="java.lang.String">
+			<column name="GROUP_NAME" length="60" />
+		</property>
+		<property name="groupCode" type="java.lang.String">
+			<column name="GROUP_CODE" length="15" />
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID" length="19" />
+		</property>
+		<property name="disableDt" type="java.util.Date">
+			<column name="DISABLE_DT" length="7" />
+		</property>
+		<property name="enableDt" type="java.util.Date">
+			<column name="ENABLE_DT" length="7" />
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="REMARK" length="60" />
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7" />
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7" />
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="10" />
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="10" />
+		</property>
+	</class>
+	
+		<!-- 排班 -->
+	<class name="Scheduling" table="TT_PB_SHEDULE_BY_DAY">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<property name="sheduleId" type="java.lang.Long">
+			<column name="SHEDULE_ID"  precision="38"/>
+		</property>
+		<property name="scheduleCode" type="java.lang.String">
+			<column name="SHEDULE_CODE" length="20"/>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="sheduleDt" type="java.util.Date">
+			<column name="SHEDULE_DT" length="7"/>
+		</property>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="20"/>
+		</property>
+		<property name="sheduleMonId" type="java.lang.Long">
+			<column name="SHEDULE_MON_ID"  precision="38"/>
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20"/>
+		</property>
+		<property name="synchroStatus" type="java.lang.Integer">
+			<column name="SYNCHRO_STATUS" length="1"/>
+		</property>
+		<property name="commitStatus" type="java.lang.Integer">
+			<column name="COMMIT_STATUS" length="1"/>
+		</property>
+	</class>
+	
+	<!-- 排班历史记录实体 -->
+	<class name="SchedulMgtHistory" table="tt_pb_shedule_by_month_log">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_SHEDULE_BY_MONTH_LOG</param>
+			</generator>
+		</id>
+		<version name="version" column="VERSION" type="java.lang.Integer"></version>
+		<property name="ym" type="java.lang.String">
+			<column name="YM" length="50"/>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="50"/>
+		</property>
+		<property name="day1" type="java.lang.String">
+			<column name="DAY1" length="50"/>
+		</property>
+		<property name="day2" type="java.lang.String">
+			<column name="DAY2" length="50"/>
+		</property>
+		<property name="day3" type="java.lang.String">
+			<column name="DAY3" length="50"/>
+		</property>
+		<property name="day4" type="java.lang.String">
+			<column name="DAY4" length="50"/>
+		</property>
+		<property name="day5" type="java.lang.String">
+			<column name="DAY5" length="50"/>
+		</property>
+		<property name="day6" type="java.lang.String">
+			<column name="DAY6" length="50"/>
+		</property>
+		<property name="day7" type="java.lang.String">
+			<column name="DAY7" length="50"/>
+		</property>
+		<property name="day8" type="java.lang.String">
+			<column name="DAY8" length="50"/>
+		</property>
+		<property name="day9" type="java.lang.String">
+			<column name="DAY9" length="50"/>
+		</property>
+		<property name="day10" type="java.lang.String">
+			<column name="DAY10" length="50"/>
+		</property>
+		<property name="day11" type="java.lang.String">
+			<column name="DAY11" length="50"/>
+		</property>
+		<property name="day12" type="java.lang.String">
+			<column name="DAY12" length="50"/>
+		</property>
+		<property name="day13" type="java.lang.String">
+			<column name="DAY13" length="50"/>
+		</property>
+		<property name="day14" type="java.lang.String">
+			<column name="DAY14" length="50"/>
+		</property>
+		<property name="day15" type="java.lang.String">
+			<column name="DAY15" length="50"/>
+		</property>
+		<property name="day16" type="java.lang.String">
+			<column name="DAY16" length="50"/>
+		</property>
+		<property name="day17" type="java.lang.String">
+			<column name="DAY17" length="50"/>
+		</property>
+		<property name="day18" type="java.lang.String">
+			<column name="DAY18" length="50"/>
+		</property>
+		<property name="day19" type="java.lang.String">
+			<column name="DAY19" length="50"/>
+		</property>
+		<property name="day20" type="java.lang.String">
+			<column name="DAY20" length="50"/>
+		</property>
+		<property name="day21" type="java.lang.String">
+			<column name="DAY21" length="50"/>
+		</property>
+		<property name="day22" type="java.lang.String">
+			<column name="DAY22" length="50"/>
+		</property>
+		<property name="day23" type="java.lang.String">
+			<column name="DAY23" length="50"/>
+		</property>
+		<property name="day24" type="java.lang.String">
+			<column name="DAY24" length="50"/>
+		</property>
+		<property name="day25" type="java.lang.String">
+			<column name="DAY25" length="50"/>
+		</property>
+		<property name="day26" type="java.lang.String">
+			<column name="DAY26" length="50"/>
+		</property>
+		<property name="day27" type="java.lang.String">
+			<column name="DAY27" length="50"/>
+		</property>
+		<property name="day28" type="java.lang.String">
+			<column name="DAY28" length="50"/>
+		</property>
+		<property name="day29" type="java.lang.String">
+			<column name="DAY29" length="50"/>
+		</property>
+		<property name="day30" type="java.lang.String">
+			<column name="DAY30" length="50"/>
+		</property>
+		<property name="day31" type="java.lang.String">
+			<column name="DAY31" length="50"/>
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20"/>
+		</property>
+		<property name="coincideuNum" type="java.lang.Integer">
+			<column name="COINCIDE_NUM" length="10"/>
+		</property>
+		<property name="effectiveNum" type="java.lang.Integer">
+			<column name="EFFECTIVE_NUM" length="10"/>
+		</property>
+		<property name="empName" type="java.lang.String">
+			<column name="EMP_NAME" length="500"/>
+		</property>
+		<property name="workType" type="java.lang.Integer">
+			<column name="WORK_TYPE" length="2"/>
+		</property>
+	</class>
+	
+	
+	<!-- 排班管理实体 -->
+	<class name="SchedulMgt" table="tt_pb_shedule_by_month">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<version name="version" column="VERSION" type="java.lang.Integer"></version>
+		<property name="ym" type="java.lang.String">
+			<column name="YM" length="50"/>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="50"/>
+		</property>
+		<property name="day1" type="java.lang.String">
+			<column name="DAY1" length="50"/>
+		</property>
+		<property name="day2" type="java.lang.String">
+			<column name="DAY2" length="50"/>
+		</property>
+		<property name="day3" type="java.lang.String">
+			<column name="DAY3" length="50"/>
+		</property>
+		<property name="day4" type="java.lang.String">
+			<column name="DAY4" length="50"/>
+		</property>
+		<property name="day5" type="java.lang.String">
+			<column name="DAY5" length="50"/>
+		</property>
+		<property name="day6" type="java.lang.String">
+			<column name="DAY6" length="50"/>
+		</property>
+		<property name="day7" type="java.lang.String">
+			<column name="DAY7" length="50"/>
+		</property>
+		<property name="day8" type="java.lang.String">
+			<column name="DAY8" length="50"/>
+		</property>
+		<property name="day9" type="java.lang.String">
+			<column name="DAY9" length="50"/>
+		</property>
+		<property name="day10" type="java.lang.String">
+			<column name="DAY10" length="50"/>
+		</property>
+		<property name="day11" type="java.lang.String">
+			<column name="DAY11" length="50"/>
+		</property>
+		<property name="day12" type="java.lang.String">
+			<column name="DAY12" length="50"/>
+		</property>
+		<property name="day13" type="java.lang.String">
+			<column name="DAY13" length="50"/>
+		</property>
+		<property name="day14" type="java.lang.String">
+			<column name="DAY14" length="50"/>
+		</property>
+		<property name="day15" type="java.lang.String">
+			<column name="DAY15" length="50"/>
+		</property>
+		<property name="day16" type="java.lang.String">
+			<column name="DAY16" length="50"/>
+		</property>
+		<property name="day17" type="java.lang.String">
+			<column name="DAY17" length="50"/>
+		</property>
+		<property name="day18" type="java.lang.String">
+			<column name="DAY18" length="50"/>
+		</property>
+		<property name="day19" type="java.lang.String">
+			<column name="DAY19" length="50"/>
+		</property>
+		<property name="day20" type="java.lang.String">
+			<column name="DAY20" length="50"/>
+		</property>
+		<property name="day21" type="java.lang.String">
+			<column name="DAY21" length="50"/>
+		</property>
+		<property name="day22" type="java.lang.String">
+			<column name="DAY22" length="50"/>
+		</property>
+		<property name="day23" type="java.lang.String">
+			<column name="DAY23" length="50"/>
+		</property>
+		<property name="day24" type="java.lang.String">
+			<column name="DAY24" length="50"/>
+		</property>
+		<property name="day25" type="java.lang.String">
+			<column name="DAY25" length="50"/>
+		</property>
+		<property name="day26" type="java.lang.String">
+			<column name="DAY26" length="50"/>
+		</property>
+		<property name="day27" type="java.lang.String">
+			<column name="DAY27" length="50"/>
+		</property>
+		<property name="day28" type="java.lang.String">
+			<column name="DAY28" length="50"/>
+		</property>
+		<property name="day29" type="java.lang.String">
+			<column name="DAY29" length="50"/>
+		</property>
+		<property name="day30" type="java.lang.String">
+			<column name="DAY30" length="50"/>
+		</property>
+		<property name="day31" type="java.lang.String">
+			<column name="DAY31" length="50"/>
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20"/>
+		</property>
+		<property name="commitStatus" type="java.lang.Integer">
+			<column name="COMMIT_STATUS" length="1"/>
+		</property>
+		<property name="synchroStatus" type="java.lang.Integer">
+			<column name="SYNCHRO_STATUS" length="1"/>
+		</property>
+		<property name="empName" type="java.lang.String">
+			<column name="EMP_NAME" length="500"/>
+		</property>
+		<property name="workType" type="java.lang.Integer">
+			<column name="WORK_TYPE" length="2"/>
+		</property>
+	</class>
+	
+	
+	
+	<!-- 排班提交确认状态 -->
+	<class name="MonthConfirmStatus" table="tt_pb_sche_confirm">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="ym" type="java.lang.String">
+			<column name="YM" length="50"/>
+		</property>
+		<property name="commitStatus" type="java.lang.Integer">
+			<column name="COMMIT_STATUS"  precision="1"/>
+		</property>
+	</class>
+	
+	<!-- 工序实体 -->
+	<!-- 工序每日明细 -->
+	<class name="ProcessDetail" table="TT_PB_PROCESS_BY_DAY">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<property name="processCode" type="java.lang.String">
+			<column name="PROCESS_CODE"  length="18"/>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="processDt" type="java.util.Date">
+			<column name="PROCESS_DT" length="7"/>
+		</property>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="20"/>
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20"/>
+		</property>
+		<property name="processMonId" type="java.lang.Long">
+			<column name="PROCESS_MON_ID"  precision="38"/>
+		</property>
+	</class>
+	<!-- 月度工序实体 -->
+	<class name="ProcessMgt" table="TT_PB_PROCESS_BY_MONTH">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<version name="version" column="VERSION" type="java.lang.Integer"></version>
+		<property name="ym" type="java.lang.String">
+			<column name="YM" length="50"/>
+		</property>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="50"/>
+		</property>
+		<property name="day1" type="java.lang.String">
+			<column name="DAY1" length="50"/>
+		</property>
+		<property name="day2" type="java.lang.String">
+			<column name="DAY2" length="50"/>
+		</property>
+		<property name="day3" type="java.lang.String">
+			<column name="DAY3" length="50"/>
+		</property>
+		<property name="day4" type="java.lang.String">
+			<column name="DAY4" length="50"/>
+		</property>
+		<property name="day5" type="java.lang.String">
+			<column name="DAY5" length="50"/>
+		</property>
+		<property name="day6" type="java.lang.String">
+			<column name="DAY6" length="50"/>
+		</property>
+		<property name="day7" type="java.lang.String">
+			<column name="DAY7" length="50"/>
+		</property>
+		<property name="day8" type="java.lang.String">
+			<column name="DAY8" length="50"/>
+		</property>
+		<property name="day9" type="java.lang.String">
+			<column name="DAY9" length="50"/>
+		</property>
+		<property name="day10" type="java.lang.String">
+			<column name="DAY10" length="50"/>
+		</property>
+		<property name="day11" type="java.lang.String">
+			<column name="DAY11" length="50"/>
+		</property>
+		<property name="day12" type="java.lang.String">
+			<column name="DAY12" length="50"/>
+		</property>
+		<property name="day13" type="java.lang.String">
+			<column name="DAY13" length="50"/>
+		</property>
+		<property name="day14" type="java.lang.String">
+			<column name="DAY14" length="50"/>
+		</property>
+		<property name="day15" type="java.lang.String">
+			<column name="DAY15" length="50"/>
+		</property>
+		<property name="day16" type="java.lang.String">
+			<column name="DAY16" length="50"/>
+		</property>
+		<property name="day17" type="java.lang.String">
+			<column name="DAY17" length="50"/>
+		</property>
+		<property name="day18" type="java.lang.String">
+			<column name="DAY18" length="50"/>
+		</property>
+		<property name="day19" type="java.lang.String">
+			<column name="DAY19" length="50"/>
+		</property>
+		<property name="day20" type="java.lang.String">
+			<column name="DAY20" length="50"/>
+		</property>
+		<property name="day21" type="java.lang.String">
+			<column name="DAY21" length="50"/>
+		</property>
+		<property name="day22" type="java.lang.String">
+			<column name="DAY22" length="50"/>
+		</property>
+		<property name="day23" type="java.lang.String">
+			<column name="DAY23" length="50"/>
+		</property>
+		<property name="day24" type="java.lang.String">
+			<column name="DAY24" length="50"/>
+		</property>
+		<property name="day25" type="java.lang.String">
+			<column name="DAY25" length="50"/>
+		</property>
+		<property name="day26" type="java.lang.String">
+			<column name="DAY26" length="50"/>
+		</property>
+		<property name="day27" type="java.lang.String">
+			<column name="DAY27" length="50"/>
+		</property>
+		<property name="day28" type="java.lang.String">
+			<column name="DAY28" length="50"/>
+		</property>
+		<property name="day29" type="java.lang.String">
+			<column name="DAY29" length="50"/>
+		</property>
+		<property name="day30" type="java.lang.String">
+			<column name="DAY30" length="50"/>
+		</property>
+		<property name="day31" type="java.lang.String">
+			<column name="DAY31" length="50"/>
+		</property>
+		<property name="createTm" type="java.util.Date">
+			<column name="CREATE_TM" length="7"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" length="7"/>
+		</property>
+		<property name="createEmpCode" type="java.lang.String">
+			<column name="CREATE_EMP_CODE" length="20"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="20"/>
+		</property>
+		
+		<property name="commitStatus" type="java.lang.Integer">
+			<column name="COMMIT_STATUS" length="1"/>
+		</property>
+		
+	</class>
+	<!--工序提交确认状态 -->
+	<class name="ProcessConfirmStatus" table="tt_pb_process_confirm">
+		<id name="id" type="java.lang.Long">
+			<column name="ID"  precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">seq_oss_base</param>
+			</generator>
+		</id>
+		<property name="deptId" type="java.lang.Long">
+			<column name="DEPT_ID"  precision="19"/>
+		</property>
+		<property name="ym" type="java.lang.String">
+			<column name="YM" length="50"/>
+		</property>
+		<property name="commitStatus" type="java.lang.Integer">
+			<column name="COMMIT_STATUS"  precision="1"/>
+		</property>
+	</class>
+
+	<sql-query name="synEmployeeEmail.sql">
+		<![CDATA[
+		 SELECT U.DEPT_ID,D.DEPT_CODE, E.EMP_CODE, E.EMP_EMAIL EMAIL
+			  FROM TS_USER        U,
+			       TS_USER_ROLE   UR,
+			       TS_ROLE_MODULE RM,
+			       TS_MODULE      M,
+			       TM_EMPLOYEE    E,
+			       TM_DEPARTMENT  D       
+			 WHERE U.USER_ID = UR.USER_ID
+			   AND UR.ROLE_ID = RM.ROLE_ID
+			   AND RM.MODULE_ID = M.MODULE_ID
+			   AND U.EMP_ID = E.EMP_ID
+			   AND U.DEPT_ID = D.DEPT_ID
+			   AND M.MODULE_CODE = 'outEmployee'
+			   AND M.ACTION_URL = '/schedulingBase/outEmployee'
+			   AND D.DEPT_CODE IN (SELECT DISTINCT T.DEPT_CODE
+			          FROM TI_OSS_HR_EMP_NEW_CHANGEDEPT T
+			         WHERE ((T.CREATED_TM < TRUNC(SYSDATE) - 2 AND T.EMP_STUS = 1) OR
+			               (T.CHANGE_ZONE_TM < TRUNC(SYSDATE) - 2 AND T.EMP_STUS = 2))
+			           AND T.DEAL_FLAG = 0)
+			           AND E.EMP_EMAIL IS NOT NULL
+   ]]>
+	</sql-query>
+	<sql-query name="synEmployee.sql">
+				<![CDATA[
+	select  t.*  from ti_oss_hr_emp_new_changedept t
+            where 
+            ((t.created_tm < trunc(sysdate) - 2 and t.emp_stus = 1) or (t.change_zone_tm < trunc(sysdate) - 2 and t.emp_stus = 2))  
+            and t.deal_flag=0 
+   ]]>
+	</sql-query>
+	
+	
+	
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+#UAT环境:ESB的ip
+ip=10.0.74.133
+#sftp请求端口号
+reqSftpInfoPort=10001
+#sftp通知端口号
+notifyPort=10002
+message=reqSftpServerInfo
+
+
+#UAT环境:ESB客户端重发IP
+esbResendIp=10.0.74.133
+#UAT环境:ESB客户端重发:端口
+esbResendPort=12041

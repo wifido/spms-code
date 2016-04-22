@@ -1,0 +1,640 @@
+-----------线路信息管理  权限控制
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'lineQuery',
+         '查询',
+         '',
+         7,
+         1,
+         '/driver/queryLine.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '新增',
+         'lineQuery',
+         '新增',
+         '',
+         7,
+         1,
+         '/driver/addDriver.action',
+         2,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '修改',
+         'lineQuery',
+         '修改',
+         '',
+         7,
+         1,
+         '/driver/updateLine.action',
+         3,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导出',
+         'lineQuery',
+         '导出',
+         '',
+         7,
+         1,
+         '/driver/exportLine.action',
+         4,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+   
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '删除',
+         'lineQuery',
+         '删除',
+         '',
+         7,
+         1,
+         '/driver/deleteLine.action',
+         5,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+   
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导入',
+         'lineQuery',
+         '导入',
+         '',
+         7,
+         1,
+         '/driver/importLine.action',
+         6,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '批量修改有效性',
+         'lineQuery',
+         '批量修改有效性',
+         '',
+         7,
+         1,
+         '/driver/updateValidStatus.action',
+         7,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '线路信息管理';
+
+   
+----------------配班管理权限控制
+delete
+    from ts_module t
+   where t.parent_id in (select t.module_id
+                           from ts_module t
+                          where t.module_name = '配班管理');
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'lineQuery',
+         '查询',
+         '',
+         7,
+         1,
+         '/driver/query_lineConfigure.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '新增',
+         'lineQuery',
+         '新增',
+         '',
+         7,
+         1,
+         '/driver/addConfigureClassesInformation.action',
+         2,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '修改',
+         'lineQuery',
+         '修改',
+         '',
+         7,
+         1,
+         '/driver/update_lineConfigure.action',
+         3,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导出',
+         'lineQuery',
+         '导出',
+         '',
+         7,
+         1,
+         '/driver/export_lineConfigure.action',
+         4,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+   
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查看明细',
+         'lineQuery',
+         '查看明细',
+         '',
+         7,
+         1,
+         '/driver/queryConfigureSchedulingAllLine_lineConfigure.action',
+         5,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+   
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导入',
+         'lineQuery',
+         '导入',
+         '',
+         7,
+         1,
+         '/driver/importLineConfigure_lineConfigure.action',
+         6,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '修改有效性',
+         'lineQuery',
+         '修改有效性',
+         '',
+         7,
+         1,
+         '/driver/updateSchedulingState_lineConfigure.action',
+         7,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '配班管理';
+   
+-------------------排班信息管理权限控制
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'lineQuery',
+         '查询',
+         '',
+         7,
+         1,
+         '/driver/queryDriverScheduling.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '排班信息管理';
+
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '新增',
+         'lineQuery',
+         '新增',
+         '',
+         7,
+         1,
+         '/driver/addScheduling_scheduling.action',
+         2,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '排班信息管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '修改',
+         'lineQuery',
+         '修改',
+         '',
+         7,
+         1,
+         '/driver/updateDriverScheduling_scheduling.action',
+         3,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '排班信息管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导出',
+         'lineQuery',
+         '导出',
+         '',
+         7,
+         1,
+         '/driver/exportDriverScheduling_scheduling.action',
+         4,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '排班信息管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导入',
+         'lineQuery',
+         '导入',
+         '',
+         7,
+         1,
+         '/driver/importScheduling_scheduling.action',
+         6,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '排班信息管理';
+   
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '删除',
+         'lineQuery',
+         '删除',
+         '',
+         7,
+         1,
+         '/driver/deleteScheduling_scheduling.action',
+         5,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '排班信息管理';
+   
+   
+   
+-----------预警管理权限控制
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '查询',
+         'lineQuery',
+         '查询',
+         '',
+         7,
+         1,
+         '/driver/exportContinuousWarning.action',
+         1,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '预警管理';
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导出',
+         'lineQuery',
+         '导出',
+         '',
+         7,
+         1,
+         '/driver/queryDriverContinuousWarningReport.action',
+         4,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '预警管理';
+
+   commit;

@@ -1,0 +1,1 @@
+drop table TM_SPMS2CDP_BY_OPERATION_INFO;

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+		<!-- 邮箱配置参数 -->
+	<bean id="mailConfiguration" class="com.sf.module.common.domain.MailConfiguration">
+		<property name="receiver" value="spms_core@sf-express.com"/>
+		<property name="host" value="mailgwa.int.sfdc.com.cn"/>
+		<property name="auth" value="false"/>
+		<property name="username" value="spms_core"/>
+		<property name="password" value="wM4[$F]dYg!"/>
+	</bean>
+	
+	<!-- <bean id="orgBiz" class="com.sf.module.common.biz.OrgBiz"></bean> -->
+	
+	<bean id="orgAction" class="com.sf.module.common.action.OrgAction" scope="prototype">
+		<!-- <property name="orgBiz" ref="orgBiz" />  -->
+	</bean> 
+	
+	<!-- 报表文件下载 -->
+	<bean id="reportFileDownloadAction" class="com.sf.module.common.action.ReportFileDownloadAction" scope="prototype"/>
+	<bean id="sendMailDao" class="com.sf.module.common.dao.SendMailDao" />
+
+	<bean id="sendMailBiz" class="com.sf.module.common.biz.SendMailBiz">
+		<property name="mailConfiguration" ref="mailConfiguration"/>
+		<property name="sendMailDao" ref="sendMailDao"/>
+	</bean>
+		
+	<bean id="errorSchedulingDataDao" class="com.sf.module.common.dao.ErrorSchedulingDataDao" />
+	
+	<bean id="errorSchedulingDataBiz" class="com.sf.module.common.biz.ErrorSchedulingDataBiz">
+		<property name="errorSchedulingDataDao" ref="errorSchedulingDataDao"/>
+	</bean>
+	
+	<bean id="errorScheduling" class="com.sf.module.common.action.ErrorSchedulingDataAction" scope="prototype">
+		 <property name="errorSchedulingDataBiz" ref="errorSchedulingDataBiz" />  
+	</bean> 
+	
+	<bean id="syncSchedulingDataDao" class="com.sf.module.common.dao.SyncSchedulingDataDao" />
+	
+	<bean id="syncSchedulingDataBiz" class="com.sf.module.common.biz.SyncSchedulingDataBiz">
+		<property name="syncSchedulingDataDao" ref="syncSchedulingDataDao"/>
+	</bean>
+	
+	<bean id="syncSchedulingData" class="com.sf.module.common.action.SyncSchedulingDataAction" scope="prototype">
+		 <property name="syncSchedulingDataBiz" ref="syncSchedulingDataBiz" />  
+		 <property name="schedulePlanUploader" ref="schedulePlanUploader" />  
+		 <property name="sysConfigBiz" ref="sysConfigBiz" />  
+	</bean> 
+
+	<!-- 系统配置start -->
+	<bean id="sysConfigDao" class="com.sf.module.common.dao.SysConfigDao"/>
+	<bean id="sysConfigBiz" class="com.sf.module.common.biz.SysConfigBiz">
+		<property name="sysConfigDao" ref="sysConfigDao"></property>
+	</bean>
+	<bean id="sysConfigAction" class="com.sf.module.common.action.SysConfigAction" scope="prototype">
+		<property name="sysConfigBiz" ref="sysConfigBiz"></property>
+	</bean>
+	<!--系统配置end -->
+	
+	<!-- 系统配置的缓存start  -->
+	<bean class="com.sf.module.common.cache.SpmsSysConfigCacheProvider">
+		<property name="sysConfigDao" ref="sysConfigDao" />
+		<property name="cacheName" value="cache_spms_sysconfig_modules" />
+		<!-- 60分钟缓存一次 -->
+		<property name="ttl" value="60" />
+	</bean>
+	<!-- 系统配置的缓存end  -->
+	
+	
+		<!-- 系统配置start -->
+	<bean id="procedureExecutionLogDao" class="com.sf.module.common.dao.ProcedureExecutionLogDao"/>
+	<bean id="procedureExecutionLogBiz" class="com.sf.module.common.biz.ProcedureExecutionLogBiz">
+		<property name="procedureExecutionLogDao" ref="procedureExecutionLogDao"></property>
+	</bean>
+	<bean id="procedureExecutionLogAction" class="com.sf.module.common.action.ProcedureExecutionLogAction" scope="prototype">
+		<property name="procedureExecutionLogBiz" ref="procedureExecutionLogBiz"></property>
+	</bean>
+	<!--系统配置end -->
+
+</beans>

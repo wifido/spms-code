@@ -1,0 +1,1 @@
+alter table TI_SAP_ZTHR_PT_DETAIL_TMP drop (POST_TYPE); 

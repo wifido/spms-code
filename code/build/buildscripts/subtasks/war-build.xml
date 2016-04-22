@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="war-build" default="all">
+	<property name="build.dist.web" location="${build.dist}/web" />
+	<property name="build.lib.includes" value="*.jar" />
+	<property name="build.lib.thirdpartyServer.excludes" value="" />
+	<tstamp>
+		<format property="release.date" pattern="yyyyMMdd" locale="en" />
+	</tstamp>
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+	<taskdef name="webgmConfigFileWrite" classname="com.sf.webgm.ant.WebgmConfigFileWriteTask" />
+	
+	<target name="clean">
+		<delete dir="${build.dist.web}" failonerror="true" />
+		<mkdir dir="${build.dist.web}" />
+		<delete>
+			<fileset dir="${build.dist}" includes="${project.code}.war, ${project.code}-*-ds.xml" />
+		</delete>
+	</target>
+
+	<target name="all" depends="clean">
+		<mkdir dir="${build.dist.web}/WEB-INF/lib" />
+		<copy todir="${build.dist.web}" includeemptydirs="true">
+			<fileset dir="${project.src.web}" includes="WEB-INF/**/*.*" 
+				excludes="WEB-INF/i18n/*.properties, WEB-INF/i18n/*.properties.*, .svn" />
+		</copy>
+
+		<native2ascii src="${project.src.web}" dest="${build.dist.web}">
+			<include name="WEB-INF/i18n/*.properties" />
+			<include name="WEB-INF/i18n/*.properties.*" />
+		</native2ascii>
+
+		<move todir="${build.dist.web}/WEB-INF/" includeemptydirs="false">
+			<fileset dir="${build.dist.web}/WEB-INF/">
+				<include name="**/*.${release.type}" />
+			</fileset>
+			<mapper type="regexp" from="^(.*)\.${release.type}" to="\1" />
+		</move>
+		<propertyfile file="${build.dist.web}/WEB-INF/sysconfig.properties">
+			<entry key="release.date" value="${release.date}" />
+			<entry key="version.number" value="${version}" />
+			<entry key="version.type" value="${release.type}" />
+		</propertyfile>
+		<var name="thirdpartyServer.excludes" value="${build.lib.thirdpartyServer.excludes}" />
+		<if>
+			<equals arg1="${project.webServer}" arg2="jboss" casesensitive="false" />
+			<then>
+				<if>
+					<equals arg1="${config.files.auto}" arg2="true" casesensitive="false" />
+					<then>
+						<copy todir="${build.dist.web}/WEB-INF">
+							<fileset dir="${build.scripts.src}/extra" includes="jboss-web.xml" />
+						</copy>
+						<copy tofile="${build.dist}/${project.code}-${db.type}-ds.xml">
+							<fileset dir="${build.scripts.src}/ds/${db.type}" casesensitive="false" includes="sample-ds.xml" />
+						</copy>
+					</then>
+				</if>
+				<var name="thirdpartyServer.excludes" value="${build.lib.thirdpartyServer.excludes},**/log4j*.jar"/>
+				<copy todir="${build.dist.web}/WEB-INF/lib" flatten="true">
+					<fileset dir="${build.lib.thirdparty}" includes="extra/*.jar" />
+				</copy>
+			</then>
+			<else>
+				<mkdir dir="${build.dist.web}/WEB-INF/classes" />
+				<copy todir="${build.dist.web}/WEB-INF/classes">
+					<fileset dir="${build.scripts.src}/extra" includes="log4j.xml" />
+				</copy>
+			</else>
+		</if>
+		<if>
+			<equals arg1="${config.files.auto}" arg2="true" casesensitive="false" />
+			<then>
+				<echo>webgmConfigFileWrite dir ${build.dist}</echo>
+				<webgmConfigFileWrite 
+					projectLocation="${build.dist}" 
+					projectCode="${project.code}" 
+					webServer="${project.webServer}" 
+					dbType="${db.type}" dbHost="${db.host}" dbName="${db.dbname}" 
+					username="${db.username}" password="${db.password}" />
+			</then>
+		</if>
+		<echo>thirdpartyServer.excludes : ${thirdpartyServer.excludes}</echo>
+		<war destfile="${build.dist}/${project.code}-${release.type}-${version}.war" webxml="${build.dist.web}/WEB-INF/web.xml">
+			<fileset dir="${project.src.web}" includes="**/*.*" excludes="WEB-INF/**/*.*, .svn" />
+			<fileset dir="${build.dist.web}" includes="**/*.*" />
+			<lib dir="${build.dist}" includes="sf-*-*-${version}-*.jar" />
+			<mappedresources>
+				<fileset dir="${build.lib}" includes="${build.lib.includes}" excludes="thirdpartylib/server/**/*.jar"/>
+				<chainedmapper>
+					<flattenmapper />
+					<globmapper from="*" to="WEB-INF/lib/*" />
+				</chainedmapper>
+			</mappedresources>
+			<mappedresources>
+				<fileset dir="${build.lib.thirdparty}/server" includes="**/*.jar" excludes="${thirdpartyServer.excludes}" />
+				<chainedmapper>
+					<flattenmapper />
+					<globmapper from="*" to="WEB-INF/lib/*" />
+				</chainedmapper>
+			</mappedresources>
+			<manifest>
+				<attribute name="Company" value="${company}" />
+				<attribute name="Vendor" value="${vendor}" />
+			</manifest>
+		</war>
+		<delete dir="${build.dist.web}" failonerror="false" />
+	</target>
+</project>

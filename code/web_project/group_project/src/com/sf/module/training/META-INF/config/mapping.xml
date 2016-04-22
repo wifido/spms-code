@@ -1,0 +1,49 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sf.module.training.domain"
+                   auto-import="false">
+<class name="Training" table="TT_PB_TRAINING_INFO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" length="38"/>
+            <generator class="sequence">
+                <param name="sequence">SEQ_TRAINING_INFO</param>
+            </generator>
+        </id>
+        <property name="departmentCode" type="java.lang.String">
+            <column name="DEPARTMENT_CODE" length="30"/>
+        </property>
+        <property name="trainingCode" type="java.lang.String">
+            <column name="TRAINING_CODE" length="30"/>
+        </property>
+        <property name="employeeCode" type="java.lang.String">
+            <column name="EMPLOYEE_CODE" length="30"/>
+        </property>
+        <property name="yearsMonth" type="java.lang.String">
+            <column name="YEARS_MONTH" length="30"/>
+        </property>
+        <property name="dayOfMonth" type="java.lang.String">
+            <column name="DAY_OF_MONTH" length="30"/>
+        </property>
+        <property name="postType" type="java.lang.Long">
+            <column name="POST_TYPE" length="1"/>
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATE_TM" />
+        </property>
+        <property name="modifiedTime" type="java.util.Date">
+            <column name="MODIFIED_TM"/>
+        </property>
+        <property name="createdEmployeeCode" type="java.lang.String">
+            <column name="CREATE_EMP_CODE" length="20"/>
+        </property>
+        <property name="modifiedEmployeeCode" type="java.lang.String">
+            <column name="MODIFIED_EMP_CODE" length="20"/>
+        </property>
+         <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" length="200"/>
+        </property>
+    </class>
+</hibernate-mapping>

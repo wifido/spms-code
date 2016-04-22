@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>排班系统到SAP系统数据接口协议</title>
+
+</head>
+<body>
+<h1>排班系统到SAP系统数据接口协议</h1>
+
+<h1><code>接口背景:</code></h1>
+
+<pre><code>通过系统自动对接，将排班系统中员工排班信息同步至SAP考勤模块系统中;
+</code></pre>
+
+<h1><code>接口方式</code></h1>
+
+<pre><code>接口方式采用ESB-webservice-文件推送       
+</code></pre>
+
+<h1><code>接口数据结构:</code></h1>
+
+<table>
+<thead>
+<tr>
+<th>字段名及描述</th>
+<th>字段名</th>
+<th>数据类型</th>
+<th>最大长度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>序号</td>
+<td>ZHRXH</td>
+<td>NUMC</td>
+<td>8</td>
+<td>数据在文件中的序号,从1开始</td>
+</tr>
+<tr>
+<td>员工编号</td>
+<td>PERNR</td>
+<td>NUMC</td>
+<td>8</td>
+<td>053452</td>
+</tr>
+<tr>
+<td>班次开始日期</td>
+<td>BEGDA</td>
+<td>DATS</td>
+<td>8</td>
+<td> YYYYMMdd格式 20140429</td>
+</tr>
+<tr>
+<td>班次结束日期</td>
+<td>ENDDA</td>
+<td>DATS</td>
+<td>8</td>
+<td> YYYYMMdd格式 20140429</td>
+</tr>
+<tr>
+<td>班次开始时间</td>
+<td>BEGUZ</td>
+<td>TIMS</td>
+<td>6</td>
+<td> HH24mmss格式 083000</td>
+</tr>
+<tr>
+<td>班次结束时间</td>
+<td>ENDUZ</td>
+<td>TIMS</td>
+<td>6</td>
+<td>  HH24mmss格式 083000</td>
+</tr>
+<tr>
+<td>前一天标识</td>
+<td>VTKEN</td>
+<td>CHAR</td>
+<td>1</td>
+<td>如果是前一天标识,则为X,否则无任何数据</td>
+</tr>
+<tr>
+<td>休息标识</td>
+<td>TPROG</td>
+<td>CHAR</td>
+<td>4</td>
+<td>如果是休息,则位OFF，其他无任何数据</td>
+</tr>
+<tr>
+<td>排班系统(数据来源)</td>
+<td>ZHRPBXT</td>
+<td>CHAR</td>
+<td>1</td>
+<td>固定数字：2,在SAP系统里表示排班系统</td>
+</tr>
+</tbody>
+</table>
+
+
+<h1><code>接口数据处理逻辑:</code></h1>
+
+<pre><code>1. 接口数据每天推送一次
+2. 接口发送前一天的排班数据
+3. 如果员工的工作时间不连续,则将时间段分别传送给SAP
+    假设员工上班时间是09:00-12:00 和13:00-18:00,则需要发送两条数据到SAP
+4. 如果员工的工作时间连续,且工作时间跨度大于24小时,则需要拆分,拆分规则是:
+    假设员工上班时间是06-05 08:00 -- 06-06 14:00,则拆分两条记录;
+    1、 06-05 08:00 -- 06-05 :08:00 (注意,超过24小时的分段,开始和结束时间都必须等于开始时间)
+    2、 06-06 08:00 -- 06-06 :14:00
+        第二条数据的是否前一天标识为 X,
+5. 如果员工当天休息，则班次开始日期和班次结束日期是当天日期,时间为空;休息标识为OFF
+6. 假如某员工06-08日期的排班数据已发送给了SAP,但管理员在06-13日期将06-08日期的排班进行修改,则系统需要再把06-08的排班发送给SAP系统
+</code></pre>
+
+<h1><code>异常处理:</code></h1>
+
+<pre><code>    如果每日发送失败,则需要有通知用户发送失败,通知方式是邮件,重发方式为系统功能,手动触发
+</code></pre>
+
+<h1><code>异常监控</code></h1>
+
+<pre><code>    接口数据发送需要记录日志,以便能分析业务异常
+</code></pre>
+</body>
+</html>

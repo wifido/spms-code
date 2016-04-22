@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="spms" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>oss</display-name>
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>com.sf.framework.server.core.deploy.BeansContext</param-value>
+    </context-param>
+    <listener>
+        <listener-class>com.sf.framework.server.core.deploy.FrameworkListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+     <listener>
+	  <listener-class>com.sf.integration.BeanFactory</listener-class>
+	</listener>
+	<!-- begin of cas -->
+	<!-- 单点登录的注销监听器  -->
+	<listener>
+		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener>
+     <filter>
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+	</filter>
+	<!-- 单点登录认证Filter  -->
+      <filter>
+            <filter-name>CAS Authentication Filter</filter-name>
+            <filter-class>com.sf.integration.cas.filter.SSOAuthenticationFilter</filter-class>
+            <init-param>
+                  <!-- 安全url，不需要被CAS Filter检查 -->
+                  <param-name>safeUrls</param-name>
+                  <param-value>
+                  	/ws
+                  	/ServerTest.html
+                  	/loginmgmt/index.action                  	
+                  	/driverui/resourceNotFound.action
+                  	/driverui/toIndexPage.action
+                  	/driverui/myScheduling.action
+                  	/driverui/toLeave.action
+                  	/driverui/confirmScheduling.action
+                  	/driverui/queryPending.action
+                  	/driverui/approval.action
+                  	/driverui/exchangeScheduling.action
+                  	/driverui/queryPendingCount.action
+                  	/driverui/toPageIndexApp.action
+                  	/driverui/queryLineConfigueForExchangeScheduling.action
+                  	/driverui/queryLeave.action
+                  	/driverui/toMyLeave.action
+                  	/driverui/transferForward.action	
+                  	/driverui/leaveForward.action
+                  	/driverui/revokeLeave.action
+                  	/driverui/revokeExchangeScheduling.action
+                  	/driverui/toLeaderMyScheduledPage.action
+                  	/driverui/toMyExchangeScheduling.action
+                  	/driverui/myExchangScheduling.action
+                  	/driverui/toDriverLeaderPage.action
+                  	/driverui/queryTheApprover.action
+                  </param-value>
+            </init-param>
+            <init-param>
+                  <!-- 需要安全检查的url后缀；不设置该参数则全部url都做安全检查 -->
+                  <param-name>checkUrlSuffix</param-name>
+                  <param-value>.action</param-value>
+            </init-param>
+      </filter>	
+	  <!-- 单点登录验证票据Filter -->
+      <filter>
+            <filter-name>CAS Validation Filter</filter-name>
+            <filter-class>com.sf.integration.cas.filter.Cas20ProxyReceivingTicketValidationFilterEx</filter-class>
+            <init-param>
+                  <param-name>redirectAfterValidation</param-name>
+                  <param-value>true</param-value>
+            </init-param>
+            <init-param>
+                  <param-name>exceptionOnValidationFailure</param-name>
+                  <param-value>false</param-value>
+            </init-param>
+            <init-param>
+                  <!-- 接受代理模式，允许CMS PORTAL登录后可以跳转到本应用 -->
+                  <param-name>acceptAnyProxy</param-name>
+                  <param-value>true</param-value>
+            </init-param>
+      </filter>
+      <filter>
+            <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+            <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+      </filter>
+      <filter>
+            <filter-name>CAS Assertion Thread Local Filter</filter-name>
+            <filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
+      </filter>	
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+        <init-param>
+            <param-name>configProviders</param-name>
+            <param-value>com.sf.framework.server.core.deploy.ActionConfigProvider</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>*.json</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+	 <filter-mapping>
+            <filter-name>CAS Single Sign Out Filter</filter-name>
+            <url-pattern>/*</url-pattern>
+      </filter-mapping>
+      <filter-mapping>
+            <filter-name>CAS Validation Filter</filter-name>
+            <url-pattern>/proxyCallback</url-pattern>
+      </filter-mapping>
+      <filter-mapping>
+            <filter-name>CAS Authentication Filter</filter-name>
+            <url-pattern>/*</url-pattern>
+      </filter-mapping>
+      <filter-mapping>
+            <filter-name>CAS Validation Filter</filter-name>
+            <url-pattern>/*</url-pattern>
+      </filter-mapping>
+      <filter-mapping>
+            <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+            <url-pattern>/*</url-pattern>
+      </filter-mapping>
+      <filter-mapping>
+            <filter-name>CAS Assertion Thread Local Filter</filter-name>
+            <url-pattern>/*</url-pattern>
+      </filter-mapping>
+	<!-- end of cas -->
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.action</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>empty</servlet-name>
+        <servlet-class>com.sf.framework.server.core.presentation.servlet.EmptyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>exttag</servlet-name>
+        <servlet-class>com.sf.framework.server.core.presentation.taglib.extjs.ExtTagServlet</servlet-class>
+        <init-param>
+            <param-name>home</param-name>
+            <param-value>../ext-3.4.0/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>activeChrome</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>scripts</param-name>
+            <param-value>../scripts/ext.js,../scripts/msg.js,../scripts/ext-datetime.js,ux/CheckColumn.js</param-value>
+        </init-param>
+        <init-param>
+            <param-name>styles</param-name>
+            <param-value>../styles/msg.css</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>empty</servlet-name>
+        <url-pattern>*.action</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>exttag</servlet-name>
+        <url-pattern>/exttag/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>sysdateServlet</servlet-name>
+        <servlet-class>com.sf.module.operation.action.SysdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sysdateServlet</servlet-name>
+        <url-pattern>/operation/getSysdate</url-pattern>
+    </servlet-mapping>
+    <resource-ref>
+        <res-ref-name>jdbc/projectCode-local</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+        <jsp-property-group>
+            <display-name>jsp global configure</display-name>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+            <page-encoding>utf-8</page-encoding>
+            <scripting-invalid>true</scripting-invalid>
+        </jsp-property-group>
+    </jsp-config>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

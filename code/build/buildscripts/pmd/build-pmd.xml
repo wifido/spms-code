@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-pmd" default="pmd" basedir=".">
+	<description>pmd build script</description>
+	<property name="folder.pmd" location="${basedir}/${folder.pmd}" />
+	<property name="pmd.rulesetFile" value="sf-pmd.xml" />
+	<property name="pmd.reportType" value="csv" />
+	<property name="pmd.reportFile" value="pmd-report.csv" />
+	<property name="pmd.excludemarker" value="NOPMD" />
+
+	<target name="pmd">
+		<echo>PMD run on src folder ${folder.src}, use relesetFile ${pmd.rulesetFile} </echo>
+		<echo>and report file goes to ${pmd.reportFile} with type ${pmd.reportType}.</echo>
+
+		<path id="pmd.classpath">
+			<dirset dir="${folder.pmd}" includes="rulesets"/>
+			<fileset dir="${folder.pmd}/lib">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+
+		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath" />
+		<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+		<var name="pmd.includes" value="" />
+		<if>
+			<!-- 如果目录存在  -->
+			<equals arg1="${subfolders}" arg2="*" />
+			<then>
+				<var name="pmd.includes" value="**/*.java," />
+			</then>
+			<else>
+				<for param="subfolder" list="${subfolders}">
+					<sequential>
+						<condition property="exist.@{subfolder}" value="true" else="false">
+							<and>
+								<available file="${folder.src}/@{subfolder}" type="dir" />
+							</and>
+						</condition>
+						<if>
+							<!-- 如果目录存在  -->
+							<equals arg1="${exist.@{subfolder}}" arg2="true" />
+							<then>
+								<var name="pmd.includes" value="${pmd.includes}@{subfolder}/**/*.java," />
+							</then>
+						</if>
+					</sequential>
+				</for>
+			</else>
+		</if>
+		<echo>pmd includes [${pmd.includes}]</echo>
+		<if>
+			<!-- 如果为空  -->
+			<equals arg1="${pmd.includes}" arg2="" />
+			<then>
+				<echo>These subfolders do not exist, no need to run pmd check.</echo>
+			</then>
+			<else>
+				<pmd rulesetfiles="${pmd.rulesetFile}" classpathref="pmd.classpath" 
+					suppressMarker="${pmd.excludemarker}" encoding="UTF-8">
+					<formatter type="${pmd.reportType}" toFile="${pmd.reportFile}" />
+					<fileset dir="${folder.src}" includes="${pmd.includes}" />
+				</pmd>
+			</else>
+		</if>
+	</target>
+</project>

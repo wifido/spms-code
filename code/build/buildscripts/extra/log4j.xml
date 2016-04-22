@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">   
+  
+<log4j:configuration>   
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">  
+        <layout class="org.apache.log4j.PatternLayout">   
+            <param name="conversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c.%M(%F:%L) - %m%n" />
+        </layout>   
+    </appender>    
+
+    <appender name="DailyFile" class="org.apache.log4j.DailyRollingFileAppender">   
+        <param name="file" value="${catalina.home}/logs/logs.log" />   
+        <param name="datePattern" value="'.'yyyyMMdd" />   
+        <layout class="org.apache.log4j.PatternLayout">   
+            <param name="conversionPattern" value="%d %-5p [%t] [%c] %l %m%n" />   
+        </layout>   
+    </appender>
+    
+    <appender name="RollingFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="20MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="file" value="${catalina.home}/logs/logs.log" />  
+        <layout class="org.apache.log4j.PatternLayout">   
+            <param name="conversionPattern" value="%d %-5p [%t] [%c] %l %m%n" />   
+        </layout>   
+    </appender>
+    
+    <logger name="org">
+    	<level value="INFO" />
+    </logger>
+    <logger name="com.sf.framework">
+    	<level value="INFO" />
+    </logger>
+    <logger name="com.sf.module">
+    	<level value="INFO" />
+    </logger>
+    <logger name="test">
+    	<level value="INFO" />
+    	<!--  appender-ref ref="DailyFile"/ -->
+    </logger>
+    
+    <!-- level: FATAL,ERROR,WARN,INFO,DEBUG,TRACE -->
+    <root>   
+        <level value="INFO" />
+        <appender-ref ref="STDOUT"/>   
+        <appender-ref ref="RollingFile"/>
+    </root>   
+</log4j:configuration>  

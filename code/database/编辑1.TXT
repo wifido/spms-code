@@ -1,0 +1,5 @@
+-- Add/modify columns 
+alter table TS_OSS_DATACONTROL add times number(1) default 0;
+-- Add comments to the columns 
+comment on column TS_OSS_DATACONTROL.times
+  is '发送次数,默认为0';

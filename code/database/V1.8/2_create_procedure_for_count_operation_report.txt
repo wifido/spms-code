@@ -1,0 +1,264 @@
+create or replace procedure count_operation_report(dayofmonth in varchar) is
+
+  --*************************************************************
+  -- author  : hgx
+  -- created : 2015-04-16
+  -- purpose : 统计运作排班、考勤信息报表
+  --
+  -- parameter:
+  -- name  dayofmonth            type     varchar
+  --
+  -- modify history
+  -- person                    date                        comments
+  -- -------------------------------------------------------------
+  --
+  --*************************************************************
+
+  total_emp_num               number;
+  fulltime_emp_num            number;
+  not_fulltime_emp_num        number;
+  out_emp_num                 number;
+  group_num                   number;
+  class_num                   number;
+  total_attendance_num        number;
+  fulltime_attendance_num     number;
+  not_fulltime_attendance_num number;
+  out_attendance_num          number;
+  total_rest_num              number;
+  fulltime_rest_num           number;
+  not_fulltime_rest_num       number;
+  out_rest_num                number;
+  total_worktime              number;
+  date_format                 varchar2(20);
+
+begin
+
+  date_format := 'yyyy-mm-dd';
+
+  ----删除当天的统计数据
+  delete op_attendance_count_report t
+   where to_char(t.day_of_month, date_format) = dayofmonth;
+
+  ----遍历运作网点，逐个网点统计
+  for dept_row in (select * from op_dept) loop
+  
+    ----初始化值
+    total_emp_num               := 0;
+    fulltime_emp_num            := 0;
+    not_fulltime_emp_num        := 0;
+    out_emp_num                 := 0;
+    group_num                   := 0;
+    class_num                   := 0;
+    total_attendance_num        := 0;
+    fulltime_attendance_num     := 0;
+    not_fulltime_attendance_num := 0;
+    out_attendance_num          := 0;
+    total_rest_num              := 0;
+    fulltime_rest_num           := 0;
+    not_fulltime_rest_num       := 0;
+    out_rest_num                := 0;
+    total_worktime              := 0;
+  
+    ----查询运作在职总人数
+    select count(distinct e.emp_code)
+      into total_emp_num
+      from op_dept d, tm_oss_employee e
+     where d.dept_id = e.dept_id
+       and e.emp_post_type = '1'
+       and (e.dimission_dt is null or
+           e.dimission_dt > to_date(dayofmonth, date_format))
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作全日制在职人数
+    select count(distinct e.emp_code)
+      into fulltime_emp_num
+      from op_dept d, tm_oss_employee e
+     where d.dept_id = e.dept_id
+       and e.emp_post_type = '1'
+       and e.persg = 'A'
+       and (e.dimission_dt is null or
+           e.dimission_dt > to_date(dayofmonth, date_format))
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作非全日制在职人数
+    select count(distinct e.emp_code)
+      into not_fulltime_emp_num
+      from op_dept d, tm_oss_employee e
+     where d.dept_id = e.dept_id
+       and e.emp_post_type = '1'
+       and e.persg = 'C'
+       and (e.dimission_dt is null or
+           e.dimission_dt > to_date(dayofmonth, date_format))
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作外包在职人数
+    select count(distinct e.emp_code)
+      into out_emp_num
+      from op_dept d, tm_oss_employee e
+     where d.dept_id = e.dept_id
+       and e.emp_post_type = '1'
+       and e.work_type = '6'
+       and (e.dimission_dt is null or
+           e.dimission_dt > to_date(dayofmonth, date_format))
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作班次数量
+    select count(distinct c.schedule_code)
+      into class_num
+      from tt_pb_shedule_by_day s, op_dept d, tm_pb_schedule_base_info c
+     where s.dept_id = d.dept_id
+       and c.dept_id = s.dept_id
+       and c.schedule_code = s.shedule_code
+       and d.dept_code = dept_row.dept_code
+       and to_char(s.shedule_dt, date_format) = dayofmonth;
+  
+    ----查询运作小组数量
+    select count(distinct g.group_code)
+      into group_num
+      from tt_pb_shedule_by_day s,
+           op_dept              d,
+           tm_oss_employee      e,
+           tm_pb_group_info     g
+     where s.emp_code = e.emp_code
+       and s.dept_id = d.dept_id
+       and e.group_id = g.group_id
+       and to_char(s.shedule_dt, date_format) = dayofmonth
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作出勤总人数
+    select count(distinct t.emp_code)
+      into total_attendance_num
+      from op_dept d, ti_tcas_spms_schedule t
+     where d.dept_code = t.dept_code
+       and t.position_type = ' 1 '
+       and to_char(t.work_date, date_format) = dayofmonth
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作全日制出勤人数
+    select count(distinct t.emp_code)
+      into fulltime_attendance_num
+      from op_dept d, ti_tcas_spms_schedule t, tm_oss_employee e
+     where t.dept_code = d.dept_code
+       and t.emp_code = e.emp_code
+       and t.position_type = ' 1 '
+       and to_char(t.work_date, date_format) = dayofmonth
+       and e.persg = ' A '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作非全日制出勤人数
+    select count(distinct t.emp_code)
+      into not_fulltime_attendance_num
+      from op_dept d, ti_tcas_spms_schedule t, tm_oss_employee e
+     where t.dept_code = d.dept_code
+       and t.emp_code = e.emp_code
+       and t.position_type = ' 1 '
+       and to_char(t.work_date, date_format) = dayofmonth
+       and e.persg = ' C '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作外包出勤人数
+    select count(distinct t.emp_code)
+      into out_attendance_num
+      from op_dept d, ti_tcas_spms_schedule t, tm_oss_employee e
+     where t.dept_code = d.dept_code
+       and t.emp_code = e.emp_code
+       and t.position_type = ' 1 '
+       and to_char(t.work_date, date_format) = dayofmonth
+       and e.work_type = ' 6 '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作排休总人数
+    select count(distinct s.emp_code)
+      into total_rest_num
+      from op_dept d, tt_pb_shedule_by_day s
+     where d.dept_id = s.dept_id
+       and to_char(s.shedule_dt, date_format) = dayofmonth
+       and s.shedule_code = ' 休 '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作全日制排休人数
+    select count(distinct s.emp_code)
+      into fulltime_rest_num
+      from op_dept d, tt_pb_shedule_by_day s, tm_oss_employee e
+     where d.dept_id = s.dept_id
+       and s.emp_code = e.emp_code
+       and e.persg = ' A '
+       and to_char(s.shedule_dt, date_format) = dayofmonth
+       and s.shedule_code = ' 休 '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作非全日制排休人数
+    select count(distinct s.emp_code)
+      into not_fulltime_rest_num
+      from op_dept d, tt_pb_shedule_by_day s, tm_oss_employee e
+     where d.dept_id = s.dept_id
+       and s.emp_code = e.emp_code
+       and e.persg = ' C '
+       and to_char(s.shedule_dt, date_format) = dayofmonth
+       and s.shedule_code = ' 休 '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作外包排休人数
+    select count(distinct s.emp_code)
+      into out_rest_num
+      from op_dept d, tt_pb_shedule_by_day s, tm_oss_employee e
+     where d.dept_id = s.dept_id
+       and s.emp_code = e.emp_code
+       and e.work_type = ' 6 '
+       and to_char(s.shedule_dt, date_format) = dayofmonth
+       and s.shedule_code = ' 休 '
+       and d.dept_code = dept_row.dept_code;
+  
+    ----查询运作考勤时长
+    select sum(t.work_time)
+      into total_worktime
+      from op_dept d, ti_tcas_spms_schedule t
+     where d.dept_code = t.dept_code
+       and t.position_type = ' 1 '
+       and to_char(t.work_date, date_format) = dayofmonth
+       and d.dept_code = dept_row.dept_code;
+  
+    insert into op_attendance_count_report
+      (dept_code,
+       day_of_month,
+       total_emp_num,
+       fulltime_emp_num,
+       not_fulltime_emp_num,
+       out_emp_num,
+       group_num,
+       class_num,
+       total_attendance_num,
+       fulltime_attendance_num,
+       not_fulltime_attendance_num,
+       out_attendance_num,
+       total_rest_num,
+       fulltime_rest_num,
+       not_fulltime_rest_num,
+       out_rest_num,
+       total_worktime,
+       count_date)
+    values
+      (dept_row.dept_code,
+       to_date(dayofmonth, date_format),
+       total_emp_num,
+       fulltime_emp_num,
+       not_fulltime_emp_num,
+       out_emp_num,
+       group_num,
+       class_num,
+       total_attendance_num,
+       fulltime_attendance_num,
+       not_fulltime_attendance_num,
+       out_attendance_num,
+       total_rest_num,
+       fulltime_rest_num,
+       not_fulltime_rest_num,
+       out_rest_num,
+       total_worktime,
+       sysdate);
+    commit;
+  
+  end loop;
+
+end count_operation_report;
+/

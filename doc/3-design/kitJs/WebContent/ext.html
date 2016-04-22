@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script src="kitJs/src/js/kit.js"></script>
+		<!--[if IE]>
+		<script src="kitJs/src/js/ieFix.js"></script>
+		<![endif]-->
+		<script src="kitJs/src/js/array.js"></script>
+		<script src="kitJs/src/js/date.js"></script>
+		<script src="kitJs/src/js/dom.js"></script>
+		<script src="kitJs/src/js/selector.js"></script>
+		<link rel="stylesheet" href="kitJs/css.css" />
+		<!--widget-->
+		<script src="kitJs/src/js/widget/DatePicker/datepicker.js"></script>
+		<link rel="stylesheet" href="kitJs/src/css/widget/DatePicker/datepicker.css" />
+		
+		<link rel="stylesheet" type="text/css" href="ext-3.4.0/resources/css/ext-all.css" />
+		<script type="text/javascript" src="ext-3.4.0/adapter/ext/ext-base.js"></script>
+		<script type="text/javascript" src="ext-3.4.0/ext-all.js"></script>
+		<script type="text/javascript" src="ext-3.4.0/ux/PagingMemoryProxy.js"></script>
+		
+		
+	</head>
+	
+	<script type="text/javascript">
+	
+		Ext.onReady(function() {
+			
+			Ext.QuickTips.init();
+			var picker = new $kit.ui.DatePicker({
+				dateFormat : 'yyyy/mm/dd', //接受和输出的日期格式
+				language : 'cn',//本地化语言
+				show : false, //默认是否显示
+				canMultipleChoose : true, //能否多选
+				date:'2014/10/1',
+				//startDate : todayDt.add(Date.DAY,-7),
+				//endDate :todayDt.add(Date.MONTH,1).getLastDateOfMonth(),
+				dateStringSeparator : ',', //多选时候输出分隔符
+				shiftSelectOutType : 'full', //多选时候输出类型，full为将选中的日期全部输出，short为输出选中日期的开头和结尾
+				shiftSelectOutTypeShortSeparator : '~'//当输出类型为short时，比如选中了3月1日到3月10日，则输出"3月1日~3月10日",简短输出，只有开头+分隔符+结尾
+			});
+			picker.init();
+			$kit.el('#J_datePicker').appendChild(picker.picker);
+			picker.show();
+			picker.ev({
+				ev : 'change',
+				fn : function(e) {
+					//alert(picker.getValue());
+					document.getElementById('J_input').value=picker.getValue();
+				}
+			});
+			
+		});
+		
+		
+		var formSet = new Ext.form.FieldSet({
+			region : 'east',
+			width : 200,
+			height : 250,
+			layout : "form",
+			title : "日期选择",
+			html:'<div id="J_datePicker"><input name="J_input" id="J_input" /></div>'
+		});
+
+		
+		var topPanel = new Ext.Panel({
+			title : '人员管理',
+			frame : true,
+			region : 'north',
+			height : 330,
+			tbar : [ {
+				text : '查询',
+				id : 'searchBtn',
+				tooltip : 'search record',
+			}, '-', {
+				text : '新增',
+				id : 'addBtn',
+				tooltip : 'add a record',
+			}, '-', {
+				text : '删除',
+				id : 'removeBtn',
+				tooltip : 'Remove the selected record',
+				handler : function() {
+
+				}
+			} ],
+			items : [ formSet ]
+		});
+
+		var eastPanel = new Ext.Panel({
+			title : '员工列表',
+			frame : true,
+			region : 'center',
+			html : '<p></p>'
+		});
+
+		//------------布局----------------//
+		var viewreprot = new Ext.Viewport({
+			layout : "border",
+			items : [ topPanel, eastPanel ]
+		});
+		
+	</script>
+	
+	<body>
+	</body>
+</html>

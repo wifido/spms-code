@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task.xsd
+	http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- 把WS_SAP_DELIVERY配置到文件里：config.properties -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- CONF_PATH：环境配置里的系统变量 -->
+				<value>file:${CONF_PATH}/config.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+
+	<bean id="resendWebService"
+		class="com.sf.module.esbinterface.webservice.stub.fileResendServices.ESBServerPortTypeImpl">
+		<property name="schedulePlanUploader" ref="schedulePlanUploader"/>
+	</bean>
+
+	<jaxws:endpoint id="bigFileResendServicePortType" implementor="#resendWebService"
+		address="/BigFileResendData">
+	</jaxws:endpoint>
+
+
+	<bean id="bigFileWebService"
+		class="com.sf.module.esbinterface.webservice.stub.bigfileservice.BigFileServicePortTypeImpl">
+	</bean>
+	<!-- 
+		<jaxws:endpoint id="bigFileReceivePortType" implementor="#bigFileWebService"
+						address="/BigFileReceiveData">
+		</jaxws:endpoint>
+
+		<bean id="HRS_EMP_ONE"
+			  class="com.sf.module.esbinterface.biz.HrsEmpOneDataHandlerBiz"
+			  scope="prototype">
+		</bean>
+
+		<bean id="HRS_HRS_EMP_INIT"
+			  class="com.sf.module.esbinterface.biz.HrsEmpInitDataHandlerBiz"
+			  scope="prototype">
+		</bean>
+		 -->
+	<bean id="schedulePlanHandleBiz" class="com.sf.module.esbinterface.biz.SchedulePlanHandleBiz">
+		<property name="schedulePlanHandlerDao" ref="schedulePlanHandlerDao"/>
+	</bean>
+
+	<bean id="schedulePlanHandlerDao" class="com.sf.module.esbinterface.dao.SchedulePlanHandlerDao"
+		init-method="resetSchedulePlanToNormal"/>
+
+	<bean id="schedulePlanUploader" class="com.sf.module.esbinterface.fileUpload.SchedulePlanUploader">
+		<property name="schedulePlanHandlerBiz" ref="schedulePlanHandleBiz"/>
+		<property name="senderServiceProxy" ref="packageSenderServiceProxy"/>
+	</bean>
+
+	<bean id="packageSenderServiceProxy" class="com.sf.module.esbinterface.webservice.sap.PackageSenderServiceProxy">
+		<property name="serviceUrl" value="${WS_SAP_DELIVERY}"/>
+	</bean>
+
+
+	
+	<!--spring扫描注解的配置  -->
+	<context:component-scan base-package="com.sf.module.esbinterface" />
+
+
+	<bean class="com.sf.module.esbinterface.fileutil.ScheduleFileUtil"/>
+    
+	<!-- SAP2SPMS数据处理DAO -->
+	<bean id="sap2SpmsDataJdbcDao" class="com.sf.module.esbinterface.dao.Sap2SpmsDataJdbcDao" />
+	<!-- SAP2SPMS数据处理BIZ -->
+	<bean id="sap2SpmsDataBiz" class="com.sf.module.esbinterface.biz.Sap2SpmsDataBiz" scope="prototype">
+		<property name="sap2SpmsDataJdbcDao" ref="sap2SpmsDataJdbcDao"/>
+	</bean>
+
+	<!-- 配置文件读取的工具类,单例，dometa.xml文件路径可配置 -->
+	<bean id="ConfigUtils" class="com.sf.module.esb.util.ConfigUtils" scope="singleton">
+		<property name="dometaFilePath" value="${CONF_PATH}/classes/dometa.xml"></property>
+	</bean>
+
+	<!-- 配置文件读取的工具类,单例，sysconf.xml文件路径可配置 -->
+	<bean class="com.sf.module.esb.util.ToolsUtils" init-method="getPropertiesConfigFile" >
+		<property name="resourceFile" value="${CONF_PATH}/classes/sysconf.properties"> </property>
+	</bean>
+	
+	<!-- SAP通用包配置 -->
+	<bean id="jdbcDAO" class="com.sf.module.esb.dao.JdbcDAO">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="hcmDefaultBizImpl" class="com.sf.module.esb.biz.HCMDefaultBizImpl">
+		<property name="baseDao" ref="jdbcDAO"></property>
+		<property name="conf" ref="ConfigUtils"></property>
+	</bean>
+	<bean id="edsService" class="com.sf.module.esbinterface.webservice.server.errorinfo.BigFileServicePortTypeImpl">
+		<property name="dataTypeBiz" ref="hcmDefaultBizImpl"></property>
+		<property name="sap2SpmsDataBiz" ref="sap2SpmsDataBiz"></property>
+	</bean>
+	<jaxws:endpoint id="toEsbService" address="/BigFileService2Sap" implementorClass="com.sf.module.esbinterface.webservice.server.errorinfo.BigFileServicePortTypeImpl">
+		<jaxws:implementor ref="edsService"></jaxws:implementor>
+	</jaxws:endpoint>
+	
+</beans>

@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.sf.module.vmsarrange.domain">
+	 
+	<!-- 实际排班表-->
+	<class name="PreSchedule" table="TT_ARR_SCHEDULE">
+		<id name="id" type="java.lang.Long">
+			<column name="SCHEDULE_ID" precision="19" not-null="true" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<many-to-one name="department"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="driver"
+			class="com.sf.module.vmsarrange.domain.ArrDriver" fetch="select" lazy="false">
+			<column name="DRIVER_ID" scale="0" />
+		</many-to-one>
+		<property name="classType" type="java.lang.Integer">
+			<column name="CLASS_TYPE" precision="1" />
+		</property>
+		<property name="yearMonth" type="java.lang.String">
+			<column name="YEAR_MONTH"  />
+		</property>
+		<property name="planDay" type="java.lang.Integer">
+			<column name="PLAN_DAY" precision="5" />
+		</property>
+		<property name="realDay" type="java.lang.Integer">
+			<column name="REAL_DAY" precision="5" />
+		</property>
+		<property name="rate" type="java.lang.String">
+			<column name="RATE" />
+		</property>
+		<property name="draftFlag" type="java.lang.Integer">
+			<column name="DRAFT_FLAG" precision="1" />
+		</property>
+		<property name="attendanceTm" type="java.lang.String">
+			<column name="ATTENDANCE_TM" length="10" />
+		</property>
+		<property name="drivingTm" type="java.lang.String">
+			<column name="DRIVING_TM" length="10" />
+		</property>
+		<property name="one" type="java.lang.String">
+			<column name="ONE" length="10" />
+		</property>
+		<property name="two" type="java.lang.String">
+			<column name="TWO" length="10" />
+		</property>
+		<property name="three" type="java.lang.String">
+			<column name="THREE" length="10" />
+		</property>
+		<property name="four" type="java.lang.String">
+			<column name="FOUR" length="10" />
+		</property>
+		<property name="five" type="java.lang.String">
+			<column name="FIVE" length="10" />
+		</property>
+		<property name="six" type="java.lang.String">
+			<column name="SIX" length="10" />
+		</property>
+		<property name="seven" type="java.lang.String">
+			<column name="SEVEN" length="10" />
+		</property>
+		<property name="eight" type="java.lang.String">
+			<column name="EIGHT" length="10" />
+		</property>
+		<property name="nine" type="java.lang.String">
+			<column name="NINE" length="10" />
+		</property>
+		<property name="ten" type="java.lang.String">
+			<column name="TEN" length="10" />
+		</property>
+		<property name="eleven" type="java.lang.String">
+			<column name="ELEVEN" length="10" />
+		</property>
+		<property name="twelve" type="java.lang.String">
+			<column name="TWELVE" length="10" />
+		</property>
+		<property name="thirteen" type="java.lang.String">
+			<column name="THIRTEEN" length="10" />
+		</property>
+		<property name="fourteen" type="java.lang.String">
+			<column name="FOURTEEN" length="10" />
+		</property>
+		<property name="fifteen" type="java.lang.String">
+			<column name="FIFTEEN" length="10" />
+		</property>
+		<property name="sixteen" type="java.lang.String">
+			<column name="SIXTEEN" length="10" />
+		</property>
+		<property name="seventeen" type="java.lang.String">
+			<column name="SEVENTEEN" length="10" />
+		</property>
+		<property name="eighteen" type="java.lang.String">
+			<column name="EIGHTEEN" length="10" />
+		</property>
+		<property name="nineteen" type="java.lang.String">
+			<column name="NINETEEN" length="10" />
+		</property>
+		<property name="twenty" type="java.lang.String">
+			<column name="TWENTY" length="10" />
+		</property>
+		<property name="twentyOne" type="java.lang.String">
+			<column name="TWENTY_ONE" length="10" />
+		</property>
+		<property name="twentyTwo" type="java.lang.String">
+			<column name="TWENTY_TWO" length="10" />
+		</property>
+		<property name="twentyThree" type="java.lang.String">
+			<column name="TWENTY_THREE" length="10" />
+		</property>
+		<property name="twentyFour" type="java.lang.String">
+			<column name="TWENTY_FOUR" length="10" />
+		</property>
+		<property name="twentyFive" type="java.lang.String">
+			<column name="TWENTY_FIVE" length="10" />
+		</property>
+		<property name="twentySix" type="java.lang.String">
+			<column name="TWENTY_SIX" length="10" />
+		</property>
+		<property name="twentySeven" type="java.lang.String">
+			<column name="TWENTY_SEVEN" length="10" />
+		</property>
+		<property name="twentyEight" type="java.lang.String">
+			<column name="TWENTY_EIGHT" length="10" />
+		</property>
+		<property name="twentyNine" type="java.lang.String">
+			<column name="TWENTY_NINE" length="10" />
+		</property>
+		<property name="thirty" type="java.lang.String">
+			<column name="THIRTY" length="10" />
+		</property>
+		<property name="thirtyOne" type="java.lang.String">
+			<column name="THIRTY_ONE" length="10" />
+		</property>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE" length="25"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<set name="transferClassesRLs" cascade="all-delete-orphan" lazy="false">
+			<key column="SCHEDULE_ID"></key>
+			<one-to-many class="com.sf.module.vmsarrange.domain.TransferClassesRL" />
+		</set>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="25"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+	</class>
+	
+	<!-- 实际排班调班过程表-->
+	<class name="TransferClassesRL" table="TT_ARR_TRANSFER_CLASS">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="19" not-null="true" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<property name="dayDt" type="java.util.Date">
+			<column name="DAY_DT" precision="1" />
+		</property>
+		<property name="scheduleId" type="java.lang.Long">
+			<column name="SCHEDULE_ID" length="19" />
+		</property>
+		<many-to-one name="arrangeRl"
+			class="com.sf.module.vmsarrange.domain.ScheduleArrange" fetch="select" lazy="false">
+			<column name="ARRANGE_ID" scale="0" />
+		</many-to-one>
+		<property name="arrangeNo" type="java.lang.String">
+			<column name="ARRANGE_NO"  />
+		</property>
+		<property name="isTransfer" type="java.lang.Integer">
+			<column name="IS_TRANSFER"  />
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="REMARK"  />
+		</property>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE" length="25"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="25"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+	 </class>
+	 
+	 <!-- 预排班表-->
+	<class name="PreScheduleDraft" table="TT_ARR_SCHEDULE_DRAFT">
+		<id name="id" type="java.lang.Long">
+			<column name="SCHEDULE_DF_ID" precision="19" not-null="true" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<many-to-one name="department"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="driver"
+			class="com.sf.module.vmsarrange.domain.ArrDriver" fetch="select" lazy="false">
+			<column name="DRIVER_ID" scale="0" />
+		</many-to-one>
+		<property name="classType" type="java.lang.Integer">
+			<column name="CLASS_TYPE" precision="1" />
+		</property>
+		<property name="yearMonth" type="java.lang.String">
+			<column name="YEAR_MONTH"  />
+		</property>
+		<property name="planDay" type="java.lang.Integer">
+			<column name="PLAN_DAY" precision="5" />
+		</property>
+		<property name="realDay" type="java.lang.Integer">
+			<column name="REAL_DAY" precision="5" />
+		</property>
+		<property name="rate" type="java.lang.String">
+			<column name="RATE" />
+		</property>
+		<property name="draftFlag" type="java.lang.Integer">
+			<column name="DRAFT_FLAG" precision="1" />
+		</property>
+		<property name="one" type="java.lang.String">
+			<column name="ONE" length="10" />
+		</property>
+		<property name="two" type="java.lang.String">
+			<column name="TWO" length="10" />
+		</property>
+		<property name="three" type="java.lang.String">
+			<column name="THREE" length="10" />
+		</property>
+		<property name="four" type="java.lang.String">
+			<column name="FOUR" length="10" />
+		</property>
+		<property name="five" type="java.lang.String">
+			<column name="FIVE" length="10" />
+		</property>
+		<property name="six" type="java.lang.String">
+			<column name="SIX" length="10" />
+		</property>
+		<property name="seven" type="java.lang.String">
+			<column name="SEVEN" length="10" />
+		</property>
+		<property name="eight" type="java.lang.String">
+			<column name="EIGHT" length="10" />
+		</property>
+		<property name="nine" type="java.lang.String">
+			<column name="NINE" length="10" />
+		</property>
+		<property name="ten" type="java.lang.String">
+			<column name="TEN" length="10" />
+		</property>
+		<property name="eleven" type="java.lang.String">
+			<column name="ELEVEN" length="10" />
+		</property>
+		<property name="twelve" type="java.lang.String">
+			<column name="TWELVE" length="10" />
+		</property>
+		<property name="thirteen" type="java.lang.String">
+			<column name="THIRTEEN" length="10" />
+		</property>
+		<property name="fourteen" type="java.lang.String">
+			<column name="FOURTEEN" length="10" />
+		</property>
+		<property name="fifteen" type="java.lang.String">
+			<column name="FIFTEEN" length="10" />
+		</property>
+		<property name="sixteen" type="java.lang.String">
+			<column name="SIXTEEN" length="10" />
+		</property>
+		<property name="seventeen" type="java.lang.String">
+			<column name="SEVENTEEN" length="10" />
+		</property>
+		<property name="eighteen" type="java.lang.String">
+			<column name="EIGHTEEN" length="10" />
+		</property>
+		<property name="nineteen" type="java.lang.String">
+			<column name="NINETEEN" length="10" />
+		</property>
+		<property name="twenty" type="java.lang.String">
+			<column name="TWENTY" length="10" />
+		</property>
+		<property name="twentyOne" type="java.lang.String">
+			<column name="TWENTY_ONE" length="10" />
+		</property>
+		<property name="twentyTwo" type="java.lang.String">
+			<column name="TWENTY_TWO" length="10" />
+		</property>
+		<property name="twentyThree" type="java.lang.String">
+			<column name="TWENTY_THREE" length="10" />
+		</property>
+		<property name="twentyFour" type="java.lang.String">
+			<column name="TWENTY_FOUR" length="10" />
+		</property>
+		<property name="twentyFive" type="java.lang.String">
+			<column name="TWENTY_FIVE" length="10" />
+		</property>
+		<property name="twentySix" type="java.lang.String">
+			<column name="TWENTY_SIX" length="10" />
+		</property>
+		<property name="twentySeven" type="java.lang.String">
+			<column name="TWENTY_SEVEN" length="10" />
+		</property>
+		<property name="twentyEight" type="java.lang.String">
+			<column name="TWENTY_EIGHT" length="10" />
+		</property>
+		<property name="twentyNine" type="java.lang.String">
+			<column name="TWENTY_NINE" length="10" />
+		</property>
+		<property name="thirty" type="java.lang.String">
+			<column name="THIRTY" length="10" />
+		</property>
+		<property name="thirtyOne" type="java.lang.String">
+			<column name="THIRTY_ONE" length="10" />
+		</property>
+		<set name="transferClassesDFs" cascade="all-delete-orphan" lazy="false">
+			<key column="SCHEDULE_DF_ID"></key>
+			<one-to-many class="com.sf.module.vmsarrange.domain.TransferClassesDF" />
+		</set>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE" length="25"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="25"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+	</class>
+	
+	<!-- 预排班调班过程表-->
+	<class name="TransferClassesDF" table="TT_ARR_TRANSFER_CLASS_DRAFT">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="19" not-null="true" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<property name="dayDt" type="java.util.Date">
+			<column name="DAY_DT" precision="1" />
+		</property>
+		<property name="scheduleDfId" type="java.lang.Long">
+			<column name="SCHEDULE_DF_ID" length="19" />
+		</property>
+		<many-to-one name="arrangeDf"
+			class="com.sf.module.vmsarrange.domain.ScheduleArrange"  fetch="select" lazy="false">
+			<column name="ARRANGE_ID" scale="0" />
+		</many-to-one>
+		<property name="arrangeNo" type="java.lang.String">
+			<column name="ARRANGE_NO"  />
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="REMARK"  />
+		</property>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE" length="25"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="25"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+	 </class>
+	 <!-- 驾驶员 -->
+	 <class name="ArrDriver" table="VM_ARR_DRIVER">
+	 	<id name="id" type="java.lang.Long">
+			<column name="DRIVER_ID" precision="19" not-null="true" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<many-to-one name="department"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<property name="empCode" type="java.lang.String">
+			<column name="EMP_CODE" length="20"/>
+		</property>
+		<property name="driverName" type="java.lang.String">
+			<column name="DRIVER_NAME" length="500"/>
+		</property>
+		<property name="quasiDrivingType" type="java.lang.String">
+			<column name="QUASI_DRIVING_TYPE" length="100"/>
+		</property>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE" length="25"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" length="25"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+		<property name="managerFlg" type="java.lang.Integer">
+			<column name="MANAGER_FLG"/>
+		</property>
+		<property name="valid" type="java.lang.Integer">
+			<column name="VALID"/>
+		</property>
+	 </class>
+	 <!--部门-->
+	<class name="ArrDepartment" table="TM_DEPARTMENT">
+		<id name="id" type="java.lang.Long">
+			<column name="DEPT_ID" precision="19"/>
+		</id>
+		<property name="deptCode" type="java.lang.String">
+			<column name="DEPT_CODE" length="30" />
+		</property>
+		<property name="deptName" type="java.lang.String">
+			<column name="DEPT_NAME" length="100"/>
+		</property>
+		<property name="typeLevel" type="java.lang.Long">
+			<column name="TYPE_LEVEL"/>
+		</property>
+		<property name="parentDeptCode" type="java.lang.String">
+			<column name="PARENT_DEPT_CODE" length="30" />
+		</property>
+		<property name="areaCode" type="java.lang.String">
+			<column name="AREA_CODE" length="30" />
+		</property>
+		<property name="deleteFlg" type="java.lang.Integer">
+			<column name="DELETE_FLG"/>
+		</property>
+		<property name="typeCode" type="java.lang.String">
+			<column name="TYPE_CODE"/>
+		</property>
+	</class>
+	<!--车辆表视图-->
+	<class name="ArrVehicle" table="VM_ARR_VEHICLE">
+		<id name="id" type="java.lang.Long">
+			<column name="VEHICLE_ID" precision="19"/>
+		</id>
+		<many-to-one name="department"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="vehicleDrivingType"
+			class="com.sf.module.vmsarrange.domain.VehicleCertificates" fetch="select" lazy="false">
+			<column name="VEHICLE_DRIVING_TYPE" scale="0" />
+		</many-to-one>
+		<property name="brandModel" type="java.lang.String">
+			<column name="BRAND_MODEL"/>
+		</property>
+		<property name="wheelbase" type="java.lang.Long">
+			<column name="WHEELBASE"/>
+		</property>
+		<property name="vehicleCode" type="java.lang.String">
+			<column name="VEHICLE_CODE"/>
+		</property>
+		<property name="vehicleState" type="java.lang.Integer">
+			<column name="VEHICLE_STATE"/>
+		</property>
+		<property name="usage" type="java.lang.Integer">
+			<column name="USAGE"/>
+		</property>
+	</class>
+	<!--班次信息表-->
+	<class name="ScheduleInfo" table="TM_ARR_SCHEDULE_INFO">
+		<id name="id" type="java.lang.Long">
+			<column name="INFO_ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<version name="version" column="ARR_VERSION" type="java.lang.Integer"></version>
+		<many-to-one name="dept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<property name="dataSource" type="java.lang.Integer">
+			<column name="DATA_SOURCE"/>
+		</property>
+		<property name="lineOptimizeNo" type="java.lang.String">
+			<column name="LINE_OPTIMIZE_NO"/>
+		</property>
+		<property name="valid" type="java.lang.Integer">
+			<column name="VALID"/>
+		</property>
+		<property name="isUsed" type="java.lang.Integer" insert="false">
+			<column name="IS_USED"/>
+		</property>
+		<property name="modelBase" type="java.lang.String">
+			<column name="MODEL_BASE"/>
+		</property>
+		<property name="startTm" type="java.lang.String">
+			<column name="START_TM"/>
+		</property>
+		<property name="endTm" type="java.lang.String">
+			<column name="END_TM"/>
+		</property>
+		<many-to-one name="startDept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="START_DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="endDept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="END_DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="vehicle"
+			class="com.sf.module.vmsarrange.domain.ArrVehicle" fetch="select" lazy="false">
+			<column name="VEHICLE_ID" scale="0" />
+		</many-to-one>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+	</class>
+	<!--配班与班次信息关系表-->
+	<class name="ScheduleInfoArrange" table="TM_ARR_SCHEDULE_INFO_ARRANGE">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<property name="arrangeId" type="java.lang.Long">
+			<column name="ARRANGE_ID" precision="19" scale="0" />
+		</property>
+		<!-- FK_ARR_INFO_ID:外键锁定班次 -->
+		<many-to-one name="scheduleInfo"
+			class="com.sf.module.vmsarrange.domain.ScheduleInfo" fetch="join" lazy="false">
+			<column name="INFO_ID" scale="0" />
+		</many-to-one>
+		<!-- UK_ARR_INFO_ID：唯一索引限定班次只能被用一次 -->
+		<property name="infoIdBak" type="java.lang.Long">
+			<column name="INFO_ID_BAk" precision="19" scale="0" />
+		</property>
+	</class>
+	<!--配班管理表-->
+	<class name="ScheduleArrange" table="TM_ARR_SCHEDULE_ARRANGE">
+		<id name="id" type="java.lang.Long">
+			<column name="ARRANGE_ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<version name="version" column="ARR_VERSION" type="java.lang.Integer"></version>
+		<many-to-one name="dept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="startDept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="START_DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="endDept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="END_DEPT_ID" scale="0" />
+		</many-to-one>
+		<!-- UK_ARR_ARRANGE_NO:班次代码唯一 -->
+		<property name="arrangeNo" type="java.lang.String">
+			<column name="ARRANGE_NO"/>
+		</property>
+		<property name="valid" type="java.lang.Integer">
+			<column name="VALID"/>
+		</property>
+		<set name="scheduleArrangeInfos" cascade="all-delete-orphan" lazy="false">
+			<key column="ARRANGE_ID"></key>
+			<one-to-many class="com.sf.module.vmsarrange.domain.ScheduleInfoArrange" />
+		</set>
+		<property name="startTm" type="java.lang.String">
+			<column name="START_TM"/>
+		</property>
+		<property name="endTm" type="java.lang.String">
+			<column name="END_TM"/>
+		</property>
+		<property name="arrangeType" type="java.lang.Integer">
+			<column name="ARRANGE_TYPE"/>
+		</property>
+		<property name="isUsed" type="java.lang.Integer" insert="false">
+			<column name="IS_USED"/>
+		</property>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE"/>
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM"/>
+		</property>
+	</class>
+	<!--班次代码生成表-->
+	<class name="ScheduleArrangeNo" table="TM_ARR_SCHEDULE_ARRANGE_NO">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" precision="19"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<property name="deptCode" type="java.lang.String">
+			<column name="DEPT_CODE"/>
+		</property>
+		<property name="no" type="java.lang.Long">
+			<column name="NO"/>
+		</property>
+		<property name="type" type="java.lang.Integer">
+			<column name="TYPE"/>
+		</property>
+	</class>
+	<!-- 线路优化分析数据 -->
+	<class name="SchOptRouteRpt" table="TR_ARR_SCH_OPT_ROUTE_RPT">
+		<id name="id" type="java.lang.Long">
+			<column name="ID" />
+		</id>
+		<property name="lineOptimizeNo" type="java.lang.String">
+			<column name="LINE_OPTIMIZE_NO"/>
+		</property>
+		<many-to-one name="dept"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="AREA_ID" scale="0" />
+		</many-to-one>
+		<property name="optDate" type="java.lang.String">
+			<column name="OPT_MONTH"/>
+		</property>
+		<property name="modelBase" type="java.lang.String">
+			<column name="MODEL_BASE"/>
+		</property>
+		<property name="optimizeRoute" type="java.lang.String">
+			<column name="OPT_LINE"/>
+		</property>
+		<property name="matchDays" type="java.lang.Integer">
+			<column name="MATCH_DAYS"/>
+		</property>
+		<property name="one" type="java.lang.String">
+			<column name="DAY01"/>
+		</property>
+		<property name="two" type="java.lang.String">
+			<column name="DAY02"/>
+		</property>
+		<property name="three" type="java.lang.String">
+			<column name="DAY03"/>
+		</property>
+		<property name="four" type="java.lang.String">
+			<column name="DAY04"/>
+		</property>
+		<property name="five" type="java.lang.String">
+			<column name="DAY05"/>
+		</property>
+		<property name="six" type="java.lang.String">
+			<column name="DAY06"/>
+		</property>
+		<property name="seven" type="java.lang.String">
+			<column name="DAY07"/>
+		</property>
+		<property name="eight" type="java.lang.String">
+			<column name="DAY08"/>
+		</property>
+		<property name="nine" type="java.lang.String">
+			<column name="DAY09"/>
+		</property>
+		<property name="ten" type="java.lang.String">
+			<column name="DAY10"/>
+		</property>
+		<property name="eleven" type="java.lang.String">
+			<column name="DAY11"/>
+		</property>
+		<property name="twelve" type="java.lang.String">
+			<column name="DAY12"/>
+		</property>
+		<property name="thirteen" type="java.lang.String">
+			<column name="DAY13"/>
+		</property>
+		<property name="fourteen" type="java.lang.String">
+			<column name="DAY14"/>
+		</property>
+		<property name="fifteen" type="java.lang.String">
+			<column name="DAY15"/>
+		</property>
+		<property name="sixteen" type="java.lang.String">
+			<column name="DAY16"/>
+		</property>
+		<property name="seventeen" type="java.lang.String">
+			<column name="DAY17"/>
+		</property>
+		<property name="eighteen" type="java.lang.String">
+			<column name="DAY18"/>
+		</property>
+		<property name="nineteen" type="java.lang.String">
+			<column name="DAY19"/>
+		</property>
+		<property name="twenty" type="java.lang.String">
+			<column name="DAY20"/>
+		</property>
+		<property name="twentyOne" type="java.lang.String">
+			<column name="DAY21"/>
+		</property>
+		<property name="twentyTwo" type="java.lang.String">
+			<column name="DAY22"/>
+		</property>
+		<property name="twentyThree" type="java.lang.String">
+			<column name="DAY23"/>
+		</property>
+		<property name="twentyFour" type="java.lang.String">
+			<column name="DAY24"/>
+		</property>
+		<property name="twentyFive" type="java.lang.String">
+			<column name="DAY25"/>
+		</property>
+		<property name="twentySix" type="java.lang.String">
+			<column name="DAY26"/>
+		</property>
+		<property name="twentySeven" type="java.lang.String">
+			<column name="DAY27"/>
+		</property>
+		<property name="twentyEight" type="java.lang.String">
+			<column name="DAY28"/>
+		</property>
+		<property name="twentyNine" type="java.lang.String">
+			<column name="DAY29"/>
+		</property>
+		<property name="thirty" type="java.lang.String">
+			<column name="DAY30"/>
+		</property>
+		<property name="thirtyOne" type="java.lang.String">
+			<column name="DAY31"/>
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+	</class>
+	
+	<!--车辆类型与持证要求维护 -->
+	<class name="VehicleCertificates" table="VM_ARR_VEHICLE_CERTIFICATES">
+		<id name="id" type="java.lang.Long">
+			<column name="VEHICLE_CERTS_ID" precision="19" scale="0" />
+		</id>
+		<property name="vehicleType" type="java.lang.String">
+			<column name="VEHICLE_TYPE" length="50" />
+		</property>
+		<property name="holderCertsNeed" type="java.lang.String">
+			<column name="HOLDER_CERTS_NEED" length="50" />
+		</property>
+		<property name="isValid" type="java.lang.Integer">
+			<column name="ISVALID" precision="1" />
+		</property>
+		<property name="createdEmpCode" type="java.lang.String">
+			<column name="CREATED_EMP_CODE" />
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM" />
+		</property>
+		<property name="modifiedEmpCode" type="java.lang.String">
+			<column name="MODIFIED_EMP_CODE" />
+		</property>
+		<property name="modifiedTm" type="java.util.Date">
+			<column name="MODIFIED_TM" />
+		</property>
+	</class>
+	<!-- 实际排班月度报表 -->
+	<class name="ScheduleMonthRpt" table="TR_ARR_SCH_MONTH_REPORT">
+		<id name="id" type="java.lang.Long">
+			<column name="RPT_ID" precision="19" not-null="true" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_ARR_BASE</param>
+			</generator>
+		</id>
+		<many-to-one name="department"
+			class="com.sf.module.vmsarrange.domain.ArrDepartment" fetch="select" lazy="false">
+			<column name="DEPT_ID" scale="0" />
+		</many-to-one>
+		<many-to-one name="driver"
+			class="com.sf.module.vmsarrange.domain.ArrDriver" fetch="select" lazy="false">
+			<column name="DRIVER_ID" scale="0" />
+		</many-to-one>
+		<property name="avgWorkingTm" type="java.lang.Integer">
+			<column name="AVG_WORKING_TM" />
+		</property>
+		<property name="avgDrivingTm" type="java.lang.Integer">
+			<column name="AVG_DRIVING_TM" />
+		</property>
+		<property name="classType" type="java.lang.String">
+			<column name="CLASS_TYPE" />
+		</property>
+		<property name="yearMonth" type="java.lang.String">
+			<column name="MONTH"  />
+		</property>
+		<property name="planDay" type="java.lang.Integer">
+			<column name="PLAN_DAY" precision="5" />
+		</property>
+		<property name="realDay" type="java.lang.Integer">
+			<column name="REAL_REST_TM" precision="5" />
+		</property>
+		<property name="rate" type="java.lang.String">
+			<column name="REAL_RATE" />
+		</property>
+		<property name="one" type="java.lang.String">
+			<column name="ONE" length="10" />
+		</property>
+		<property name="two" type="java.lang.String">
+			<column name="TWO" length="10" />
+		</property>
+		<property name="three" type="java.lang.String">
+			<column name="THREE" length="10" />
+		</property>
+		<property name="four" type="java.lang.String">
+			<column name="FOUR" length="10" />
+		</property>
+		<property name="five" type="java.lang.String">
+			<column name="FIVE" length="10" />
+		</property>
+		<property name="six" type="java.lang.String">
+			<column name="SIX" length="10" />
+		</property>
+		<property name="seven" type="java.lang.String">
+			<column name="SEVEN" length="10" />
+		</property>
+		<property name="eight" type="java.lang.String">
+			<column name="EIGHT" length="10" />
+		</property>
+		<property name="nine" type="java.lang.String">
+			<column name="NINE" length="10" />
+		</property>
+		<property name="ten" type="java.lang.String">
+			<column name="TEN" length="10" />
+		</property>
+		<property name="eleven" type="java.lang.String">
+			<column name="ELEVEN" length="10" />
+		</property>
+		<property name="twelve" type="java.lang.String">
+			<column name="TWELVE" length="10" />
+		</property>
+		<property name="thirteen" type="java.lang.String">
+			<column name="THIRTEEN" length="10" />
+		</property>
+		<property name="fourteen" type="java.lang.String">
+			<column name="FOURTEEN" length="10" />
+		</property>
+		<property name="fifteen" type="java.lang.String">
+			<column name="FIFTEEN" length="10" />
+		</property>
+		<property name="sixteen" type="java.lang.String">
+			<column name="SIXTEEN" length="10" />
+		</property>
+		<property name="seventeen" type="java.lang.String">
+			<column name="SEVENTEEN" length="10" />
+		</property>
+		<property name="eighteen" type="java.lang.String">
+			<column name="EIGHTEEN" length="10" />
+		</property>
+		<property name="nineteen" type="java.lang.String">
+			<column name="NINETEEN" length="10" />
+		</property>
+		<property name="twenty" type="java.lang.String">
+			<column name="TWENTY" length="10" />
+		</property>
+		<property name="twentyOne" type="java.lang.String">
+			<column name="TWENTY_ONE" length="10" />
+		</property>
+		<property name="twentyTwo" type="java.lang.String">
+			<column name="TWENTY_TWO" length="10" />
+		</property>
+		<property name="twentyThree" type="java.lang.String">
+			<column name="TWENTY_THREE" length="10" />
+		</property>
+		<property name="twentyFour" type="java.lang.String">
+			<column name="TWENTY_FOUR" length="10" />
+		</property>
+		<property name="twentyFive" type="java.lang.String">
+			<column name="TWENTY_FIVE" length="10" />
+		</property>
+		<property name="twentySix" type="java.lang.String">
+			<column name="TWENTY_SIX" length="10" />
+		</property>
+		<property name="twentySeven" type="java.lang.String">
+			<column name="TWENTY_SEVEN" length="10" />
+		</property>
+		<property name="twentyEight" type="java.lang.String">
+			<column name="TWENTY_EIGHT" length="10" />
+		</property>
+		<property name="twentyNine" type="java.lang.String">
+			<column name="TWENTY_NINE" length="10" />
+		</property>
+		<property name="thirty" type="java.lang.String">
+			<column name="THIRTY" length="10" />
+		</property>
+		<property name="thirtyOne" type="java.lang.String">
+			<column name="THIRTY_ONE" length="10" />
+		</property>
+		<property name="createdTm" type="java.util.Date">
+			<column name="CREATED_TM"/>
+		</property>
+	</class>
+</hibernate-mapping>

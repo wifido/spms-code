@@ -1,0 +1,1 @@
+drop sequence SEQ_MAINTENANCE_MAIL;

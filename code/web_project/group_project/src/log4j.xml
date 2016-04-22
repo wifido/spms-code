@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">   
+  
+<log4j:configuration>   
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">  
+        <layout class="org.apache.log4j.PatternLayout">   
+            <param name="conversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c.%M(%F:%L) - %m%n" />
+        </layout>   
+    </appender>    
+
+    <appender name="DailyFile" class="org.apache.log4j.DailyRollingFileAppender">   
+        <param name="file" value="${catalina.home}/logs/logs.log" />   
+        <param name="datePattern" value="'.'yyyyMMdd" />   
+        <layout class="org.apache.log4j.PatternLayout">   
+            <param name="conversionPattern" value="%d %-5p [%t] [%c] %l %m%n" />   
+        </layout>   
+    </appender>
+    
+    <appender name="RollingFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="20MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="file" value="${catalina.home}/logs/logs.log" />  
+        <layout class="org.apache.log4j.PatternLayout">   
+            <param name="conversionPattern" value="%d %-5p [%t] [%c] %l %m%n" />   
+        </layout>   
+    </appender>
+    
+    <appender name="PushDriverLog"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="file" value="${catalina.home}/logs/pushDriverLog.log" />   
+        <param name="Append" value="true" />  
+        <param name="MaxFileSize" value="10MB" />  
+        <param name="MaxBackupIndex" value="5" />  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p (%c:%L)- %m%n" />  
+        </layout>  
+    </appender>  
+    
+    <category name="PushDriverLog" additivity="true">
+	  <priority value="info" />
+	  <appender-ref ref="PushDriverLog" />
+	</category>
+	
+	 <appender name="pushMessageLog"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="file" value="${catalina.home}/logs/pushMessageLog.log" />   
+        <param name="Append" value="true" />  
+        <param name="MaxFileSize" value="10MB" />  
+        <param name="MaxBackupIndex" value="5" />  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p (%c:%L)- %m%n" />  
+        </layout>  
+    </appender>  
+    
+    <category name="pushMessageLog" additivity="true">
+	  <priority value="info" />
+	  <appender-ref ref="pushMessageLog" />
+	</category>
+	
+    
+    <logger name="org">
+    	<level value="INFO" />
+    </logger>
+    <logger name="com.sf.framework">
+    	<level value="INFO" />
+    </logger>
+    <logger name="com.sf.module">
+    	<level value="INFO" />
+    </logger>
+    <logger name="test">
+    	<level value="INFO" />
+    	<!--  appender-ref ref="DailyFile"/ -->
+    </logger>
+    
+    <!-- level: FATAL,ERROR,WARN,INFO,DEBUG,TRACE -->
+    <root>   
+        <level value="INFO" />
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="RollingFile"/>      
+    </root>   
+</log4j:configuration>  

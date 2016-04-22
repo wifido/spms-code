@@ -1,0 +1,1 @@
+delete ts_module t where t.module_id = '107'

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	<bean id="bigFileServicePortTypeImpl"
+		class="com.sf.module.ossinterface.ws.BigFileServicePortTypeImpl"
+		scope="prototype" />
+		
+	<bean id="HRS_EMP_ONE"
+		class="com.sf.module.ossinterface.biz.HrsEmpOneDataHandlerBiz"
+		scope="prototype" >
+		<property name="hrEmpInfoAlterBiz" ref="hrEmpInfoAlterBiz" />
+	</bean>
+	
+	<bean id="HRS_HRS_EMP_INIT"
+		class="com.sf.module.ossinterface.biz.HrsEmpInitDataHandlerBiz"
+		scope="prototype" >
+		<property name="hrEmpInfoBiz" ref="hrEmpInfoBiz" />
+	</bean>
+	
+	<bean id="hrEmpInfoAlterBiz"
+		class="com.sf.module.ossinterface.biz.HrEmpInfoAlterBiz"  >
+		<property name="hrEmpInfoAlterDao" ref="hrEmpInfoAlterDao" />
+	</bean>
+	<bean id="hrEmpInfoBiz"
+		class="com.sf.module.ossinterface.biz.HrEmpInfoBiz"  >
+		<property name="hrEmpInfoDao" ref="hrEmpInfoDao" />
+	</bean>
+		
+	<bean id="bigFileDataHandlerBiz"
+		class="com.sf.module.ossinterface.biz.BigFileDataHandlerBiz"
+		scope="prototype">
+		<property name="esbBigFileResendBiz" ref="esbBigFileResendBiz" />
+		<property name="dataControlJdbcDao" ref="dataControlJdbcDao" />
+	</bean>
+		
+	<bean id="esbBigFileResendBiz"
+		class="com.sf.module.ossinterface.biz.EsbBigFileResendBiz">
+		<property name="esbBigFileResendDao" ref="esbBigFileResendDao" />
+		<property name="dataControlJdbcDao" ref="dataControlJdbcDao"></property>
+	</bean>
+	
+	<bean id="esbBigFileResendDao"
+		class="com.sf.module.ossinterface.dao.EsbBigFileResendDao">
+	</bean>
+	
+	<bean id="hrEmpInfoAlterDao"
+		class="com.sf.module.ossinterface.dao.HrEmpInfoAlterDao">
+	</bean>
+	<bean id="hrEmpInfoDao"
+		class="com.sf.module.ossinterface.dao.HrEmpInfoDao">
+	</bean>
+	
+	<bean id="dataControlJdbcDao" class="com.sf.module.ossinterface.dao.DataControlJdbcDao">
+	</bean>
+	
+
+	<jaxws:endpoint id="bigFileServicePortType" implementor="#bigFileServicePortTypeImpl"
+		address="/BigFileService">
+	</jaxws:endpoint>
+
+
+	<!-- 定时请求ESB数据重发 -->
+	<bean id="bigFileResendDataTask" scope="prototype" class="com.sf.module.ossinterface.ws.BigFileResendDataTask">
+		<property name="esbBigFileResendBiz" ref="esbBigFileResendBiz" />
+	</bean>	
+		 
+	<!--定时器设置 -->
+	<bean id="bigFileResendDataTaskQuartz" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
+		<property name="targetObject"> 
+			<ref bean="bigFileResendDataTask"/> 
+		</property>
+		<property name="targetMethod"> 
+			<value>invokeTarget</value> 
+		</property> 
+	</bean> 
+	<!--触发器的bean的设置，在这里我们设置了我们要触发的jobDetail是哪个。触发的时间:每两个小时 -->
+	<bean id="bigFileResendDataTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail"> 
+			<ref bean="bigFileResendDataTaskQuartz"/> 
+		</property>
+		<property name="cronExpression"> 
+			<!-- 每10分钟 -->
+			<value>0 */1 * * * ?</value> 
+		</property> 
+	</bean> 
+	<!--管理触发器的总设置,管理我们的触发器列表,可以在bean的list中放置多个触发器。 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no" lazy-init="false">
+		<property name="triggers">
+			<list> 
+				<ref local="bigFileResendDataTaskTrigger"/> 
+			</list> 
+		</property> 
+	</bean>
+
+
+
+</beans>

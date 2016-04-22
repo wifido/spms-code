@@ -1,0 +1,43 @@
+-- Create table
+create table TT_REPORT_FOR_TASK
+(
+  ID             NUMBER(38) not null,
+  EMPLOYEE_CODE  VARCHAR2(20),
+  DAY_OF_MONTH   VARCHAR2(210),
+  SYNC_STATUS    VARCHAR2(1) default 0,
+  CONFIGURE_CODE VARCHAR2(20),
+  OPERATION_TYPE VARCHAR2(1),
+  CREATED_TIME   DATE default sysdate,
+  UPDATED_TIME   DATE,
+  DEPT_CODE      VARCHAR2(20),
+  YEAR_MONTH     VARCHAR2(20),
+  SCHEDULE_ID    NUMBER(38),
+  SCHEDULE_TYPE  NUMBER
+);
+
+-- Add comments to the columns 
+comment on column TT_REPORT_FOR_TASK.EMPLOYEE_CODE
+  is '雇员代码';
+comment on column TT_REPORT_FOR_TASK.DAY_OF_MONTH
+  is '排班对应的日期:yyyy-MM-dd格式';
+comment on column TT_REPORT_FOR_TASK.SYNC_STATUS
+  is '任务处理标记0-未处理,1-已处理';
+comment on column TT_REPORT_FOR_TASK.CONFIGURE_CODE
+  is '配班代码';
+comment on column TT_REPORT_FOR_TASK.OPERATION_TYPE
+  is '操作类型:0-新增,1-修改,2-删除';
+comment on column TT_REPORT_FOR_TASK.CREATED_TIME
+  is '创建时间';
+comment on column TT_REPORT_FOR_TASK.UPDATED_TIME
+  is '修改时间';
+comment on column TT_REPORT_FOR_TASK.DEPT_CODE
+  is '对应的网点代码';
+comment on column TT_REPORT_FOR_TASK.YEAR_MONTH
+  is '对应的月份';
+comment on column TT_REPORT_FOR_TASK.SCHEDULE_ID
+  is '排班表对应的ID';
+comment on column TT_REPORT_FOR_TASK.SCHEDULE_TYPE
+  is '0-预排班/1-正式排班';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table TT_REPORT_FOR_TASK
+  add constraint PK_ID11 primary key (ID);

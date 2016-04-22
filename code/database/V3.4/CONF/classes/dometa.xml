@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dometas>
+
+<!-- SAP人员用工类型变更主题 -->
+<pgc name="item" table="">
+	<field name="OBJID" column="EMP_CODE" type="string" id="Y"></field>
+	<field name="P0001" subdometafield="Y" >
+		<pgcitem name="item" table="TI_SPMS_SAP_HCM_OUT_PGC" >
+			<field name="ID" column="ID" type="long" sequences="SEQ_SPMS_INTERFACE"></field>
+			<subfield name="BEGDA" type="string" column="BEGDA" id="Y"></subfield>
+			<subfield name="ENDDA" type="string" column="ENDDA" id="Y"></subfield>
+			<subfield name="PERSG" type="string" column="PERSG" ></subfield>
+			<subfield name="PERSK" type="string" column="PERSK" ></subfield>
+		</pgcitem>
+	</field>
+</pgc>
+
+<!-- SAP排版信息异常数据 -->
+<errorinfo name="item" table="TI_SAP_SYNCHRONOUS_ERROR">
+    <field name="ZHRXH" type="long" column="ID" id="Y"></field>
+    <field name="PERNR" type="string" column="EMP_CODE"></field>
+    <field name="BEGDA" type="string" column="BEGIN_DATE"></field>
+    <field name="ENDDA" type="string" column="END_DATE"></field>
+    <field name="BEGUZ" type="string" column="BEGIN_TM"></field>
+    <field name="ENDUZ" type="string" column="END_TM"></field>
+    <field name="VTKEN" type="string" column="TMR_DAY_FLAG"></field>
+    <field name="TPROG" type="string" column="OFF_DUTY_FLAG"></field>
+    <field name="ZHRPBXT" type="string" column="CLASS_SYSTEM"></field>
+    <field name="ZZZIFNAME" type="string" column="THEME_NAME"></field>
+    <field name="MESSAGE" type="string" column="ERROR_INFO"></field>  
+</errorinfo>
+
+<!-- SAP人员数据 -->
+<emp name="emp" table="TI_SAP_SYNCHRONOUS_EMP" >
+	<field name="EMP_ID" column="EMP_ID" type="long"></field>
+	<field name="EMP_NUM" column="EMP_NUM" type="string" encrypt="Y" id="Y"></field>
+    <field name="LAST_NAME" column="LAST_NAME" type="string" encrypt="Y" ></field>
+    <field name="FIRST_NAME" column="FIRST_NAME" type="string" encrypt="Y"  ></field>
+    <field name="SEX" column="SEX" type="string"  ></field>
+    <field name="CURR_ORG_ID" column="CURR_ORG_ID" type="long"  ></field>
+    <field name="NET_CODE" column="NET_CODE" type="string"  ></field>
+    <field name="CURR_ORG_NAME" column="CURR_ORG_NAME" type="string"  ></field>
+    <field name="ORG_CODE" column="ORG_CODE" type="string"  ></field>
+    <field name="CURR_AREA" column="CURR_AREA" type="string"  ></field>
+    <field name="POSITION_ID" column="POSITION_ID" type="long"  ></field>
+    <field name="POSITION_NAME" column="POSITION_NAME" type="string"  ></field>
+    <field name="JOB_ID" column="JOB_ID" type="long"  ></field>
+    <field name="JOB_NAME" column="JOB_NAME" type="string"  ></field>
+    <field name="POSTAL_CODE" column="POSTAL_CODE" type="string"  ></field>
+    <field name="ADDRESS" column="ADDRESS" type="string"  ></field>
+    <field name="MAIL_ADDRESS" column="MAIL_ADDRESS" type="string"  ></field>
+    <field name="MOBILE_PHONE" column="MOBILE_PHONE" type="string"  ></field>
+    <field name="OFFICE_PHONE" column="OFFICE_PHONE" type="string"  ></field>
+    <field name="JOB_DATE_FROM" column="JOB_DATE_FROM" type="date"  ></field>
+
+	 <!-- 2015-08-31 add  -->
+    <field name="ORG_ASS_DATE" column="ORG_ASS_DATE" type="date"  ></field>
+
+    <field name="SF_DATE" column="SF_DATE" type="date"  ></field>
+    <field name="CANCEL_DATE" column="CANCEL_DATE" type="date"  ></field>
+    <field name="CANCEL_FLAG" column="CANCEL_FLAG" type="string"  ></field>
+    <field name="DATE_FROM" column="DATE_FROM" type="date"  ></field>
+    <field name="LAST_ZNO" column="LAST_ZNO" type="string"  ></field>
+    <field name="LAST_ORG_NAME" column="LAST_ORG_NAME" type="string"  ></field>
+    <field name="PERSON_TYPE" column="PERSON_TYPE" type="string"  ></field>
+    <field name="EMP_CATEGORY" column="EMP_CATEGORY" type="string"  ></field>
+    <field name="OFFICE_ADDR" column="OFFICE_ADDR" type="string"  ></field>
+    <field name="EDU_LEVEL" column="EDU_LEVEL" type="string"  ></field>
+    <field name="EFFECTIVE_DATE" column="EFFECTIVE_DATE" type="date"  ></field>
+    <field name="POSITION_TYPE" column="POSITION_TYPE" type="string"  ></field>
+    <field name="POSITION_GROUP" column="POSITION_GROUP" type="string"  ></field>
+    <field name="POSITION_ATTR" column="POSITION_ATTR" type="string"  ></field>
+    <field name="SPECIALITY" column="SPECIALITY" type="string"  ></field>
+    <field name="SUPERVISOR_NUMBER" column="SUPERVISOR_NUMBER" type="string"  ></field>
+    <field name="SUPERVISOR_NAME" column="SUPERVISOR_NAME" type="string"  ></field>
+    <field name="EMP_CATE_CODE" column="EMP_CATE_CODE" type="string"  ></field>
+    <field name="ASS_CATEGORY" column="ASS_CATEGORY" type="string"  ></field>
+    <field name="ASS_REASON" column="ASS_REASON" type="string"  ></field>
+    <field name="LEAVING_REASON" column="LEAVING_REASON" type="string"  ></field>
+    <field name="VACATION_START_DATE" column="VACATION_START_DATE" type="date"  ></field>
+    <field name="DATE_OF_BIRTH" column="DATE_OF_BIRTH" type="date"  ></field>
+    <field name="NATIONAL_IDENTIFIER" column="NATIONAL_IDENTIFIER" type="string"  ></field>
+    <field name="CN_RACE" column="CN_RACE" type="string"  ></field>
+    <field name="HUKOU_LOCAL" column="HUKOU_LOCAL" type="string"  ></field>
+    <field name="BLOOD_TYPE" column="BLOOD_TYPE" type="string"  ></field>
+    <field name="MARITAL_STATUS" column="MARITAL_STATUS" type="string"  ></field>
+    <field name="PROBATION_END_DATE" column="PROBATION_END_DATE" type="date"  ></field>
+    <field name="NATIO" column="NATIO" type="string"  ></field>
+    <field name="BANK" column="BANK" type="string"  ></field>
+    <field name="BANKA" column="BANKA" type="string"  ></field>
+    <field name="BANKN" column="BANKN" type="string"  ></field>
+    <field name="HUKOT" column="HUKOT" type="string"  ></field>
+    <field name="BUKRS" column="BUKRS" type="string"  ></field>
+    <field name="BUKRS_TXT" column="BUKRS_TXT" type="string"  ></field>
+    <field name="WERKS" column="WERKS" type="string"  ></field>
+    <field name="WERKS_TXT" column="WERKS_TXT" type="string"  ></field>
+    <field name="BTRTL" column="BTRTL" type="string"  ></field>
+    <field name="BTRTL_TXT" column="BTRTL_TXT" type="string"  ></field>
+    <field name="PERSG" column="PERSG" type="string"></field>
+    <field name="PERSG_TXT" column="PERSG_TXT" type="string"  ></field>
+    <field name="PERSK" column="PERSK" type="string"></field>
+    <field name="PERSK_TXT" column="PERSK_TXT" type="string"  ></field>
+    <field name="OLD_LAST_NAME" column="OLD_LAST_NAME" type="string"  ></field>
+    <field name="RECRUIT_CHANNEL" column="RECRUIT_CHANNEL" type="string"  ></field>
+    <field name="CHANNEL_NAME" column="CHANNEL_NAME" type="string"  ></field>
+    <field name="ZHRZGZT" column="ZHRZGZT" type="string"  ></field>
+    <field name="ZHRZGZT_TXT" column="ZHRZGZT_TXT" type="string"  ></field>
+    <field name="STATURE" column="STATURE" type="string"  ></field>
+    <field name="WEIGHT" column="WEIGHT" type="string"  ></field>
+    <field name="ZHRSSQY" column="ZHRSSQY" type="string"  ></field>
+    <field name="ZHRSSQY_TXT" column="ZHRSSQY_TXT" type="string"  ></field>
+    <field name="PCN_PCODE" column="PCN_PCODE" type="string"   ></field>
+    <field name="PCN_PCODE_TXT" column="PCN_PCODE_TXT" type="string"   ></field>
+    <field name="FKBER" column="FKBER" type="string"   ></field>
+    <field name="FKBER_TXT" column="FKBER_TXT" type="string"   ></field>
+    <field name="ABKRS" column="ABKRS" type="string" ></field>
+    <field name="ABKRS_TXT" column="ABKRS_TXT" type="string" ></field>
+    <field name="KOSTL" column="KOSTL" type="string"   ></field>
+    <field name="KOSTL_TXT" column="KOSTL_TXT" type="string"   ></field>
+    <field name="STELL" column="STELL" type="string" ></field>
+    <field name="STELL_TXT" column="STELL_TXT" type="string" ></field>
+    <field name="SYNC" column="SYNC" type="string" default="N"></field>
+    <field name="IS_ODO_CJ" column="IS_ODO_CJ" type="string" ></field>
+    <field name="IS_ODO_MJ" column="IS_ODO_MJ" type="string" ></field>
+</emp>
+
+<!-- SAP岗位数据 -->
+<pos name="pos" table="TI_SAP_SYNCHRONOUS_POS" >
+    <field name="POSITION_ID" type="long" column="POSITION_ID" id="Y" encrypt="N" validate="Y" sequences=""></field>
+    <field name="POSITION_NAME" type="string" column="POSITION_NAME"></field>
+    <field name="ORG_ID" type="long" column="ORG_ID"></field>
+    <field name="DATE_FROM" type="date" column="DATE_FROM"></field>
+    <field name="DATE_TO" type="date" column="DATE_TO"></field>
+    <field name="JOB_ID" type="long" column="JOB_ID"></field>
+    <field name="JOB_NAME" type="string" column="JOB_NAME"></field>
+    <field name="POSITION_TYPE" type="string" column="POSITION_TYPE" ></field>
+    <field name="POSITION_ATTR" type="string" column="POSITION_ATTR"></field>
+    <field name="POSITION_SEQ" type="string" column="POSITION_SEQ"></field>
+    <field name="POSITION_GROUP" type="string" column="POSITION_GROUP"></field>
+    <field name="POSITION_FUNC" type="string" column="POSITION_FUNC"></field>
+    <field name="MANAGE_LEVEL" type="string" column="MANAGE_LEVEL"></field>
+    <field name="ZHRZQ" type="string" column="ZHRZQ"></field>
+    <field name="ZHRGWXL" type="string" column="ZHRGWXL"></field>
+    <field name="ZHRG" type="string" column="ZHRG"></field>
+    <field name="IS_ODO_CJ" column="IS_ODO_CJ" type="string" ></field>
+    <field name="IS_ODO_MJ" column="IS_ODO_MJ" type="string" ></field>
+    <field name="STELL" column="STELL" type="string" ></field>
+    <field name="STELL_TXT" column="STELL_TXT" type="string" ></field>
+</pos>
+
+<!--PMP雇员数据即公司中的外包人员数据-->
+<epiemp name="epiemp" table="TI_PMP_EPIEMP_SYNC" >
+	<field name="EPIEMP_ID" column="EPIEMP_ID" type="long"/>
+	<field name="SUPPLIER_ID" column="SUPPLIER_ID" type="string"/>
+	<field name="SUPPLIER_NAME" column="SUPPLIER_NAME" type="string"/>
+	<field name="CONTRACT_ID" column="CONTRACT_ID" type="long"/>
+	<field name="EPIEMP_CODE" column="EPIEMP_CODE" type="string" id="Y"/>
+	<field name="EPIEMP_NAME" column="EPIEMP_NAME" type="string"/>
+	<field name="SEX" column="SEX" type="long"/>
+	<field name="BIRTHDAY" column="BIRTHDAY" type="date"/>
+	<field name="HIGH_DEGREE" column="HIGH_DEGREE" type="string"/>
+	<field name="GRAD_TIME" column="GRAD_TIME" type="date"/>
+	<field name="HEIGHT" column="HEIGHT" type="long"/>
+	<field name="WEIGHT" column="WEIGHT" type="long"/>
+	<field name="EPIEMP_TYPE" column="EPIEMP_TYPE" type="string"/>
+	<field name="CARD_NO" column="CARD_NO" type="string"/>
+	<field name="ACCOUNT_ADRESS" column="ACCOUNT_ADRESS" type="string"/>
+	<field name="ACCOUNT_TYPE" column="ACCOUNT_TYPE" type="string"/>
+	<field name="PHONE" column="PHONE" type="string"/>
+	<field name="CONTACTS" column="CONTACTS" type="string"/>
+	<field name="CONTACTS_PHONE" column="CONTACTS_PHONE" type="string"/>
+	<field name="DRIVING_TYPE" column="DRIVING_TYPE" type="string"/>
+	<field name="DRIVING_AGE" column="DRIVING_AGE" type="string"/>
+	<field name="RESERVE_POST" column="RESERVE_POST" type="string"/>
+	<field name="SKILL" column="SKILL" type="string"/>
+	<field name="POS_LEVEL" column="POS_LEVEL" type="string"/>
+	<field name="IS_EMPLOYER" column="IS_EMPLOYER" type="long"/>
+	<field name="BUS_MODE" column="BUS_MODE" type="string"/>
+	<field name="IMPORT_TIME" column="IMPORT_TIME" type="date"/>
+	<field name="IS_HAVEEQUIP" column="IS_HAVEEQUIP" type="long"/>
+	<field name="TRAFFIC_TOOL" column="TRAFFIC_TOOL" type="string"/>	
+	<field name="GC_AREA_CODE" column="GC_AREA_CODE" type="string"/>
+	<field name="GC_AREA" column="GC_AREA" type="string"/>
+	<field name="STATUS" column="STATUS" type="long"/>
+	<field name="GC_ORG_CODE" column="GC_ORG_CODE" type="string"/>
+	<field name="GC_ORG" column="GC_ORG" type="string"/>	
+	<field name="GC_POSITION_NO" column="GC_POSITION_NO" type="string"/>
+	<field name="GC_POSITION" column="GC_POSITION" type="string"/>
+	<field name="GC_POSATTR" column="GC_POSATTR" type="string"/>
+	<field name="SUPERIOR_NO" column="SUPERIOR_NO" type="string"/>
+	<field name="SUPERIOR_NAME" column="SUPERIOR_NAME" type="string"/>
+	<field name="OFFICE_PHONE" column="OFFICE_PHONE" type="string"/>
+	<field name="EMAIL" column="EMAIL" type="string"/>
+	<field name="EFFECT_DATE" column="EFFECT_DATE" type="date"/>
+	<field name="IS_SFTOCOMP" column="IS_SFTOCOMP" type="long"/>
+	<field name="REGISTER_DATE" column="REGISTER_DATE" type="date"/>
+	<field name="OUT_DATE" column="OUT_DATE" type="date"/>
+	<field name="REMARK" column="REMARK" type="string"/>
+	<field name="CREATOR" column="CREATOR" type="string"/>
+	<field name="CREATE_TIME" column="CREATE_TIME" type="date"/>
+	<field name="UPDATOR" column="UPDATOR" type="string"/>
+	<field name="UPDATE_TIME" column="UPDATE_TIME" type="date"/> 
+	<field name="FREEZE_FLAG" column="FREEZE_FLAG" type="string"/> 
+	<field name="NET_CODE" column="NET_CODE" type="string"/> 
+	<field name="LEAVE_DATE" column="LEAVE_DATE" type="date"/> 
+	<field name="FREEZE_DATE" column="FREEZE_DATE" type="date"/> 
+</epiemp>
+
+<!--PMP雇员数据中用到的PMP字典数据-->
+<sysGlType name="sysGlType" table="TI_PMP_SYS_GL_TYPE_SYNC" >
+	<field name="TYPEID" column="TYPEID" type="long" id="Y"></field>
+	<field name="TYPENAME" column="TYPENAME" type="string"></field>                                               
+	<field name="PARENTID" column="PARENTID" type="long"></field>                    
+	<field name="NODEKEY" column="NODEKEY" type="string"></field>                
+	<field name="NODECODE" column="NODECODE" type="string"></field> 
+	<field name="TYPENAMEZHTW" column="TYPENAMEZHTW" type="string"></field>
+	<field name="TYPENAMEENUS" column="TYPENAMEENUS" type="string"></field>
+</sysGlType>
+
+</dometas> 

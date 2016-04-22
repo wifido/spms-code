@@ -1,0 +1,94 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	height: 1.8em;
+	background-color: #030303;
+	background-image: url(../../images/loginmgmt/login/bg.jpg);
+	background-repeat: repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginbg {
+	background-color: #030303;
+	background-image: url(../../images/loginmgmt/login/bg.jpg);
+	background-repeat: repeat-x;
+}
+
+a:link,a:visited,a:active,a:hover {
+	text-decoration: none;
+}
+
+.f12w {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #fff;
+}
+
+.f12w_lk:link {
+	text-decoration: underline;
+}
+
+.f12w_lk:active,.f12w_lk:hover {
+	color: RED;
+}
+
+.f14b {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.f18 {
+	font-size: 18px;
+}
+
+.lh46 {
+	line-height: 46px;
+	height: 46px;
+}
+
+.red_t {
+	color: #ca0012
+}
+
+.inp1 {
+	font-size: 18px;
+	border: 2px solid transparent;
+}
+
+.inp1:FOCUS {
+	border: 2px solid #F1CA7E;
+}
+.logn_lbg {
+	background-image: url(../../images/loginmgmt/login/input_1_l.jpg);
+    background-position: left;
+}
+
+.logn_inbg {
+	background-image: url(../../images/loginmgmt/login/input_1_r.jpg);
+	background-position: right;
+}
+
+.logn_lb {
+	background-image: url(../../images/loginmgmt/login/logn_lbg1.jpg);
+	background-repeat: no-repeat;
+}
+
+.logn_btn {
+	text-align: center;
+	width: 157px;
+	height: 46px
+}
+
+.logn_lt:link,.logn_lt:visited {
+	color: #4a4f54;
+	background-image: url(../../images/loginmgmt/login/btn_bg1.jpg);
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.logn_lt:active,.logn_lt:hover {
+	color: #fff;
+	background-image: url(../../images/loginmgmt/login/btn_bg2.jpg);
+	background-repeat: no-repeat;
+	cursor: pointer;
+}

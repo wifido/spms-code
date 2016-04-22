@@ -1,0 +1,37 @@
+body .x-body-masked select {
+	visibility:hidden;
+}
+td .x-date-hour select {
+	visibility: visible;
+}
+td .x-date-minute select {
+	visibility: visible;
+}
+td .x-date-second select {
+	visibility: visible;
+}
+
+//澶氶�変笅鎷夋鏍峰紡
+.ux-lovcombo-icon {
+	width:16px;
+	height:16px;
+	float:left;
+	background-position: -1px -1px!important;
+	background-repeat:no-repeat!important;
+}
+.ux-lovcombo-icon-checked {
+	width:16px;
+	height:16px;
+	float:left;
+	background: transparent url(../ext-3.4.0/resources/images/default/menu/checked.gif);
+	background-position: -1px -1px;
+	background-repeat:no-repeat;
+}
+.ux-lovcombo-icon-unchecked {
+	width:16px;
+	height:16px;
+	float:left;
+	background: transparent url(../ext-3.4.0/resources/images/default/menu/unchecked.gif);
+	background-position: -1px -1px;
+	background-repeat:no-repeat;
+}

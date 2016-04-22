@@ -1,0 +1,11 @@
+DECLARE
+  JOB_COUNT_OPERATION_REPORT NUMBER;
+BEGIN
+  DBMS_JOB.SUBMIT(JOB_COUNT_OPERATION_REPORT,
+                      '/**每天4:00统计运作考勤排班信息**/COUNT_OPERATION_REPORT(TO_CHAR(SYSDATE,
+                                              ''YYYY-MM-DD''));',
+                      SYSDATE,
+                      'TRUNC(SYSDATE+1)+4/24');
+  COMMIT;
+END;
+/

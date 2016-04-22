@@ -1,0 +1,20 @@
+insert into TL_SPMS_SYS_CONFIG
+  (ID, KEY_NAME, KEY_VALUE, KEY_DESC, CREATED_TM, MODIFIED_TM)
+values
+  (SEQ_BASE.Nextval,
+   'SEND_DRIVER_MAIL_HOT',
+   'cnsz17pl0017',
+   '司机邮件提醒功能指定节点发送',
+   sysdate,
+   sysdate);
+
+insert into TL_SPMS_SYS_CONFIG
+  (ID, KEY_NAME, KEY_VALUE, KEY_DESC, CREATED_TM, MODIFIED_TM)
+values
+  (SEQ_BASE.Nextval,
+   'DRIVER_MAIL_ROLE_NAME',
+   '司机排班-地区接口人,SPMS-司机组长,司机排班-总部接口人,司机组长权限,司机排班-司机组长',
+   '司机排班模块邮件发送功能角色名称',
+   sysdate,
+   sysdate);
+commit;

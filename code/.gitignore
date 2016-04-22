@@ -1,0 +1,36 @@
+#JAVA
+*.class
+# Package Files #
+*.jar
+*.war
+*.ear
+
+#gradle
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+build
+bin
+out
+gen
+.gradletasknamecache
+
+#Intellij
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+# Thumbnails
+._*
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+#log
+logs
+*.rdb

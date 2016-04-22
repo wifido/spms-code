@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="webgm-build" default="all" basedir=".">
+	<description>web-gm build script</description>
+	<property name="build.scripts.src" location="${basedir}/${folder.build.scripts}" />
+	<property name="build.lib.thirdparty" location="${basedir}/${folder.build.thirdpartylib}" />
+	<property name="build.dist" location="${basedir}/dist" />
+	<property name="build.lib" location="${basedir}/lib" />
+	<property name="build.tmp" location="${basedir}/${project.code}_tmp" />
+	<property name="project.src.web" location="${basedir}/${folder.project.web}" />
+
+	<tstamp>
+		<format property="release.date" pattern="yyyyMMdd" locale="en" />
+	</tstamp>
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+	<var name="folder.src.subfolders" value="" />
+
+	<target name="get-subfolder-list">
+		<for param="subfolder">
+			<dirset dir="${folder.src.code}" includes="*" />
+			<sequential>
+				<var name="subfolder.name" value="" unset="true"/>
+				<basename property="subfolder.name" file="@{subfolder}" />
+				<for param="build.props.subsubfolders">
+					<propertyset>
+					    <propertyref regex="^build.${subfolder.name}s$" />
+					</propertyset>
+					<sequential>
+						<for param="sub.subfolder.name" list="@{build.props.subsubfolders}">
+							<sequential>
+								<var name="folder.src.subfolders" value="${folder.src.subfolders}${subfolder.name}/@{sub.subfolder.name}," />
+							</sequential>
+						</for>
+					</sequential>
+				</for>
+			</sequential>
+		</for>		
+	</target>
+	
+	<runtarget target="get-subfolder-list"/>
+	
+	<target name="clean">
+		<mkdir dir="${build.dist}" />
+	</target>
+
+	<target name="delete-dist-jar">
+		<delete>
+			<fileset dir="${build.dist}" includes="sf-*-*-${version}-*.jar" />
+		</delete>
+	</target>
+
+	<target name="pmd" depends="clean">
+		<ant antfile="${build.scripts.src}/subtasks/pmd-check.xml" dir="${basedir}/../" target="check">
+			<property name="code.folder" location="${basedir}/${folder.src.code}" />
+			<property name="subfolders" value="${folder.src.subfolders}" />
+			<property name="layout" value="${folder.src.layout}" />
+		</ant>
+	</target>
+
+	<target name="jar-only" depends="clean">
+		<echo>build jar files of general modules</echo>
+		<delete dir="${build.tmp}" failonerror="true" />
+		<mkdir dir="${build.tmp}" />
+		<ant antfile="${build.scripts.src}/subtasks/jar-build.xml" dir="${basedir}/../" target="jar">
+			<property name="code.folder" location="${basedir}/${folder.src.code}" />
+			<property name="subfolders" value="${folder.src.subfolders}" />
+			<property name="layout" value="${folder.src.layout}" />
+			<property name="jibx" value="${jibx.config.layout}" />
+		</ant>
+		<delete dir="${build.tmp}" failonerror="false" />
+	</target>
+
+	<target name="jar" depends="pmd, jar-only" />
+	
+	<target name="war">
+		<echo>build war file of the project</echo>
+		<ant antfile="${build.scripts.src}/subtasks/war-build.xml" dir="${basedir}/../" target="all" />
+	</target>
+
+	<target name="all" depends="clean, delete-dist-jar, jar, war" />
+</project>

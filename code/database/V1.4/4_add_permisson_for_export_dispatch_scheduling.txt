@@ -1,0 +1,28 @@
+
+insert into ts_module
+  (MODULE_ID,
+   PARENT_ID,
+   MODULE_NAME,
+   MODULE_CODE,
+   MODULE_DESC,
+   MODULE_ICON,
+   MODULE_TYPE,
+   APP_TYPE,
+   ACTION_URL,
+   SORT,
+   BUNDLE_ID,
+   HELP_URL)
+  select round(DBMS_RANDOM.VALUE * 1000000),
+         t.module_id,
+         '导出排班明细',
+         'exportSchedulingDetail',
+         '导出排班明细',
+         '',
+         7,
+         1,
+         '/dispatch/dispatch_exportSchedulingDeatail.action',
+         7,
+         null,
+         '/index.htm'
+    from ts_module t
+   where t.module_name = '一线排班';

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="default" namespace="/driverui" extends="json-default">
+		<action name="toPageIndex" class="com.sf.module.driverapp.DriverProxyAction"
+			method="toPageIndex">
+			<result name="toIndexPage">/jsp/driverui/uiIndex.jsp</result>
+			<result name="toLeaderPage">/jsp/driverui/driverApproval.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="myScheduling" class="com.sf.module.driverapp.DriverProxyAction"
+			method="myScheduling">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="toLeaderMyScheduledPage" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="toLeaderMyScheduledPage">
+			<result name="success">/jsp/driverui/uiIndex.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="transferForward" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="transferForward">
+			<result name="success">/jsp/driverui/driverTransferApproval.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="leaveForward" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="leaveForward">
+			<result name="success">/jsp/driverui/driverLeaveApproval.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="queryPending" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="queryPending">
+			<result name="success" type="json"></result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="approval" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="approval">
+			<result name="success" type="json"></result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="toMyLeave" class="com.sf.module.driverapp.DriverProxyAction"
+			method="toMyLeave">
+			<result name="success">/jsp/driverui/myLeave.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="queryLeave" class="com.sf.module.driverapp.DriverProxyAction"
+			method="queryLeave">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="toMyExchangeScheduling" class="com.sf.module.driverapp.DriverProxyAction"
+			method="toMyExchangeScheduling">
+			<result name="success">/jsp/driverui/myExchangeScheduling.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="myExchangScheduling" class="com.sf.module.driverapp.DriverProxyAction"
+			method="myExchangScheduling">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="toLeave" class="com.sf.module.driverapp.DriverProxyAction"
+			method="toLeave">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="toDriverLeaderPage" class="com.sf.module.driverapp.DriverProxyAction"
+			method="toDriverLeaderPage">
+			<result name="toLeaderPage">/jsp/driverui/driverApproval.jsp</result>
+			<result name="error">../error.jsp</result>
+		</action>
+
+		<action name="revokeLeave" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="revokeLeave">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="queryLineConfigueForExchangeScheduling" class="com.sf.module.driverapp.DriverProxyAction"
+			method="queryLineConfigueForExchangeScheduling">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="exchangeScheduling" class="com.sf.module.driverapp.DriverProxyAction"
+			method="exchangeScheduling">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="revokeExchangeScheduling" class="com.sf.module.driverapp.DriverLeaderProxyAction"
+			method="revokeExchangeScheduling">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="confirmScheduling" class="com.sf.module.driverapp.DriverProxyAction"
+			method="confirmScheduling">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="queryTheApprover" class="com.sf.module.driverapp.DriverProxyAction" method="queryTheApprover">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>

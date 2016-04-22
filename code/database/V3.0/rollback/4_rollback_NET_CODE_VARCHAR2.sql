@@ -1,0 +1,1 @@
+alter table TM_OSS_EMPLOYEE_TMP drop column  NET_CODE ;

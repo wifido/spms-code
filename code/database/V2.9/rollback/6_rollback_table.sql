@@ -1,0 +1,1 @@
+drop table TT_SAPSYNCHRONOUS_HKTMP;
