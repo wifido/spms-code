@@ -82,36 +82,58 @@ var buttonTop = [{
 			Ext.Msg.alert('提示', '已选线路不能为空！');
 			return;
 		}
+		
+		Ext.Ajax.request({
+			url: "../driver/validClassesCode.action",
+			params: {
+				'departmentCode': addFormPanel.getForm().findField(ENTITY_ARRANGE_CODE).getValue().split('-')[0],
+				'code': addFormPanel.getForm().findField(ENTITY_ARRANGE_CODE).getValue().split('-')[1],
+				'yearMonth': Ext.util.Format.date(Ext.getCmp(ID_MONTH).getValue(), "Y-m")
+			},
+			success: function(response) {
+				var result = Ext.decode(response.responseText)
+				if (Ext.isEmpty(result.existClassCode)) {
+					Ext.Msg.alert('提示', '操作失败！保存发生异常！');
+					return;
+				} 
 
-		addFormPanel.getForm().findField(ENTITY_CONFIGURE_LINES).setValue(lineId.toString());
-		addFormPanel.getForm().submit({
-			waitMsg : '正在提交数据',
-			waitTitle : '提示',
-			method : "POST",
-			timeout : 30000,
-			url : '../driver/addConfigureClassesInformation.action',
-			success : function(form, action) {
-				Ext.Msg.alert('提示', '新增成功！');
-				addFormPanel.getForm().reset();
-				allLinePanel.store.removeAll();
-				configureLineGridPanel.store.removeAll();
-				addConfigureWindow.hide();
+				if (result.existClassCode > 0) {
+					Ext.Msg.alert(PROMPT, '班次代码已存在,请重新获取班次代码！');
+					return;
+				}
+				
+				addFormPanel.getForm().findField(ENTITY_CONFIGURE_LINES).setValue(lineId.toString());
+				addFormPanel.getForm().submit({
+					waitMsg : '正在提交数据',
+					waitTitle : '提示',
+					method : "POST",
+					timeout : 30000,
+					url : '../driver/addConfigureClassesInformation.action',
+					success : function(form, action) {
+						Ext.Msg.alert('提示', '新增成功！');
+						addFormPanel.getForm().reset();
+						allLinePanel.store.removeAll();
+						configureLineGridPanel.store.removeAll();
+						addConfigureWindow.hide();
 
-				store.load({
-					params : {
-						start : 0,
-						limit : 20
+						store.load({
+							params : {
+								start : 0,
+								limit : 20
+							}
+						});
+					},
+					failure : function(form, action) {
+						var msg = '新增失败!';
+						if (!Ext.isEmpty(action.result.error)) {
+							msg = action.result.error;
+						}
+						Ext.Msg.alert('提示', '新增失败 !' + msg);
 					}
 				});
-			},
-			failure : function(form, action) {
-				var msg = '新增失败!';
-				if (!Ext.isEmpty(action.result.error)) {
-					msg = action.result.error;
-				}
-				Ext.Msg.alert('提示', '新增失败 !' + msg);
 			}
 		});
+		
 	}
 },'&nbsp',{
 	text : '重新获取班次代码',
@@ -966,3 +988,4 @@ var addButton = new Ext.Button({
 		});
 	}
 });
+

@@ -147,19 +147,40 @@ var saveMobileNetWorkBtn = new Ext.Button({
 			Ext.Msg.alert('提示', '出车时间不能等于收车时间');
 			return;
 		}
-		addFormPanelForMobileNetWork.getForm().submit({
-			waitMsg: '正在提交数据...',
-			waitTitle: '提示',
-			method: "POST",
-			timeout: 30000,
-			url: '../driver/addMobileNetwork_lineConfigure.action',
-			success: function() {
-				Ext.Msg.alert('提示', '操作成功！');
-				addFormPanelForMobileNetWork.getForm().reset();
-				addPanel.hide();
+		
+		Ext.Ajax.request({
+			url: "../driver/validClassesCode.action",
+			params: {
+				'departmentCode': Ext.getCmp('_classCode').getValue().split('-')[0],
+				'code': Ext.getCmp('_classCode').getValue().split('-')[1],
+				'yearMonth': Ext.util.Format.date(Ext.getCmp('_yearMonth').getValue(), "Y-m")
 			},
-			failure: function(form, action) {
-				Ext.Msg.alert('提示', '操作失败！保存发生异常！');
+			success: function(response) {
+				var result = Ext.decode(response.responseText)
+				if (Ext.isEmpty(result.existClassCode)) {
+					Ext.Msg.alert('提示', '操作失败！保存发生异常！');
+					return;
+				} 
+
+				if (result.existClassCode > 0) {
+					Ext.Msg.alert(PROMPT, '班次代码已存在,请重新获取班次代码！');
+					return;
+				}
+				addFormPanelForMobileNetWork.getForm().submit({
+					waitMsg: '正在提交数据...',
+					waitTitle: '提示',
+					method: "POST",
+					timeout: 30000,
+					url: '../driver/addMobileNetwork_lineConfigure.action',
+					success: function() {
+						Ext.Msg.alert('提示', '操作成功！');
+						addFormPanelForMobileNetWork.getForm().reset();
+						addPanel.hide();
+					},
+					failure: function(form, action) {
+						Ext.Msg.alert('提示', '操作失败！保存发生异常！');
+					}
+				});
 			}
 		});
 	}
