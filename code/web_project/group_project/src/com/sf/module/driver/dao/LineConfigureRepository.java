@@ -226,4 +226,10 @@ public class LineConfigureRepository {
 														+ "    where emp.dept_id = dept.dept_id  \n"
 														+ "      and emp.emp_post_type = 5  \n"
 														+ "      and emp.emp_duty_name like '%司机组长%'  \n";
+	public static final String SQL_QUERY_CONFIGURE_BY_CONFIGUE_CODE =""
+			+        "SELECT COUNT(*)" 
+			+        "  FROM TT_DRIVER_LINE_CONFIGURE TT_DRIVER_LINE_CONFIGURE" 
+			+        " WHERE TT_DRIVER_LINE_CONFIGURE.DEPARTMENT_CODE = ?" 
+			+        "   AND TT_DRIVER_LINE_CONFIGURE.MONTH = ?" 
+			+        "   AND TT_DRIVER_LINE_CONFIGURE.CODE = ?" ;
 }

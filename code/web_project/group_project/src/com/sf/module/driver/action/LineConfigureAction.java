@@ -37,6 +37,16 @@ public class LineConfigureAction extends BaseAction {
 	}
 
 	private String classesCode;
+	
+	private int existClassCode;
+	
+	public int getExistClassCode() {
+		return existClassCode;
+	}
+
+	public void setExistClassCode(int existClassCode) {
+		this.existClassCode = existClassCode;
+	}
 
 	public String getClassesCode() {
 		return classesCode;
@@ -110,6 +120,14 @@ public class LineConfigureAction extends BaseAction {
 	
 	public String update() {
 		lineConfigureBiz.updateLineConfigure(getHttpRequestParameter());
+		return SUCCESS;
+	}
+
+	public String validClassesCode() {
+		String departmentCode = getHttpRequestParameter().get("departmentCode");
+		String yearMonth = getHttpRequestParameter().get("yearMonth");
+		String code = getHttpRequestParameter().get("code");
+		existClassCode = lineConfigureBiz.validClassesCode(departmentCode, yearMonth, code);
 		return SUCCESS;
 	}
 }

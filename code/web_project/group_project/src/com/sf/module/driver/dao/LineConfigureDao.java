@@ -83,6 +83,17 @@ public class LineConfigureDao extends ScheduleBaseDao<LineConfigure> {
 		return result.get(0).get("DEPARTMENT_CODE").toString();
 	}
 
+	@Transactional
+	public int validClassesCode(String departmentCode, String yearMonth, String code) {
+		String sql = LineConfigureRepository.SQL_QUERY_CONFIGURE_BY_CONFIGUE_CODE;
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Query query = session.createSQLQuery(sql);
+		query.setParameter(0, departmentCode);
+		query.setParameter(1, yearMonth);
+		query.setParameter(2, code);
+		return Integer.parseInt(query.list().get(0).toString());
+	}
+
 	private QueryDelegate<List> constructQueryClassesCode(QueryStatement sqlExpression, List<?> params) {
 		return new QueryDelegate<List>(sqlExpression, params) {
 			@Override

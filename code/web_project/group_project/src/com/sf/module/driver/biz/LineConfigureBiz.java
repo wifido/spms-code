@@ -5,6 +5,8 @@ import static com.google.common.collect.Maps.newHashMap;
 import static com.sf.module.common.domain.Constants.ROOT;
 import static com.sf.module.common.domain.Constants.TOTAL_SIZE;
 import static java.lang.Long.parseLong;
+import static org.hibernate.transform.Transformers.ALIAS_TO_ENTITY_MAP;
+
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
@@ -25,6 +30,7 @@ import com.sf.module.common.util.DateUtil;
 import com.sf.module.common.util.StringUtil;
 import com.sf.module.driver.dao.LineConfigureDao;
 import com.sf.module.driver.dao.LineConfigureExportHandler;
+import com.sf.module.driver.dao.LineConfigureRepository;
 import com.sf.module.driver.dao.LineManageDao;
 import com.sf.module.driver.domain.DriveLine;
 import com.sf.module.driver.domain.DriverLineConfigureRelation;
@@ -107,6 +113,10 @@ public class LineConfigureBiz extends BaseBiz {
 		departmentCode += "-" + StringUtil.leftPadding("0", String.valueOf(classesCode), 5);
 
 		return departmentCode;
+	}
+	
+	public int validClassesCode(String departmentCode, String yearMonth, String code) {
+		return lineConfigureDao.validClassesCode(departmentCode, yearMonth, code);
 	}
 
 	public HashMap<String, Object> queryConfigureSchedulingAllLine(HashMap<String, String> queryParameter) {

@@ -65,6 +65,10 @@
             <result type="json" name="success"/>
         </action>
 
+		<action name="validClassesCode" class="lineConfigure" method="validClassesCode">
+            <result type="json" name="success"/>
+        </action>
+        
         <action name="updateValidStatus" class="lineManage" method="updateValidStatus">
             <result name="success" type="json">
             </result>
