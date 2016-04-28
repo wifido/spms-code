@@ -52,7 +52,25 @@ public class OrgAction extends BaseGridAction<IDepartment> {
 	private Map<String, Object> result;
 	private ISecurityBiz securityBiz;
 	private String deptId;
+	private String typeCode;
+	private String areaCode;
 	
+	public String getAreaCode() {
+		return areaCode;
+	}
+
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
+	}
+
+	public String getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
+
 	public String getDeptId() {
 		return deptId;
 	}
@@ -186,6 +204,8 @@ public class OrgAction extends BaseGridAction<IDepartment> {
 			deptName = dept[2];
 			typeLevel = dept[3];
 			deptId = dept[4];
+			typeCode = dept[5];
+			areaCode = dept[6];
 		}
 		return SUCCESS;
 	}
@@ -199,7 +219,7 @@ public class OrgAction extends BaseGridAction<IDepartment> {
         String[] r = null;
         if (depts != null && depts.size() > 0) {
             StringBuilder path =  new StringBuilder("/0");
-            r = new String[5];
+            r = new String[7];
             Iterator<Department> iterator = depts.iterator();
             Department d = null;
             for (; iterator.hasNext(); ) {
@@ -226,6 +246,8 @@ public class OrgAction extends BaseGridAction<IDepartment> {
                 r[2] = d.getDeptName();
                 r[3] = d.getTypeLevel() + "";
                 r[4] = d.getId() + "";
+                r[5] = d.getTypeCode();
+                r[6] = d.getAreaDeptCode();
             }
         }
         return r;
