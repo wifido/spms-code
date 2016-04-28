@@ -606,7 +606,9 @@ var queryDeptCode = function() {
 				dept_leaf = filterDeptCodeType.indexOf(dept_.typeCode+',') != -1;
 				if (dept_leaf) {
 					areaCode = dept_.areaCode;
+					loadMainGrid();
 				}
+				
 			} else {
 				Ext.Msg.alert('提示','该网点不存在！', function(){
 					fieldDeptCode.selectText();
