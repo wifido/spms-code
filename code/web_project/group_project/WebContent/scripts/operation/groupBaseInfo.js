@@ -70,12 +70,16 @@ var btnSearch = new Ext.Button({
 	pressed : true,
 	minWidth : 60,
 	handler : function() {
-		alert(deptCode);
-		if (deptCode == "") {
-			Ext.MessageBox.alert('提示', "请选择网点");
+		if (dept_leaf) {
+			if (deptCode == "") {
+				Ext.MessageBox.alert('提示', "请选择网点");
+				return;
+			}
+			loadMainGrid();
+		}else {
+			Ext.MessageBox.alert('提示', "只有中转场和航空操作组才能查询小组");
 			return;
 		}
-		loadMainGrid();
 	}
 });
 // 新增按钮
@@ -85,7 +89,16 @@ var btnAdd = new Ext.Button({
 	pressed : true,
 	minWidth : 60,
 	handler : function() {
-		addGroupInfo();
+		if (dept_leaf) {
+			if (deptCode == "") {
+				Ext.MessageBox.alert('提示', "请选择网点");
+				return;
+			}
+			addGroupInfo();
+		} else {
+			Ext.MessageBox.alert('提示', "只有中转场和航空操作组才能新增小组");
+			return;
+		}
 	}
 });
 // 修改按钮
@@ -126,7 +139,12 @@ var btnImport = new Ext.Button({
 	pressed : true,
 	minWidth : 60,
 	handler : function() {
-		importGroupBaseInfo();
+		if (dept_leaf) {
+			importGroupBaseInfo();
+		}else {
+			Ext.MessageBox.alert('提示', "只有中转场和航空操作组才能导入小组");
+			return;
+		}
 	}
 });
 
@@ -338,11 +356,6 @@ win = new Ext.Window({
 });
 
 var addGroupInfo = function() {
-	if (dept_leaf) {
-		if (deptCode == "") {
-			Ext.MessageBox.alert('提示', "请选择网点");
-			return;
-		}
 		win.setTitle("新增小组信息");
 		Ext.getCmp('saveForm').getForm().reset();
 		Ext.getCmp('saveForm').getForm().findField("enableDt").minValue = new Date(new Date().getTime() - (30 * 24 * 60 * 60 * 1000));
@@ -354,10 +367,7 @@ var addGroupInfo = function() {
 		Ext.getCmp('saveForm').getForm().findField("groupBaseInfo.groupName").enable();
 		Ext.getCmp('saveForm').getForm().findField("groupBaseInfo.groupCode").enable();
 		win.show();
-	} else {
-		Ext.MessageBox.alert('提示', "只有中转场和航空操作组才能新增小组");
-		return;
-	}
+	
 
 };
 
@@ -589,10 +599,14 @@ var queryDeptCode = function() {
 			if(path && path != '/0'){
 				treePanel.root.reload();
 				treePanel.selectPath(path);
-				Ext.getCmp('query.deptCode').setValue(fieldDeptCode.getValue().toUpperCase());
+				Ext.getCmp('query.deptCode').setValue(dept_.deptCode + '/' + dept_.deptName);
 				Ext.getCmp('query.deptId').setValue(dept_.deptId);
-				deptCode = fieldDeptCode.getValue().toUpperCase();
+				deptCode = dept_.deptCode;
 				deptId = dept_.deptId;
+				dept_leaf = filterDeptCodeType.indexOf(dept_.typeCode+',') != -1;
+				if (dept_leaf) {
+					areaCode = dept_.areaCode;
+				}
 			} else {
 				Ext.Msg.alert('提示','该网点不存在！', function(){
 					fieldDeptCode.selectText();
