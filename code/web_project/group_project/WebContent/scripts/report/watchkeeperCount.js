@@ -24,7 +24,6 @@ var queryDeptCode = function() {
 		url:"../operation/userDeptAction_queryDeptCode.action",
 		params:{fieldDeptCode:fieldDeptCode.getValue()},
 		success:function(response){
-			//debugger;
 			var dept_ = Ext.util.JSON.decode(response.responseText);
 			var path = dept_.path;
 			if(path && path != '/0'){
@@ -35,8 +34,7 @@ var queryDeptCode = function() {
 				deptId = dept_.deptId;
 				dept_leaf = filterDeptCodeType.indexOf(dept_.typeCode+',') != -1;
 				if (dept_leaf) {
-					areaCode = dept_.areaCode;
-					loadMainGrid();
+					areaCode = dept_.areaCode; 					
 				}
 				
 			} else {
