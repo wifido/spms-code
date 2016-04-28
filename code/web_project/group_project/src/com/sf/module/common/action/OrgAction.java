@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import com.sf.module.authorization.action.DepartmentTreeWithoutCheckbox;
 import com.sf.module.common.domain.OperationDepartment;
 import com.sf.module.common.util.StringUtil;
 import com.sf.module.frameworkimpl.biz.DepartmentCacheBiz;
+import com.sf.module.frameworkimpl.biz.ISecurityBiz;
 import com.sf.module.operation.biz.IOrgBiz;
 import com.sf.module.organization.domain.Department;
 
@@ -48,6 +50,24 @@ public class OrgAction extends BaseGridAction<IDepartment> {
 	private int start;
 	private int limit;
 	private Map<String, Object> result;
+	private ISecurityBiz securityBiz;
+	private String deptId;
+	
+	public String getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+
+	public ISecurityBiz getSecurityBiz() {
+		return securityBiz;
+	}
+
+	public void setSecurityBiz(ISecurityBiz securityBiz) {
+		this.securityBiz = securityBiz;
+	}
 
 	public Map<String, Object> getResult() {
 		return result;
@@ -151,6 +171,72 @@ public class OrgAction extends BaseGridAction<IDepartment> {
 		}
 		return SUCCESS;
 	}
+	
+	public String queryDeptCode() {
+		// [path,deptCode,deptName,typeLevel]
+		String[] dept = queryDeptCode(fieldDeptCode,
+				securityBiz, super.getCurrentUser());
+		if (dept != null /*
+						 * &&
+						 * securityBiz.isAuthorizedDepartment(super.getCurrentUser
+						 * (), dept[1])
+						 */) {
+			path = dept[0];
+			deptCode = dept[1];
+			deptName = dept[2];
+			typeLevel = dept[3];
+			deptId = dept[4];
+		}
+		return SUCCESS;
+	}
+	
+	private String[] queryDeptCode(String fieldDeptCode, ISecurityBiz securityBiz, IUser iuser) {
+		if (fieldDeptCode == null || "".equals(fieldDeptCode.trim())) {
+            return null;
+        }
+        fieldDeptCode = fieldDeptCode.trim().toUpperCase();
+        List<Department> depts = DepartmentCacheBiz.getAllDepartments();
+        String[] r = null;
+        if (depts != null && depts.size() > 0) {
+            StringBuilder path =  new StringBuilder("/0");
+            r = new String[5];
+            Iterator<Department> iterator = depts.iterator();
+            Department d = null;
+            for (; iterator.hasNext(); ) {
+                d = iterator.next();
+                if (d != null) {
+                    if (d.getDeptCode() != null && !"".equals(d.getDeptCode().trim())) {
+                        if (d.getDeptCode().trim().toUpperCase().equals(fieldDeptCode)) {
+                            getPath(d, path, securityBiz, iuser);
+                            break;
+                        }
+                    }
+                    if (d.getDeptName() != null && !"".equals(d.getDeptName().trim())) {
+                        if (d.getDeptName().trim().equals(fieldDeptCode)) {
+                            getPath(d, path, securityBiz, iuser);
+                            break;
+                        }
+                    }
+                }
+            }
+            if (d != null) {
+                r[0] = path.toString();
+                //toI18nList4Dept
+                r[1] = d.getDeptCode();
+                r[2] = d.getDeptName();
+                r[3] = d.getTypeLevel() + "";
+                r[4] = d.getId() + "";
+            }
+        }
+        return r;
+	}
+	
+	private static void getPath(Department d,StringBuilder path, ISecurityBiz securityBiz, IUser iuser) {
+        if (d != null && securityBiz.isAuthorizedDepartment(iuser, d)) {
+            getPath(d.getParent(), path, securityBiz, iuser);
+            path.append("/").append(d.getId());
+        }
+    }
 
 	private Department getCurrentDepartment() {
 		return DepartmentCacheBiz.getDepartmentByID(getId());
