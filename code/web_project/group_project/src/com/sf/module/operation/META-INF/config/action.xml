@@ -193,5 +193,10 @@
 			</result>
 		</action>
         
+        
+        <!-- 网点检索查询 -->
+		<action name="userDeptAction_queryDeptCode" class="groupOrgAction" method="queryDeptCode">
+			<result name="success" type="json" />
+		</action>
 	</package>
 </struts>

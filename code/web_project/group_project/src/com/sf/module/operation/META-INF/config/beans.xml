@@ -43,8 +43,11 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     	<property name="ossDepartmentDao" ref="ossDepartmentDao"/>
     	<property name="sysConfigBiz" ref="sysConfigBiz"></property>
     </bean>
+    <bean id="securityBiz" class="com.sf.module.frameworkimpl.biz.ISecurityBiz"/>
+    
     <bean id="groupOrgAction" class="com.sf.module.common.action.OrgAction" scope="prototype">
         <property name="groupOrgBiz" ref="groupOrgBiz" />
+        <property name="securityBiz" ref="securityBiz" />
     </bean>
     <!-- 邮箱配置参数 -->
     <bean id="mailConfig" class="com.sf.module.operation.domain.MailConfig">
@@ -64,6 +67,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="ossDepartmentDao" ref="ossDepartmentDao"></property>
         <property name="schedulMgtDao" ref="schedulMgtDao"></property>
     </bean>
+    
+    
+    
 
     <!-- 外包人员实体Action -->
     <bean id="outEmployeeAction" class="com.sf.module.operation.action.OutEmployeeAction" scope="prototype">
