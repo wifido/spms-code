@@ -1,5 +1,45 @@
 //<%@ page language="java" contentType="text/html; charset=utf-8"%>
 var filterDeptCodeType = '${filterDeptCodeType}';
+var deptId = "";
+var fieldDeptCode = new Ext.form.TextField({width:160,name:"fieldDeptCode", xtype : 'textfield'
+	, listeners: {
+        specialkey: function(field, e){
+            if (e.getKey() == e.ENTER) {
+            	queryDeptCode();
+            }
+        }
+    }});
+
+var queryDeptCode = function() {
+	if (fieldDeptCode.getValue()=="") {
+		Ext.Msg.alert('提示','网点代码不能为空', function(){
+			fieldDeptCode.focus();
+		});
+		return;
+	}
+	
+	Ext.Ajax.request({
+		url:"../operation/userDeptAction_queryDeptCode.action",
+		params:{fieldDeptCode:fieldDeptCode.getValue()},
+		success:function(response){
+			//debugger;
+			var dept_ = Ext.util.JSON.decode(response.responseText);
+			var path = dept_.path;
+			if(path && path != '/0'){
+				treePanel.root.reload();
+				treePanel.selectPath(path);
+				Ext.getCmp('query.deptId').setValue(dept_.deptCode + '/' + dept_.deptName);
+				deptId = dept_.deptId;
+				querySchedule();
+				
+			} else {
+				Ext.Msg.alert('提示','该网点不存在！', function(){
+					fieldDeptCode.selectText();
+				}, this);
+			}
+		} ,scope : this
+	}, false);
+};
 
 //左侧网点树
 var treePanel = new Ext.tree.TreePanel({
@@ -9,6 +49,16 @@ var treePanel = new Ext.tree.TreePanel({
 	title:'网点信息',
 	collapsible:true,
 	autoScroll:true,
+	tbar : [
+	        {text : "网点代码", xtype : 'label'}, 
+	        fieldDeptCode ,
+	        {
+	        	icon : "../images/search.gif", 
+	        	xtype : 'button', 
+	        	style : 'margin-left:2px',
+	        	scope : this,
+	        	handler : queryDeptCode
+	        }], 
 	root :new Ext.tree.AsyncTreeNode(
 			{
 				id : '0',
@@ -22,8 +72,9 @@ var treePanel = new Ext.tree.TreePanel({
 		  	beforeclick : function(node,e){
 		  			 if(node!=null && node.id!=0){
 		  				 	Ext.getCmp("query.deptId").setValue(node.text);
+		  				 	deptId = node.id;
 		  				 	// 执行查询方法
-		  				 	querySchedule(node);
+		  				 	querySchedule();
 		  			 }
 		  	}
 	  }
@@ -641,15 +692,7 @@ var addSchedule = function(){
 }
 
 // 查询方法
-var querySchedule = function(node){
-	var node = node || treePanel.getSelectionModel ().getSelectedNode();
-	var deptId = "";
-	if(node!=null && node.id!=0){
-		deptId = node.id;
-	}else{
-		Ext.Msg.alert("提示","请先选择网点！");
-		return;
-	}
+var querySchedule = function(){
 	store.setBaseParam("deptId",deptId);
 	store.setBaseParam("scheduleName",Ext.getCmp('query.scheduleName').getValue());
 	store.setBaseParam("scheduleCode",Ext.getCmp('query.scheduleCode').getValue());
