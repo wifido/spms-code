@@ -693,16 +693,21 @@ var addSchedule = function(){
 
 // 查询方法
 var querySchedule = function(){
-	store.setBaseParam("deptId",deptId);
-	store.setBaseParam("scheduleName",Ext.getCmp('query.scheduleName').getValue());
-	store.setBaseParam("scheduleCode",Ext.getCmp('query.scheduleCode').getValue());
-	store.setBaseParam("ym",Ext.isEmpty(Ext.getCmp('query.ym').getValue()) ? '' : Ext.util.Format.date(Ext.getCmp('query.ym').getValue(), 'Y-m'));
-	store.load({
-			params : {
-					start: 0,
-			        limit: 20
-			}
-	});
+	if (deptId == "") {
+		Ext.Msg.alert("提示","请选择网点代码！");
+		return;
+	} else {
+		store.setBaseParam("deptId",deptId);
+		store.setBaseParam("scheduleName",Ext.getCmp('query.scheduleName').getValue());
+		store.setBaseParam("scheduleCode",Ext.getCmp('query.scheduleCode').getValue());
+		store.setBaseParam("ym",Ext.isEmpty(Ext.getCmp('query.ym').getValue()) ? '' : Ext.util.Format.date(Ext.getCmp('query.ym').getValue(), 'Y-m'));
+		store.load({
+				params : {
+						start: 0,
+				        limit: 20
+				}
+		});
+	}
 
 }
 
