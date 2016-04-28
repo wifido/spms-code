@@ -62,6 +62,7 @@ function deptNameShow(v) {
 
 var deptId = "";
 var areaCode = "";
+var deptCode = "";
 // 查询按钮
 var btnSearch = new Ext.Button({
 	text : i18n_def.search,
@@ -69,7 +70,8 @@ var btnSearch = new Ext.Button({
 	pressed : true,
 	minWidth : 60,
 	handler : function() {
-		if (deptId == "") {
+		alert(deptCode);
+		if (deptCode == "") {
 			Ext.MessageBox.alert('提示', "请选择网点");
 			return;
 		}
@@ -337,7 +339,7 @@ win = new Ext.Window({
 
 var addGroupInfo = function() {
 	if (dept_leaf) {
-		if (deptId == "") {
+		if (deptCode == "") {
 			Ext.MessageBox.alert('提示', "请选择网点");
 			return;
 		}
@@ -536,7 +538,7 @@ var downTemplate = function() {
 }
 
 var exportBaseInfos = function() {
-	if (deptId == "") {
+	if (deptCode == "") {
 		Ext.MessageBox.alert('提示', "请选择网点");
 		return;
 	}
@@ -560,6 +562,47 @@ function showExportResult(form, action) {
 	window.location = url;
 }
 
+var fieldDeptCode = new Ext.form.TextField({width:160,name:"fieldDeptCode", xtype : 'textfield'
+	, listeners: {
+        specialkey: function(field, e){
+            if (e.getKey() == e.ENTER) {
+            	queryDeptCode();
+            }
+        }
+    }});
+
+var queryDeptCode = function() {
+	if (fieldDeptCode.getValue()=="") {
+		Ext.Msg.alert('提示','网点代码不能为空', function(){
+			fieldDeptCode.focus();
+		});
+		return;
+	}
+	
+	Ext.Ajax.request({
+		url:"../operation/userDeptAction_queryDeptCode.action",
+		params:{fieldDeptCode:fieldDeptCode.getValue()},
+		success:function(response){
+			//debugger;
+			var dept_ = Ext.util.JSON.decode(response.responseText);
+			var path = dept_.path;
+			if(path && path != '/0'){
+				treePanel.root.reload();
+				treePanel.selectPath(path);
+				Ext.getCmp('query.deptCode').setValue(fieldDeptCode.getValue().toUpperCase());
+				Ext.getCmp('query.deptId').setValue(dept_.deptId);
+				deptCode = fieldDeptCode.getValue().toUpperCase();
+				deptId = dept_.deptId;
+			} else {
+				Ext.Msg.alert('提示','该网点不存在！', function(){
+					fieldDeptCode.selectText();
+				}, this);
+			}
+		} ,scope : this
+	}, false);
+};
+
+
 var dept_leaf = false;
 // 左侧网点树
 var treePanel = new Ext.tree.TreePanel({
@@ -569,6 +612,16 @@ var treePanel = new Ext.tree.TreePanel({
 	title : i18n_def.deptinfo,
 	collapsible : true,
 	autoScroll : true,
+	tbar : [
+	        {text : "网点代码", xtype : 'label'}, 
+	        fieldDeptCode ,
+	        {
+	        	icon : "../images/search.gif", 
+	        	xtype : 'button', 
+	        	style : 'margin-left:2px',
+	        	scope : this,
+	        	handler : queryDeptCode
+	        }], 
 	root : new Ext.tree.AsyncTreeNode({
 		id : '0',
 		text : i18n_def.sfname,
@@ -581,6 +634,7 @@ var treePanel = new Ext.tree.TreePanel({
 			Ext.getCmp("query.deptCode").setValue(node.text);
 			Ext.getCmp("query.deptId").setValue(node.id);
 			deptId = node.id;
+			deptCode = node.text;
 			dept_leaf =  filterDeptCodeType.indexOf(node.attributes.typeCode+',') != -1;
 			loadMainGrid();
 			if (dept_leaf) {
@@ -844,3 +898,11 @@ Ext.onReady(function() {
 	});
 
 });
+
+
+
+
+
+
+
+
