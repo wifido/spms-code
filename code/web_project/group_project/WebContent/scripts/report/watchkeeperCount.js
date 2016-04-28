@@ -29,7 +29,7 @@ var queryDeptCode = function() {
 			if(path && path != '/0'){
 				treePanel.root.reload();
 				treePanel.selectPath(path);
-				Ext.getCmp('query.departmentCode').setValue(dept_.deptCode + '/' + dept_.deptName);
+				Ext.getCmp('query.departmentCode').setValue(dept_.deptCode);
 				deptCode = dept_.deptCode;
 				deptId = dept_.deptId;
 				dept_leaf = filterDeptCodeType.indexOf(dept_.typeCode+',') != -1;
