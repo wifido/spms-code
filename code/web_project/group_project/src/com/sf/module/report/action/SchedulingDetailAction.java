@@ -2,10 +2,14 @@ package com.sf.module.report.action;
 
 import java.util.HashMap;
 
+import com.sf.framework.core.domain.IUser;
 import com.sf.framework.core.exception.BizException;
+import com.sf.framework.server.core.context.UserContext;
 import com.sf.module.common.action.SpmsBaseAction;
 import com.sf.module.common.util.ServletActionHelper;
+import com.sf.module.dispatch.biz.SchedulingForDispatchBiz;
 import com.sf.module.report.biz.SchedulingDetailBiz;
+
 
 public class SchedulingDetailAction extends SpmsBaseAction {
 	private static final long serialVersionUID = 1L;
@@ -17,8 +21,7 @@ public class SchedulingDetailAction extends SpmsBaseAction {
 
 	public String queryDetailReport() {
 		try {
-			dataMap = (HashMap) schedulingDetailBiz
-					.queryDetailReport(getHttpRequestParameter());
+			dataMap = (HashMap) schedulingDetailBiz.queryDetailReport(getHttpRequestParameter());
 			success = true;
 			dataMap.put("success", true);
 		} catch (Exception e) {
@@ -95,4 +98,17 @@ public class SchedulingDetailAction extends SpmsBaseAction {
 	public void setSchedulingDetailBiz(SchedulingDetailBiz schedulingDetailBiz) {
 		this.schedulingDetailBiz = schedulingDetailBiz;
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String queryPermissions (){
+		dataMap = new HashMap();
+		Long userId = (Long) UserContext.getContext().getUserId();
+		String status = UserContext.getContext().getCurrentUser().getStatus().toString();
+		if(!status.equalsIgnoreCase("ROOT")){
+			HashMap<String, String> map = ServletActionHelper.getHttpRequestParameter();
+			dataMap = (HashMap) schedulingDetailBiz.queryPermissions(map,userId.toString());			
+		}
+		return SUCCESS;
+	}
+
 }

@@ -8,6 +8,11 @@
 			<result>schedulingReport.jsp</result>
 		</action>
 		<!-- 排班明细报表功能请求 -->
+		<action name="queryPermissions" class="schedulingDetailAction"
+			method="queryPermissions">
+			<result name="success" type="json">
+			</result>
+		</action>
 		<action name="queryDetailReport" class="schedulingDetailAction"
 			method="queryDetailReport">
 			<result name="success" type="json">

@@ -12,6 +12,7 @@ import com.sf.module.dispatch.domain.SchedulingRepository;
 
 public class SchedulingDetailDao extends BaseDao {
 	private static final String DEPT_CODE = "DEPT_CODE";
+	private static final String DEPT_NAME = "DEPT_NAME";
 	private static final String START_TIME = "START_TIME";
 	private static final String END_TIME = "END_TIME";
 	private static final String EMP_CODE = "EMP_CODE";
@@ -48,11 +49,13 @@ public class SchedulingDetailDao extends BaseDao {
 
 	private String addQueryParameters(HashMap<String, String> queryCriteria) {
 		StringBuffer sb = new StringBuffer();
+		
 		for (Map.Entry<String, String> entry : queryCriteria.entrySet()) {
-			String hqlFiled = ":" + entry.getKey();
+			String hqlFiled = ":" + entry.getKey();						
 			if (exist(DEPT_CODE, entry)) {
 				sb.append(" and sch.dept_code = " + hqlFiled);
 			}
+			
 			if (exist(START_TIME, entry)) {
 				sb.append(" and  sch.work_date > = to_date("+ hqlFiled+",'yyyy/MM/dd') ");
 			}
@@ -112,5 +115,15 @@ public class SchedulingDetailDao extends BaseDao {
 				.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 		return query.list();
 	}
+	
+	@Transactional
+	public int queryDeptPermissions(String deptId,String userId) {
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		String sql = "select count(*) totalSize from TS_USER_DEPT t where t.user_id = '"+userId+"' and t.dept_id = (select t.dept_id from tm_department t where t.dept_code='"+deptId+"')";
+		Query queryCount = session.createSQLQuery(sql);
+		List<Map<String, Object>> searchSchedulingCountPage = queryCount.list();
+		return  ((BigDecimal) searchSchedulingCountPage.get(0)).intValue();
+	}
+	
 
 }

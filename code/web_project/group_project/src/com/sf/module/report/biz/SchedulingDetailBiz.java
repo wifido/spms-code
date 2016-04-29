@@ -1,5 +1,7 @@
 package com.sf.module.report.biz;
 
+import static com.sf.module.common.domain.Constants.TOTAL_SIZE;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -326,6 +328,15 @@ public class SchedulingDetailBiz extends BaseBiz {
 
 	private boolean departmentCodeLowThanTwenty(String[] deptCodes) {
 		return deptCodes.length < NUM_DEPARTMENT_CODE;
+	}
+	
+	public Map queryPermissions(HashMap<String, String> paramsMap,String userId){
+		String deptId = paramsMap.get("DEPARTMENT_CODE").toString().toUpperCase();
+		int totalSize = schedulingDetailDao.queryDeptPermissions(deptId,userId);
+		Map result = new HashMap();		
+		result.put(TOTAL_SIZE, totalSize);
+		
+		return result;
 	}
 
 	private String clobToString(Clob clob) {
