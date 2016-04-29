@@ -1,6 +1,9 @@
 // <%@ page language="java" contentType="text/html; charset=utf-8"%>
 var filterDeptCodeType = '${filterDeptCodeType}';
 
+var startTime ;
+var endTime ;
+
 // 查询按钮
 var btnSearch = new Ext.Button({
 	text: "查 询",
@@ -8,39 +11,56 @@ var btnSearch = new Ext.Button({
 	pressed: true,
 	minWidth: 60,
 	handler: function() {
-		querySchedule();
+		debugger;
+		var deptCode = Ext.getCmp('DEPT_NAME').getValue().trim();
+		if (Ext.getCmp('START_TIME').getValue() == "") {
+			Ext.getCmp('START_TIME').focus(false, 100);
+			Ext.Msg.alert("提示", "请先选择开始时间！");
+			return;
+		}
+		if (Ext.getCmp('END_TIME').getValue() == "") {
+			Ext.getCmp('END_TIME').focus(false, 100);
+			Ext.Msg.alert("提示", "请先选择结束时间！");
+			return;
+		}
+		if (deptCode == "") {
+			Ext.Msg.alert('提示', '中转场代码不能为空！');
+			return;
+		}
+		 startTime = Ext.util.Format.date(Ext.getCmp('START_TIME').getValue(), 'Y/m/d');
+		 endTime = Ext.util.Format.date(Ext.getCmp('END_TIME').getValue(), 'Y/m/d');
+		if (startTime.replace(/\//g, '') > endTime.replace(/\//g, '')) {
+			Ext.Msg.alert('提示', '开始时间不能大于结束时间!');
+			return;
+		}
+		Ext.Ajax.request({
+			async: false,
+			url: '../report/queryPermissions.action',
+			params: {'DEPARTMENT_CODE':getDepartmentCodes()},
+			success: function(res, config) {
+				debugger;
+					var returnObj = Ext.decode(res.responseText);
+					if (returnObj.dataMap.totalSize == 0){
+						Ext.Msg.alert("提示", "当前用户没有该网点的权限！");	
+						return;
+					}else{
+						querySchedule();
+					}
+			}
+		});	
+		
 	}
 });
-
+function getDepartmentCodes() {
+	return Ext.getCmp('DEPT_NAME').getValue().split("/")[0];
+}
 // 查询方法
-var querySchedule = function() {
-	var deptCode = Ext.getCmp('DEPT_CODE').getValue().trim();
-	if (Ext.getCmp('START_TIME').getValue() == "") {
-		Ext.getCmp('START_TIME').focus(false, 100);
-		Ext.Msg.alert("提示", "请先选择开始时间！");
-		return;
-	}
-	if (Ext.getCmp('END_TIME').getValue() == "") {
-		Ext.getCmp('END_TIME').focus(false, 100);
-		Ext.Msg.alert("提示", "请先选择结束时间！");
-		return;
-	}
-	if (deptCode == "") {
-		Ext.Msg.alert('提示', '中转场代码不能为空！');
-		return;
-	}
-	var startTime = Ext.util.Format.date(Ext.getCmp('START_TIME').getValue(), 'Y/m/d');
-	var endTime = Ext.util.Format.date(Ext.getCmp('END_TIME').getValue(), 'Y/m/d');
-
-	if (startTime.replace(/\//g, '') > endTime.replace(/\//g, '')) {
-		Ext.Msg.alert('提示', '开始时间不能大于结束时间!');
-		return;
-	}
-
+var querySchedule = function() {	
 	store.setBaseParam("START_TIME", startTime);
 	store.setBaseParam("END_TIME", endTime);
 	store.setBaseParam("GROUP_CODE", Ext.getCmp('GROUP_CODE').getValue().trim());
-	store.setBaseParam("DEPT_CODE", Ext.getCmp('DEPT_CODE').getValue().trim());
+//	store.setBaseParam("DEPT_CODE", Ext.getCmp('DEPT_CODE').getValue().trim());
+	store.setBaseParam("DEPT_CODE", Ext.getCmp('DEPT_NAME').getValue().trim().toUpperCase());
 	store.setBaseParam("EMP_CODE", Ext.getCmp('EMP_CODE').getValue().trim());
 	store.setBaseParam("EMP_NAME", Ext.getCmp('EMP_NAME').getValue().trim());
 	store.load({
@@ -57,7 +77,29 @@ var btnExport = new Ext.Button({
 	pressed: true,
 	minWidth: 60,
 	handler: function() {
-		exportSchedule();
+		debugger;
+		var deptName = Ext.getCmp('DEPT_NAME').getValue().trim();
+		if(deptName != ""){
+			Ext.Ajax.request({
+				async: false,
+				url: '../report/queryPermissions.action',
+				params: {'DEPARTMENT_CODE':getDepartmentCodes()},
+				success: function(res, config) {					
+						var returnObj = Ext.decode(res.responseText);
+						if (returnObj.dataMap.totalSize == 0){
+							Ext.Msg.alert("提示", "当前用户没有该网点的权限！");	
+							return;
+						}else{
+							exportSchedule();
+						}
+				}
+			});	
+		}else{
+			exportSchedule();
+		}
+			
+		
+						
 	}
 });
 
@@ -74,7 +116,8 @@ var exportSchedule = function() {
 			START_TIME: Ext.util.Format.date(Ext.getCmp('START_TIME').getValue(), 'Y/m/d'),
 			END_TIME: Ext.util.Format.date(Ext.getCmp('END_TIME').getValue(), 'Y/m/d'),
 			GROUP_CODE: Ext.getCmp('GROUP_CODE').getValue().trim(),
-			DEPT_CODE: Ext.getCmp('DEPT_CODE').getValue().trim(),
+//			DEPT_CODE: Ext.getCmp('DEPT_CODE').getValue().trim(),
+			DEPT_CODE: Ext.getCmp('DEPT_NAME').getValue().trim().toUpperCase(),
 			EMP_CODE: Ext.getCmp('EMP_CODE').getValue().trim(),
 			EMP_NAME: Ext.getCmp('EMP_NAME').getValue().trim()
 		},
@@ -102,7 +145,7 @@ var btnExportUserPermission = new Ext.Button({
 	pressed: true,
 	minWidth: 60,
 	handler: function() {
-		exportUserPermission();
+		exportUserPermission();		
 	}
 });
 
@@ -173,8 +216,7 @@ var treePanel = new Ext.tree.TreePanel({
 
 			if (node != null && node.id != 0) {
 				if (filterDeptCodeType.indexOf(node.attributes.typeCode+',') != -1) {
-					Ext.getCmp("DEPT_NAME").setValue(node.text);
-					Ext.getCmp("DEPT_CODE").setValue(node.attributes.code);
+					Ext.getCmp("DEPT_NAME").setValue(node.attributes.code);
 				}
 			}
 		}
@@ -243,14 +285,12 @@ var topPanel = new Ext.Panel({
 			labelAlign: 'right',
 			layout: 'form',
 			items: [{
-				xtype: 'textfield',
+				xtype: 'trigger',
 				id: 'DEPT_NAME',
-				editable: false,
-				triggerAction: "all",
+				triggerClass: 'x-form-search-trigger',
 				fieldLabel: '中转场代码<font color=red>*</font>',
-				anchor: '90%',
-				listeners: {
-					focus: function() {
+				anchor: '90%',				
+					onTriggerClick: function() {
 						var treeWindow = new Ext.Window({
 							plain: true,
 							layout: 'form',
@@ -283,8 +323,7 @@ var topPanel = new Ext.Panel({
 							}]
 						});
 						treeWindow.show(this);
-					}
-				}
+					}				
 			}]
 		},{
 			columnWidth: .3,
