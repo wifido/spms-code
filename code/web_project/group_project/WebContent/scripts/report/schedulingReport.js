@@ -11,7 +11,6 @@ var btnSearch = new Ext.Button({
 	pressed: true,
 	minWidth: 60,
 	handler: function() {
-		debugger;
 		var deptCode = Ext.getCmp('DEPT_NAME').getValue().trim();
 		if (Ext.getCmp('START_TIME').getValue() == "") {
 			Ext.getCmp('START_TIME').focus(false, 100);
@@ -38,7 +37,6 @@ var btnSearch = new Ext.Button({
 			url: '../report/queryPermissions.action',
 			params: {'DEPARTMENT_CODE':getDepartmentCodes()},
 			success: function(res, config) {
-				debugger;
 					var returnObj = Ext.decode(res.responseText);
 					if (returnObj.dataMap.totalSize == 0){
 						Ext.Msg.alert("提示", "当前用户没有该网点的权限！");	
@@ -77,7 +75,6 @@ var btnExport = new Ext.Button({
 	pressed: true,
 	minWidth: 60,
 	handler: function() {
-		debugger;
 		var deptName = Ext.getCmp('DEPT_NAME').getValue().trim();
 		if(deptName != ""){
 			Ext.Ajax.request({
